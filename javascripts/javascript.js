@@ -13,7 +13,8 @@ $(window).load(function () {
         });
         $(cell + ' .icon').css({
             'width': $fake_cell.width(),
-            'height': $fake_cell.height()
+            'height': $fake_cell.height(),
+            'background-size': xh > 1 ? '50% auto' : 'auto 50%'
         });
         $(cell).hover(function () {
             $(cell).css('z-index', ++z_index);

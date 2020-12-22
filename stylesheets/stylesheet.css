@@ -15,9 +15,13 @@ body {
     src: url('../fonts/HKGrotesk-Regular.otf');
 }
 
+* {
+    line-height: 100%;
+}
+
 .font-large {
-    font-size: 40px;
-    line-height: 40px;
+    font-size: 39px;
+    line-height: 39px;
 }
 
 .font-medium {
@@ -30,18 +34,71 @@ body {
     line-height: 18px;
 }
 
-.font-smaller {
-    font-size: 14px;
-    line-height: 14px;
+.font-smallest {
+    font-size: 12px;
+    line-height: 12px;
 }
 
-p, span {
-    font-family: font;
+.glyphicon-small {
+    width: 24px;
+    height: 24px;
+}
+
+.font-smaller {
+    font-size: 15px;
+    line-height: 15px;
 }
 
 p {
     margin: 0;
-    padding: 8px;
+    padding: 9px;
+}
+
+@media screen and (max-width: 720px), screen and (max-height: 720px) {
+    .font-large {
+        font-size: 26px;
+        line-height: 26px;
+    }
+
+    .font-medium {
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .font-small {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .font-smallest {
+        font-size: 8px;
+        line-height: 8px;
+    }
+
+    .glyphicon-small {
+        width: 16px;
+        height: 16px;
+    }
+
+    .font-smaller {
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    p {
+        margin: 0;
+        padding: 6px;
+    }
+}
+
+p, span, a {
+    font-family: font;
+}
+
+.glyphicon {
+    display: inline-block;
+    vertical-align: text-bottom;
+    background-size: 100% 100%;
 }
 
 .fake-grid {
@@ -83,7 +140,6 @@ p {
 }
 
 .icon {
-    background-size: 50% auto;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -117,8 +173,71 @@ p {
     transition: .2s ease-out;
 }
 
-.profile-text {
+.cell11 .profile-image {
+    background: url('../images/profile_pic.jpg') center no-repeat;
+    background-size: cover;
+}
+
+.cell11 .profile-contact-wrapper {
     overflow: hidden;
+}
+
+.cell11 .profile-contact {
+    display: table;
+    padding: 2%;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: rgba(38, 166, 154, .9);
+}
+
+.cell11 .profile-contact-wrapper {
+    height: 0;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+}
+
+.cell11:hover .profile-contact-wrapper {
+    height: 15%;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+}
+
+.cell11 .profile-contact a {
+    display: table-row;
+    text-decoration: none;
+}
+
+.cell11 .profile-contact a p {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 2% 0 2%;
+    white-space: nowrap;
+}
+
+.cell11 .link-fb .font-smaller {
+    color: white;
+}
+
+.cell11 .link-fb .glyphicon {
+    background-image: url('../images/contact_facebook.png');
+}
+
+.cell11 .link-email .font-smaller {
+    color: white;
+}
+
+.cell11 .link-email .glyphicon {
+    background-image: url('../images/contact_email.png');
+}
+
+.cell12 .profile-text {
+    overflow: scroll;
+    white-space: nowrap;
     background-color: #26A69A;
     max-width: 0;
     -webkit-transition: .5s ease-out;
@@ -127,7 +246,7 @@ p {
     transition: .5s ease-out;
 }
 
-.cell:hover + div > .profile-text, .cell:hover > .profile-text {
+.cell11:hover + div > .profile-text, .cell12:hover > .profile-text {
     max-width: 100%;
     -webkit-transition: .5s ease-out;
     -moz-transition: .5s ease-out;
@@ -135,25 +254,20 @@ p {
     transition: .5s ease-out;
 }
 
-.profile-text .profile-name {
-    margin-top: 8px;
+.cell12 .profile-text .profile-name {
+    margin-top: 2%;
 }
 
-.profile-text p {
-    margin: 0 8px 0 8px;
+.cell12 .profile-text p {
+    margin: 0 2% 0 2%;
 }
 
-.profile-text {
+.cell12 .profile-text {
     color: white;
 }
 
-.profile-section {
+.cell12 .profile-section {
     text-decoration: underline;
-}
-
-.profile-image {
-    background: url('../images/profile_pic.jpg') center no-repeat;
-    background-size: cover;
 }
 
 .cell13 {
@@ -202,7 +316,7 @@ p {
 }
 
 .cell22 p:not(.career-header) {
-    padding: 4px 8px 4px 24px;
+    padding: 2% 4% 2% 12%;
 }
 
 .cell22 .font-small {
@@ -216,7 +330,7 @@ p {
 
 .cell22 .career-header {
     color: #004D40;
-    padding: 16px 8px 4px 8px;
+    padding: 8% 4% 2% 4%;
 }
 
 .cell22 .career-header.font-medium, .cell22 .career-header .font-medium {
@@ -288,6 +402,91 @@ p {
     background-image: url('../images/icon_skill.png');
 }
 
+.cell33 .description {
+    position: absolute;
+    top: 70%;
+    left: 0;
+    color: #00897B;
+}
+
+.cell33 .description {
+    opacity: 0;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+}
+
+.cell33:hover .description {
+    opacity: 1;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+}
+
+.cell33 .text {
+    color: #004D40;
+}
+
+.cell33 .skill .font-smaller {
+    color: #00897B;
+    font-style: italic;
+}
+
+.cell33 .skill {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell33 .skill-bar {
+    display: inline-block;
+    margin: 1% 0 1% 0;
+    width: 100%;
+    background: rgba(0, 77, 64, .5);
+    overflow: hidden;
+}
+
+.cell33 .skill-bar-value {
+    padding: 2%;
+    background: rgba(255, 255, 255, .7);
+    white-space: nowrap;
+}
+
+.cell33 > .icon {
+    max-width: 100%;
+    -webkit-transition: max-width .5s ease-out;
+    -moz-transition: max-width .5s ease-out;
+    -o-transition: max-width .5s ease-out;
+    transition: max-width .5s ease-out;
+}
+
+.cell33:hover > .icon {
+    max-width: 25%;
+    -webkit-transition: max-width .5s ease-out 0s;
+    -moz-transition: max-width .5s ease-out 0s;
+    -o-transition: max-width .5s ease-out 0s;
+    transition: max-width .5s ease-out 0s;
+}
+
 .cell12, .cell21, .cell23, .cell32 {
     background: #4DB6AC;
+}
+
+.license {
+    z-index: 9999;
+    padding: 4px;
+    background: rgba(0, 0, 0, .2);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.license a {
+    text-decoration: none;
+    color: white;
 }
