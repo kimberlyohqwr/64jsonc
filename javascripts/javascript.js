@@ -1,4 +1,6 @@
 $(window).load(function () {
+    $('.se-pre-con').fadeOut('slow');
+
     var z_index = 0;
     var relocate = function (row, col, xh, xw, mh, mw) {
         var $fake_cell = $('.fake-row:eq(' + row + ') .fake-col:eq(' + col + ')');
