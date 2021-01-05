@@ -236,7 +236,7 @@ p, span, a {
 }
 
 .cell12 .profile-text {
-    overflow: scroll;
+    overflow: hidden;
     white-space: nowrap;
     background-color: #26A69A;
     max-width: 0;
