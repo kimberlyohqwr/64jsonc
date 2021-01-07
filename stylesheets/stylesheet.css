@@ -12,7 +12,10 @@ body {
 
 @font-face {
     font-family: font;
-    src: url('../fonts/HKGrotesk-Regular.otf');
+    src: url('../fonts/HKGrotesk-Regular.eot');
+    src: url('../fonts/HKGrotesk-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/HKGrotesk-Regular.woff') format('woff');
+
 }
 
 * {
@@ -173,6 +176,10 @@ p, span, a {
     transition: .2s ease-out;
 }
 
+.text {
+    overflow: auto;
+}
+
 .cell11 .profile-image {
     background: url('../images/profile_pic.jpg') center no-repeat;
     background-size: cover;
@@ -236,7 +243,7 @@ p, span, a {
 }
 
 .cell12 .profile-text {
-    overflow: hidden;
+    overflow: auto;
     white-space: nowrap;
     background-color: #26A69A;
     max-width: 0;
