@@ -322,7 +322,7 @@ p, span, a {
     background-color: rgba(0, 77, 64, .1);
 }
 
-.cell22 p:not(.career-header) {
+.cell22 p:not(.career-header, .career-explanation) {
     padding: 2% 4% 2% 12%;
 }
 
@@ -337,7 +337,31 @@ p, span, a {
 
 .cell22 .career-header {
     color: #004D40;
-    padding: 8% 4% 2% 4%;
+    padding: 4%;
+}
+
+.cell22 .career-section {
+    cursor: pointer;
+}
+
+.cell22 .career-section:hover {
+    background-color: rgba(0, 77, 64, .2);
+}
+
+.cell22 .career-section > :not(.career-header) {
+    display: none;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
+}
+
+.cell22 .career-section.active > :not(.career-header) {
+    display: block;
+    -webkit-transition: .5s ease-out;
+    -moz-transition: .5s ease-out;
+    -o-transition: .5s ease-out;
+    transition: .5s ease-out;
 }
 
 .cell22 .career-header.font-medium, .cell22 .career-header .font-medium {
@@ -347,7 +371,11 @@ p, span, a {
     padding: 0;
 }
 
-.cell22 .career-header .font-smaller {
+.cell22 .career-explanation {
+    padding-top: 0;
+}
+
+.cell22 .career-explanation .font-smaller {
     color: #004D40;
     padding: 0;
 }

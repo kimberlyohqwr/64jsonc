@@ -68,4 +68,8 @@ $(window).load(function () {
     var month = date.getMonth();
     var year = date.getFullYear();
     $('#today').text(months[month] + ' ' + day + ', ' + year);
+
+    $('.career-section').click(function () {
+        $(this).toggleClass('active');
+    })
 });
