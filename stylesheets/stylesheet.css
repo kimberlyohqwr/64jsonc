@@ -207,7 +207,7 @@ p, span, a {
 }
 
 .cell11:hover .profile-contact-wrapper {
-    height: 15%;
+    height: 17%;
     -webkit-transition: .5s ease-out;
     -moz-transition: .5s ease-out;
     -o-transition: .5s ease-out;
@@ -226,7 +226,7 @@ p, span, a {
     white-space: nowrap;
 }
 
-.cell11 .link-fb .font-smaller {
+.cell11 .profile-contact .font-smaller {
     color: white;
 }
 
@@ -234,12 +234,12 @@ p, span, a {
     background-image: url('../images/contact_facebook.png');
 }
 
-.cell11 .link-email .font-smaller {
-    color: white;
-}
-
 .cell11 .link-email .glyphicon {
     background-image: url('../images/contact_email.png');
+}
+
+.cell11 .link-github .glyphicon {
+    background-image: url('../images/contact_github.png');
 }
 
 .cell12 .profile-text {
