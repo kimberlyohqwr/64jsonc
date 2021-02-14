@@ -1,0 +1,75 @@
+@charset "UTF-8";
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  cursor: default; }
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: table; }
+
+.wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center; }
+
+.links a {
+  padding: 8px;
+  text-decoration: none;
+  color: black; }
+
+.arrow {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  text-align: center; }
+  .arrow .icon {
+    width: 120px;
+    height: 60px;
+    font-size: 48px;
+    transform: rotate(90deg); }
+    .arrow .icon:before {
+      content: "‹"; }
+  .arrow .text {
+    width: 120px;
+    height: 60px;
+    margin-top: -24px;
+    text-align: center;
+    display: table; }
+    .arrow .text p {
+      display: table-cell;
+      vertical-align: middle; }
+  .arrow.top, .arrow.bottom {
+    left: 50%;
+    margin-left: -60px; }
+  .arrow.left, .arrow.right {
+    top: 50%;
+    margin-top: -60px; }
+  .arrow.top {
+    top: 0; }
+  .arrow.left {
+    left: 0;
+    transform: rotate(-90deg); }
+  .arrow.bottom {
+    bottom: 0; }
+    .arrow.bottom .text {
+      margin-top: 24px;
+      margin-bottom: -24px; }
+    .arrow.bottom .icon {
+      transform: rotate(-90deg); }
+  .arrow.right {
+    right: 0;
+    transform: rotate(90deg); }
+
+/*# sourceMappingURL=style.css.map */
