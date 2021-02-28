@@ -123,23 +123,28 @@ $(function () {
 
     $page.c.css({
       'top': -50 * v + '%',
-      'left': -50 * h + '%'
+      'left': -50 * h + '%',
+      'opacity': v == 0 && h == 0 ? 1 : 0
     });
     $page.t.css({
       'top': -100 * (1 + v) + '%',
-      'margin-top': v < 0 ? 0 : arrow_size
+      'left': -100 * h + '%',
+      'margin-top': 2 * (0.5 + v) * arrow_size
     });
     $page.l.css({
       'left': -100 * (1 + h) + '%',
-      'margin-left': h < 0 ? 0 : arrow_size
+      'top': -100 * v + '%',
+      'margin-left': 2 * (0.5 + h) * arrow_size
     });
     $page.b.css({
       'bottom': -100 * (1 - v) + '%',
-      'margin-bottom': v > 0 ? 0 : arrow_size
+      'left': -100 * h + '%',
+      'margin-bottom': 2 * (0.5 - v) * arrow_size
     });
     $page.r.css({
       'right': -100 * (1 - h) + '%',
-      'margin-right': h > 0 ? 0 : arrow_size
+      'top': -100 * v + '%',
+      'margin-right': 2 * (0.5 - h) * arrow_size
     });
   };
 
@@ -155,4 +160,6 @@ $(function () {
   $arrow.r.click(function () {
     move(0, +1);
   });
+
+  move(0, -1);
 });

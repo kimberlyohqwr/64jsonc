@@ -91,24 +91,153 @@ body
   position: absolute
   width: 100%
   height: 100%
+  box-sizing: border-box
   transition: 1s ease-in-out
+  text-align: center
+
+  .side
+    position: absolute
+
+  &.top .side, &.bottom .side
+    left: 0
+    width: 100%
+    height: 120px
+
+  &.left .side, &.right .side
+    top: 0
+    height: 100%
+    width: 120px
 
   &.top
-    margin-top: 120px
     top: -100%
-    background: rgba(255, 0, 0, .5)
+    margin-top: 120px
+    padding-top: 120px
+    padding-left: 120px
+    padding-right: 120px
+    .side
+      bottom: 0
+      background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0))
 
   &.left
-    margin-left: 120px
     left: -100%
-    background: rgba(0, 255, 0, .5)
+    margin-left: 120px
+    padding-left: 120px
+    padding-top: 120px
+    padding-bottom: 120px
+    .side
+      right: 0
+      background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0))
 
   &.bottom
-    margin-bottom: 120px
     bottom: -100%
-    background: rgba(0, 0, 255, .5)
+    margin-bottom: 120px
+    padding-bottom: 120px
+    padding-left: 120px
+    padding-right: 120px
 
   &.right
-    margin-right: 120px
     right: -100%
-    background: rgba(0, 0, 0, .5)
+    margin-right: 120px
+    padding-right: 120px
+    padding-top: 120px
+    padding-bottom: 120px
+
+.page.top
+  display: flex
+
+  .edu
+    flex: 1
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+  #edu_kdmhs
+    background: #98D5F4 url('./img/edu/bg/kdmhs.jpg') no-repeat bottom
+    background-size: contain
+    .logo
+      background: url('./img/edu/logo/kdmhs.png') no-repeat center
+      background-size: contain
+
+  #edu_ncta
+    background: #958E31 url('./img/edu/bg/ncta.jpg') no-repeat bottom
+    background-size: contain
+    .logo
+      background: url('./img/edu/logo/ncta.png') no-repeat center
+      background-size: contain
+
+  #edu_kams
+    background: #548BD0 url('./img/edu/bg/kams.jpg') no-repeat bottom
+    background-size: contain
+    .logo
+      background: url('./img/edu/logo/kams.png') no-repeat center
+      background-size: contain
+
+  .logo
+    width: 100%
+    height: 120px
+    margin-bottom: 16px
+
+  .name
+    font-size: 20px
+    margin-bottom: 12px
+
+  .date
+    font-weight: bold
+    margin-bottom: 16px
+
+.page.left
+  display: flex
+  flex-direction: column
+
+  .row
+    flex: 1
+    display: flex
+
+  .prz
+    flex: 1
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    transition: .5s ease-in-out
+    margin: 2vh 2vw 2vh 2vw
+
+    &:hover
+      transform: scale(1.1, 1.1)
+
+    .panel
+      background: rgba(255, 255, 255, .8)
+      padding: 16px
+      span
+        display: block
+
+  #prz_2010_koi
+    background: url('./img/prz/2010_koi.jpg') center
+    background-size: cover
+
+  #prz_2011_kyio
+    background: url('./img/prz/2011_kyio.jpg') center
+    background-size: cover
+
+  #prz_2014_gdghack
+    background: url('./img/prz/2014_gdghack.png') center
+    background-size: cover
+
+  #prz_2015_usaco
+    background: url('./img/prz/2015_usaco.jpg') center
+    background-size: cover
+
+  #prz_2016_utd
+    background: url('./img/prz/2016_utd.jpg') center
+    background-size: cover
+
+  #prz_2016_hackdfw
+    background: url('./img/prz/2016_hackdfw.jpg') center
+    background-size: cover
+
+  #prz_2016_codequest
+    background: url('./img/prz/2016_codequest.jpg') center
+    background-size: cover
+
+  #prz_2016_ksu
+    background: url('./img/prz/2016_ksu.jpg') center
+    background-size: cover
