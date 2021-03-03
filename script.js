@@ -1,4 +1,5 @@
 $(function () {
+  var $body = $('body');
   var arrow_size = 120;
   var $arrow = $('.arrow');
   var arrows = {
@@ -23,143 +24,112 @@ $(function () {
 
   var current_v = 0, current_h = 0;
 
-  var move = function (v, h) {
-    if (v == current_v && h == current_h) {
-      v = 0;
-      h = 0;
-    }
+  var move = function (v, h, anim) {
+    var duration = anim ? 500 : 0;
     current_v = v;
     current_h = h;
 
-    $arrow.l_r.css({
+    $arrow.l_r.animate({
       'top': 50 * (1 - v) + '%',
       'margin-top': -arrow_size / 2 * (1 - v) + 'px'
-    });
-    $arrow.l.css({
-      'transform': 'rotate(' + -90 * (1 - 0.5 * v) + 'deg)'
-    });
-    $arrow.r.css({
-      'transform': 'rotate(' + 90 * (1 - 0.5 * v) + 'deg)'
-    });
-    $arrow.l.t.css({
-      'transform': 'rotate(' + 90 * (1 - v) + 'deg)'
-    });
-    $arrow.r.t.css({
-      'transform': 'rotate(' + -90 * (1 - v) + 'deg)'
-    });
+    }, duration);
+    $arrow.l.animateRotate(-90 * (1 - 0.5 * v), duration);
+    $arrow.r.animateRotate(90 * (1 - 0.5 * v), duration);
 
-    $arrow.t_b.css({
+    if (v < 0) {
+      $arrow.l.t.animateRotate(-180 * v, duration);
+      $arrow.r.t.animateRotate(180 * v, duration);
+    } else {
+      $arrow.l.t.animateRotate(0, duration);
+      $arrow.r.t.animateRotate(0, duration);
+    }
+
+    $arrow.t_b.animate({
       'left': 50 * (1 - h) + '%',
       'margin-left': -arrow_size / 2 * (1 - h) + 'px'
-    });
-    $arrow.t.css({
-      'transform': 'rotate(' + -90 * (0.5 * h) + 'deg)'
-    });
-    $arrow.b.css({
-      'transform': 'rotate(' + 90 * (0.5 * h) + 'deg)'
-    });
+    }, duration);
+    $arrow.t.animateRotate(-90 * (0.5 * h), duration);
+    $arrow.b.animateRotate(90 * (0.5 * h), duration);
 
-    var $vp, $vn;
-    if (h == 0) {
-      if (v != 0) {
-        $vp = v < 0 ? $arrow.t : $arrow.b;
-        $vn = v > 0 ? $arrow.t : $arrow.b;
-        $vp.i.css({
-          'transform': 'rotate(' + 90 * v + 'deg)'
-        });
-        $vn.i.css({
-          'transform': 'rotate(' + 90 * v + 'deg)'
-        });
-        $vp.t.css({
-          'opacity': 0
-        });
-        $vn.t.css({
-          'opacity': 1
-        });
-      }
-      $arrow.l.i.css({
-        'transform': 'rotate(90deg)'
-      });
-      $arrow.r.i.css({
-        'transform': 'rotate(90deg)'
-      });
-      $arrow.l.t.css({
-        'opacity': 1
-      });
-      $arrow.r.t.css({
-        'opacity': 1
-      });
-    }
-    if (v == 0) {
-      if (h != 0) {
-        $arrow.l.i.css({
-          'transform': 'rotate(' + 90 * h + 'deg)'
-        });
-        $arrow.r.i.css({
-          'transform': 'rotate(' + -90 * h + 'deg)'
-        });
-      }
-      $arrow.l.t.css({
-        'transform': 'rotate(0deg)',
-        'opacity': h < 0 ? 0 : 1
-      });
-      $arrow.r.t.css({
-        'transform': 'rotate(0deg)',
-        'opacity': h > 0 ? 0 : 1
-      });
-      $arrow.t.i.css({
-        'transform': 'rotate(90deg)'
-      });
-      $arrow.b.i.css({
-        'transform': 'rotate(-90deg)'
-      });
-      $arrow.t.t.css({
-        'opacity': 1
-      });
-      $arrow.b.t.css({
-        'opacity': 1
-      });
-    }
+    $arrow.t.i.animateRotate(90 * (v < 0 ? 1 + 2 * v : 1), duration);
+    $arrow.b.i.animateRotate(90 * (v > 0 ? -1 - 2 * v : -1), duration);
+    $arrow.t.t.animate({
+      'opacity': v < 0 ? 1 + v : 1
+    }, duration);
+    $arrow.b.t.animate({
+      'opacity': v > 0 ? 1 - v : 1
+    }, duration);
 
-    $page.c.css({
+    $arrow.l.i.animateRotate(90 * (h < 0 ? 1 + 2 * h : 1), duration);
+    $arrow.r.i.animateRotate(90 * (h > 0 ? 1 - 2 * h : 1), duration);
+    $arrow.l.t.animate({
+      'opacity': h < 0 ? 1 + h : 1
+    }, duration);
+    $arrow.r.t.animate({
+      'opacity': h > 0 ? 1 - h : 1
+    }, duration);
+    //}
+
+    $page.c.animate({
       'top': -50 * v + '%',
       'left': -50 * h + '%',
-      'opacity': v == 0 && h == 0 ? 1 : 0
-    });
-    $page.t.css({
+      'opacity': 1 - Math.abs(v) - Math.abs(h)
+    }, duration);
+    $page.t.animate({
       'top': -100 * (1 + v) + '%',
       'left': -100 * h + '%',
-      'margin-top': 2 * (0.5 + v) * arrow_size
-    });
-    $page.l.css({
+      'margin-top': (4 / 3) * (0.25 + v) * arrow_size
+    }, duration);
+    $page.l.animate({
       'left': -100 * (1 + h) + '%',
       'top': -100 * v + '%',
-      'margin-left': 2 * (0.5 + h) * arrow_size
-    });
-    $page.b.css({
+      'margin-left': (4 / 3) * (0.25 + h) * arrow_size
+    }, duration);
+    $page.b.animate({
       'bottom': -100 * (1 - v) + '%',
       'left': -100 * h + '%',
-      'margin-bottom': 2 * (0.5 - v) * arrow_size
-    });
-    $page.r.css({
+      'margin-bottom': (4 / 3) * (0.25 - v) * arrow_size
+    }, duration);
+    $page.r.animate({
       'right': -100 * (1 - h) + '%',
       'top': -100 * v + '%',
-      'margin-right': 2 * (0.5 - h) * arrow_size
-    });
+      'margin-right': (4 / 3) * (0.25 - h) * arrow_size
+    }, duration);
   };
 
+  var orig_v = 0, orig_h = 0;
+  var click = function (v, h) {
+    if (orig_v == v && orig_h == h) v = h = 0;
+    move(v + offset_v, h + offset_h, true);
+    orig_v = v;
+    orig_h = h;
+  };
   $arrow.t.click(function () {
-    move(-1, 0);
+    click(-1, 0);
   });
   $arrow.b.click(function () {
-    move(+1, 0);
+    click(+1, 0);
   });
   $arrow.l.click(function () {
-    move(0, -1);
+    click(0, -1);
   });
   $arrow.r.click(function () {
-    move(0, +1);
+    click(0, +1);
   });
 
-  move(0, -1);
+  var offset_h = 0, offset_v = 0;
+  $body.mousemove(function (e) {
+    var x = e.pageX;
+    var y = e.pageY;
+    var w = $body.width();
+    var h = $body.height();
+    offset_v = (y / h - 0.5) / 10;
+    offset_h = (x / w - 0.5) / 10;
+    move(orig_v + offset_v, orig_h + offset_h);
+  });
 });
+
+$.fn.animateRotate = function (angle, duration) {
+  if (duration == 0) this.rotate(angle);
+  else this.rotate({animateTo: angle, duration: duration});
+};

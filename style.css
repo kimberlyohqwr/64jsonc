@@ -1,10 +1,16 @@
 @charset "UTF-8";
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0; }
+
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   font-family: "Raleway", sans-serif;
-  cursor: default; }
+  cursor: default;
+  overflow: hidden; }
 
 .no-select {
   -webkit-touch-callout: none;
@@ -34,14 +40,13 @@ body {
   width: 120px;
   height: 120px;
   text-align: center;
-  transition: 1s ease-in-out;
-  cursor: pointer; }
+  cursor: pointer;
+  z-index: 9; }
   .arrow .icon {
     width: 120px;
     height: 60px;
     font-size: 48px;
-    transform: rotate(90deg);
-    transition: 1s ease-in-out; }
+    transform: rotate(90deg); }
     .arrow .icon:before {
       content: "‹"; }
   .arrow .text {
@@ -49,11 +54,18 @@ body {
     height: 60px;
     margin-top: -24px;
     text-align: center;
-    display: table;
-    transition: 1s ease-in-out; }
+    display: table; }
     .arrow .text p {
       display: table-cell;
       vertical-align: middle; }
+  .arrow:hover + .page.top {
+    margin-top: 120px; }
+  .arrow:hover + .page.left {
+    margin-left: 120px; }
+  .arrow:hover + .page.bottom {
+    margin-bottom: 120px; }
+  .arrow:hover + .page.right {
+    margin-right: 120px; }
   .arrow.top, .arrow.bottom {
     left: 50%;
     margin-left: -60px; }
@@ -81,45 +93,28 @@ body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  transition: 1s ease-in-out;
   text-align: center; }
-  .page .side {
-    position: absolute; }
-  .page.top .side, .page.bottom .side {
-    left: 0;
-    width: 100%;
-    height: 120px; }
-  .page.left .side, .page.right .side {
-    top: 0;
-    height: 100%;
-    width: 120px; }
   .page.top {
     top: -100%;
-    margin-top: 120px;
+    margin-top: 40px;
     padding-top: 120px;
     padding-left: 120px;
     padding-right: 120px; }
-    .page.top .side {
-      bottom: 0;
-      background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0)); }
   .page.left {
     left: -100%;
-    margin-left: 120px;
+    margin-left: 40px;
     padding-left: 120px;
     padding-top: 120px;
     padding-bottom: 120px; }
-    .page.left .side {
-      right: 0;
-      background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0)); }
   .page.bottom {
     bottom: -100%;
-    margin-bottom: 120px;
+    margin-bottom: 40px;
     padding-bottom: 120px;
     padding-left: 120px;
     padding-right: 120px; }
   .page.right {
     right: -100%;
-    margin-right: 120px;
+    margin-right: 40px;
     padding-right: 120px;
     padding-top: 120px;
     padding-bottom: 120px; }
@@ -130,7 +125,9 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; }
+    justify-content: flex-start;
+    padding-top: 15vh;
+    margin-bottom: 2vh; }
   .page.top #edu_kdmhs {
     background: #98D5F4 url("./img/edu/bg/kdmhs.jpg") no-repeat bottom;
     background-size: contain; }
@@ -171,7 +168,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    transition: 0.5s ease-in-out;
+    transition: 0.3s ease-in-out;
     margin: 2vh 2vw 2vh 2vw; }
     .page.left .prz:hover {
       transform: scale(1.1, 1.1); }
@@ -204,5 +201,45 @@ body {
   .page.left #prz_2016_ksu {
     background: url("./img/prz/2016_ksu.jpg") center;
     background-size: cover; }
+
+.page.right {
+  display: flex;
+  flex-direction: column; }
+  .page.right a {
+    text-decoration: none;
+    color: black; }
+  .page.right .row {
+    flex: 1;
+    display: flex; }
+  .page.right .prj {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: 0.3s ease-in-out;
+    margin: 2vh 2vw 2vh 2vw; }
+    .page.right .prj:hover {
+      transform: scale(1.1, 1.1); }
+    .page.right .prj .panel {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 16px; }
+      .page.right .prj .panel span {
+        display: block; }
+      .page.right .prj .panel ul {
+        text-align: left; }
+  .page.right #prj_duocoder {
+    background: url("./img/prj/duocoder.png") top center no-repeat;
+    background-size: cover; }
+  .page.right #prj_algovis {
+    background: url("./img/prj/algovis.png") top center no-repeat;
+    background-size: cover; }
+  .page.right #prj_hitw {
+    background: url("./img/prj/hitw.png") bottom center no-repeat;
+    background-size: cover; }
+  .page.right #prj_taskbar7 {
+    background: url("./img/prj/taskbar7.png") center no-repeat;
+    background-size: cover; }
+  .page.right .name {
+    font-weight: bold; }
 
 /*# sourceMappingURL=style.css.map */
