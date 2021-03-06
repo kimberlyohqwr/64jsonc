@@ -39,44 +39,31 @@ body
   width: 120px
   height: 120px
   text-align: center
-  //transition: .5s ease-in-out
   cursor: pointer
-  z-index: 9
+  display: flex
+  flex-direction: column
+  justify-content: center
 
   .icon
     width: 120px
     height: 60px
     font-size: 48px
     transform: rotate(90deg)
-    //transition: .5s ease-in-out
 
     &:before
       content: "‹"
 
   .text
-    width: 120px
-    height: 60px
-    margin-top: -24px
     text-align: center
-    display: table
+    transition: color .3s ease-in-out, background .3s ease-in-out
+    padding: 16px
+    margin: -4px
 
-    p
-      display: table-cell
-      vertical-align: middle
+  &:hover
 
-  &:hover + .page
-
-    &.top
-      margin-top: 120px
-
-    &.left
-      margin-left: 120px
-
-    &.bottom
-      margin-bottom: 120px
-
-    &.right
-      margin-right: 120px
+    .text
+      background: black
+      color: white
 
   &.top, &.bottom
     left: 50%
@@ -97,8 +84,6 @@ body
     bottom: 0
 
     .text
-      margin-top: 24px
-      margin-bottom: -24px
 
     .icon
       transform: rotate(-90deg)
@@ -152,6 +137,11 @@ body
     justify-content: flex-start
     padding-top: 15vh
     margin-bottom: 2vh
+    filter: grayscale(100%)
+    transition: filter .3s ease-in-out
+
+    &:hover
+      filter: none
 
   #edu_kdmhs
     background: #98D5F4 url('./img/edu/bg/kdmhs.jpg') no-repeat bottom
@@ -202,8 +192,10 @@ body
     justify-content: flex-end
     transition: .3s ease-in-out
     margin: 2vh 2vw 2vh 2vw
+    filter: grayscale(100%)
 
     &:hover
+      filter: none
       transform: scale(1.1, 1.1)
 
     .panel
@@ -264,8 +256,10 @@ body
     justify-content: flex-end
     transition: .3s ease-in-out
     margin: 2vh 2vw 2vh 2vw
+    filter: grayscale(100%)
 
     &:hover
+      filter: none
       transform: scale(1.1, 1.1)
 
     .panel

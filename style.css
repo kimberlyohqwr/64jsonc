@@ -41,7 +41,9 @@ body {
   height: 120px;
   text-align: center;
   cursor: pointer;
-  z-index: 9; }
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
   .arrow .icon {
     width: 120px;
     height: 60px;
@@ -50,22 +52,13 @@ body {
     .arrow .icon:before {
       content: "‹"; }
   .arrow .text {
-    width: 120px;
-    height: 60px;
-    margin-top: -24px;
     text-align: center;
-    display: table; }
-    .arrow .text p {
-      display: table-cell;
-      vertical-align: middle; }
-  .arrow:hover + .page.top {
-    margin-top: 120px; }
-  .arrow:hover + .page.left {
-    margin-left: 120px; }
-  .arrow:hover + .page.bottom {
-    margin-bottom: 120px; }
-  .arrow:hover + .page.right {
-    margin-right: 120px; }
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+    padding: 16px;
+    margin: -4px; }
+  .arrow:hover .text {
+    background: black;
+    color: white; }
   .arrow.top, .arrow.bottom {
     left: 50%;
     margin-left: -60px; }
@@ -79,9 +72,6 @@ body {
     transform: rotate(-90deg); }
   .arrow.bottom {
     bottom: 0; }
-    .arrow.bottom .text {
-      margin-top: 24px;
-      margin-bottom: -24px; }
     .arrow.bottom .icon {
       transform: rotate(-90deg); }
   .arrow.right {
@@ -127,7 +117,11 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     padding-top: 15vh;
-    margin-bottom: 2vh; }
+    margin-bottom: 2vh;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out; }
+    .page.top .edu:hover {
+      filter: none; }
   .page.top #edu_kdmhs {
     background: #98D5F4 url("./img/edu/bg/kdmhs.jpg") no-repeat bottom;
     background-size: contain; }
@@ -169,8 +163,10 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     transition: 0.3s ease-in-out;
-    margin: 2vh 2vw 2vh 2vw; }
+    margin: 2vh 2vw 2vh 2vw;
+    filter: grayscale(100%); }
     .page.left .prz:hover {
+      filter: none;
       transform: scale(1.1, 1.1); }
     .page.left .prz .panel {
       background: rgba(255, 255, 255, 0.8);
@@ -217,8 +213,10 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     transition: 0.3s ease-in-out;
-    margin: 2vh 2vw 2vh 2vw; }
+    margin: 2vh 2vw 2vh 2vw;
+    filter: grayscale(100%); }
     .page.right .prj:hover {
+      filter: none;
       transform: scale(1.1, 1.1); }
     .page.right .prj .panel {
       background: rgba(255, 255, 255, 0.8);
