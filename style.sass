@@ -34,11 +34,13 @@ body
   .row
     display: flex
     justify-content: center
+    perspective: 1000px
 
 .square
   width: 500px
   height: 500px
   background: white
+  transform-style: preserve-3d
 
 .content-wrapper
   position: absolute
@@ -56,6 +58,14 @@ h1
   padding: 8px
   text-decoration: none
   color: black
+  transition: color .3s ease-in-out, background .3s ease-in-out
+
+  &:hover
+    background: black
+    color: white
+
+.divider:before
+  content: "-"
 
 .arrow
   position: absolute
@@ -159,7 +169,7 @@ h1
     display: flex
     flex-direction: column
     justify-content: flex-start
-    padding-top: 15vh
+    padding: 15vh 2vw 2vh 2vw
     margin: 2vh 2vw 2vh 2vw
     filter: grayscale(100%)
     transition: filter .3s ease-in-out
@@ -261,6 +271,36 @@ h1
     background: url('./img/prz/2016_ksu.jpg') center
     background-size: cover
 
+  .name
+    font-weight: bold
+
+.page.bottom
+  display: flex
+  flex-direction: column
+
+  .row
+    flex: 1
+    display: flex
+
+  #exp_chaporoyal
+    background: url('./img/exp/chaporoyal.jpg') center no-repeat
+    background-size: cover
+
+  #exp_incubatex
+    background: url('./img/exp/incubatex.png') center no-repeat
+    background-size: cover
+
+  #exp_freelancer
+    background: url('./img/exp/freelancer.jpg') center no-repeat
+    background-size: cover
+
+  #exp_deblur
+    background: url('./img/exp/deblur.png') center no-repeat
+    background-size: cover
+
+  .name
+    font-weight: bold
+
 .page.right
   display: flex
   flex-direction: column
@@ -272,29 +312,6 @@ h1
   .row
     flex: 1
     display: flex
-
-  .prj
-    flex: 1
-    display: flex
-    flex-direction: column
-    justify-content: flex-end
-    transition: .3s ease-in-out
-    margin: 2vh 2vw 2vh 2vw
-    filter: grayscale(100%)
-
-    &:hover
-      filter: none
-      transform: scale(1.05, 1.05)
-
-    .panel
-      background: rgba(255, 255, 255, .8)
-      padding: 16px
-
-      span
-        display: block
-
-      ul
-        text-align: left
 
   #prj_duocoder
     background: url('./img/prj/duocoder.png') top center no-repeat
@@ -314,3 +331,54 @@ h1
 
   .name
     font-weight: bold
+
+.exp, .prj
+  flex: 1
+  display: flex
+  flex-direction: column
+  justify-content: flex-end
+  transition: .3s ease-in-out
+  margin: 2vh 2vw 2vh 2vw
+  filter: grayscale(100%)
+
+  .hidden
+    display: none
+
+  &:hover
+    filter: none
+    transform: scale(1.05, 1.05)
+
+    .hidden
+      display: block
+
+    .panel
+      position: absolute
+      top: 0
+      width: 100%
+      height: 100%
+
+  .panel
+    background: rgba(255, 255, 255, .8)
+    padding: 16px
+    box-sizing: border-box
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    ul
+      display: inline-block
+      width: 25vw
+      list-style: none
+      margin: 0
+      padding: 0
+
+      li
+        text-align: left
+        margin: 12px
+        padding: 0 0 0 12px
+        border-left: 2px solid grey
+
+        a
+          color: black
+          text-decoration: none
+          font-weight: bold

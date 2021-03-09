@@ -33,12 +33,14 @@ body {
   flex-direction: column; }
   .square-wrapper .row {
     display: flex;
-    justify-content: center; }
+    justify-content: center;
+    perspective: 1000px; }
 
 .square {
   width: 500px;
   height: 500px;
-  background: white; }
+  background: white;
+  transform-style: preserve-3d; }
 
 .content-wrapper {
   position: absolute;
@@ -55,7 +57,14 @@ h1 {
 .links a {
   padding: 8px;
   text-decoration: none;
-  color: black; }
+  color: black;
+  transition: color 0.3s ease-in-out, background 0.3s ease-in-out; }
+  .links a:hover {
+    background: black;
+    color: white; }
+
+.divider:before {
+  content: "-"; }
 
 .arrow {
   position: absolute;
@@ -139,7 +148,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 15vh;
+    padding: 15vh 2vw 2vh 2vw;
     margin: 2vh 2vw 2vh 2vw;
     filter: grayscale(100%);
     transition: filter 0.3s ease-in-out; }
@@ -220,6 +229,29 @@ h1 {
   .page.left #prz_2016_ksu {
     background: url("./img/prz/2016_ksu.jpg") center;
     background-size: cover; }
+  .page.left .name {
+    font-weight: bold; }
+
+.page.bottom {
+  display: flex;
+  flex-direction: column; }
+  .page.bottom .row {
+    flex: 1;
+    display: flex; }
+  .page.bottom #exp_chaporoyal {
+    background: url("./img/exp/chaporoyal.jpg") center no-repeat;
+    background-size: cover; }
+  .page.bottom #exp_incubatex {
+    background: url("./img/exp/incubatex.png") center no-repeat;
+    background-size: cover; }
+  .page.bottom #exp_freelancer {
+    background: url("./img/exp/freelancer.jpg") center no-repeat;
+    background-size: cover; }
+  .page.bottom #exp_deblur {
+    background: url("./img/exp/deblur.png") center no-repeat;
+    background-size: cover; }
+  .page.bottom .name {
+    font-weight: bold; }
 
 .page.right {
   display: flex;
@@ -230,24 +262,6 @@ h1 {
   .page.right .row {
     flex: 1;
     display: flex; }
-  .page.right .prj {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    transition: 0.3s ease-in-out;
-    margin: 2vh 2vw 2vh 2vw;
-    filter: grayscale(100%); }
-    .page.right .prj:hover {
-      filter: none;
-      transform: scale(1.05, 1.05); }
-    .page.right .prj .panel {
-      background: rgba(255, 255, 255, 0.8);
-      padding: 16px; }
-      .page.right .prj .panel span {
-        display: block; }
-      .page.right .prj .panel ul {
-        text-align: left; }
   .page.right #prj_duocoder {
     background: url("./img/prj/duocoder.png") top center no-repeat;
     background-size: cover; }
@@ -262,5 +276,48 @@ h1 {
     background-size: cover; }
   .page.right .name {
     font-weight: bold; }
+
+.exp, .prj {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: 0.3s ease-in-out;
+  margin: 2vh 2vw 2vh 2vw;
+  filter: grayscale(100%); }
+  .exp .hidden, .prj .hidden {
+    display: none; }
+  .exp:hover, .prj:hover {
+    filter: none;
+    transform: scale(1.05, 1.05); }
+    .exp:hover .hidden, .prj:hover .hidden {
+      display: block; }
+    .exp:hover .panel, .prj:hover .panel {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%; }
+  .exp .panel, .prj .panel {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .exp .panel ul, .prj .panel ul {
+      display: inline-block;
+      width: 25vw;
+      list-style: none;
+      margin: 0;
+      padding: 0; }
+      .exp .panel ul li, .prj .panel ul li {
+        text-align: left;
+        margin: 12px;
+        padding: 0 0 0 12px;
+        border-left: 2px solid grey; }
+        .exp .panel ul li a, .prj .panel ul li a {
+          color: black;
+          text-decoration: none;
+          font-weight: bold; }
 
 /*# sourceMappingURL=style.css.map */

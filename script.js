@@ -1,5 +1,8 @@
 $(function () {
   var $body = $('body');
+
+  $('a').attr('target', '_blank');
+
   var arrow_size = 120;
   var $arrow = $('.arrow');
   var arrows = {
@@ -15,12 +18,15 @@ $(function () {
     arrows[key].i = arrows[key].find('.icon');
     arrows[key].t = arrows[key].find('.text');
   });
+
   var $page = $('.page');
   $page.c = $page.filter('.container');
   $page.t = $page.filter('.top');
   $page.l = $page.filter('.left');
   $page.b = $page.filter('.bottom');
   $page.r = $page.filter('.right');
+
+  var $square = $('.square');
 
   var current_v = 0, current_h = 0;
 
@@ -123,9 +129,14 @@ $(function () {
     var y = e.pageY;
     var w = $body.width();
     var h = $body.height();
-    offset_v = (y / h - 0.5) / 10;
-    offset_h = (x / w - 0.5) / 10;
+    var ratio_v = y / h - 0.5;
+    var ratio_h = x / w - 0.5;
+    offset_v = ratio_v / 10;
+    offset_h = ratio_h / 10;
     move(orig_v + offset_v, orig_h + offset_h);
+    $square.css({
+      'transform': 'rotateX(' + -ratio_v * 45 + 'deg) rotateY(' + ratio_h * 45 + 'deg)'
+    });
   });
 });
 
