@@ -49,15 +49,13 @@ body {
   height: 100%;
   justify-content: center;
   flex-direction: column;
-  text-align: center; }
-
-h1 {
+  text-align: center;
   color: black; }
 
 .links a {
   padding: 8px;
   text-decoration: none;
-  color: black;
+  color: inherit;
   transition: color 0.3s ease-in-out, background 0.3s ease-in-out; }
   .links a:hover {
     background: black;
@@ -258,7 +256,7 @@ h1 {
   flex-direction: column; }
   .page.right a {
     text-decoration: none;
-    color: black; }
+    color: inherit; }
   .page.right .row {
     flex: 1;
     display: flex; }
@@ -316,7 +314,7 @@ h1 {
         padding: 0 0 0 12px;
         border-left: 2px solid grey; }
         .exp .panel ul li a, .prj .panel ul li a {
-          color: black;
+          color: inherit;
           text-decoration: none;
           font-weight: bold; }
 
