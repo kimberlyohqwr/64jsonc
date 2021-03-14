@@ -301,7 +301,9 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center; }
+    overflow-y: scroll; }
+    .exp .panel > *, .prj .panel > * {
+      margin: auto; }
     .exp .panel ul, .prj .panel ul {
       display: inline-block;
       width: 25vw;
