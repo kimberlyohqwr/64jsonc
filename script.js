@@ -124,18 +124,50 @@ $(function () {
   });
 
   var offset_h = 0, offset_v = 0;
-  $body.mousemove(function (e) {
-    var x = e.pageX;
-    var y = e.pageY;
-    var w = $body.width();
-    var h = $body.height();
-    var ratio_v = y / h - 0.5;
-    var ratio_h = x / w - 0.5;
+  var control = function (ratio_v, ratio_h) {
     offset_v = ratio_v / 10;
     offset_h = ratio_h / 10;
     move(orig_v + offset_v, orig_h + offset_h);
     $square.css({
       'transform': 'rotateX(' + -ratio_v * 45 + 'deg) rotateY(' + ratio_h * 45 + 'deg)'
+    });
+  };
+
+  var gn = new GyroNorm({screenAdjusted: true});
+  gn.init({
+    frequency: 50
+  }).then(function () {
+    var adjust = function (angle, last) {
+      if (angle + 180 < last) return angle + 360;
+      if (angle - 180 > last) return angle - 360;
+      if (angle + 90 < last) return angle + 180;
+      if (angle - 90 > last) return angle - 180;
+      return angle;
+    };
+    var beta_zero = null;
+    var gamma_zero = null;
+    var beta_last;
+    var gamma_last;
+    gn.start(function (data) {
+      if (beta_zero == null && gamma_zero == null) {
+        beta_zero = beta_last = data.do.beta;
+        gamma_zero = gamma_last = data.do.gamma;
+      }
+      var beta = adjust(data.do.beta, beta_last);
+      var gamma = adjust(data.do.gamma, gamma_last);
+      control((beta - beta_zero) / 100, (gamma - gamma_zero) / 100);
+      beta_last = beta;
+      gamma_last = gamma;
+    });
+  }).catch(function (e) {
+    $body.mousemove(function (e) {
+      var x = e.pageX;
+      var y = e.pageY;
+      var w = $body.width();
+      var h = $body.height();
+      var ratio_v = y / h - 0.5;
+      var ratio_h = x / w - 0.5;
+      control(ratio_v, ratio_h);
     });
   });
 });
