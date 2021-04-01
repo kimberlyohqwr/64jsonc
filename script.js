@@ -147,6 +147,12 @@ $(function () {
     var ratio_h = x / w - 0.5;
     control(ratio_v, ratio_h);
   };
+
+  if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    $('.i-hate-ie').css('display', 'block');
+    return;
+  }
+
   $body.mousemove(listener);
   $body.on('touchmove', function (event) {
     listener(event.originalEvent.touches[0]);
