@@ -239,7 +239,7 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll; }
+    overflow-y: auto; }
     .exp .panel > *, .prj .panel > * {
       margin: auto; }
     .exp .panel ul, .prj .panel ul {
