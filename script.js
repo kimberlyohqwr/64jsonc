@@ -1,6 +1,9 @@
 $(function () {
   var $body = $('body');
+  var width, height;
   var resize = function () {
+    width = $body.width();
+    height = $body.height();
     $body.css('height', window.innerHeight);
   };
   $(window).resize(resize);
@@ -128,23 +131,30 @@ $(function () {
     click(0, +1);
   });
 
+  var distance = function (dx, dy) {
+    return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+  };
+
   var offset_h = 0, offset_v = 0;
+  var last_offset_v = 0, last_offset_h = 0;
   var control = function (ratio_v, ratio_h) {
-    offset_v = ratio_v / 10;
-    offset_h = ratio_h / 10;
-    move(orig_v + offset_v, orig_h + offset_h);
+    offset_v = ratio_v / 50;
+    offset_h = ratio_h / 50;
     $square.css({
       'transform': 'rotateX(' + -ratio_v * 45 + 'deg) rotateY(' + ratio_h * 45 + 'deg)'
     });
+    if (distance(height * (offset_v - last_offset_v), width * (offset_h - last_offset_h)) < 1) return;
+    console.log('aa');
+    move(orig_v + offset_v, orig_h + offset_h);
+    last_offset_v = offset_v;
+    last_offset_h = offset_h;
   };
 
   var listener = function (e) {
     var x = e.pageX;
     var y = e.pageY;
-    var w = $body.width();
-    var h = $body.height();
-    var ratio_v = y / h - 0.5;
-    var ratio_h = x / w - 0.5;
+    var ratio_v = y / height - 0.5;
+    var ratio_h = x / width - 0.5;
     control(ratio_v, ratio_h);
   };
 
