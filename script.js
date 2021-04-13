@@ -43,46 +43,39 @@ $(function () {
     current_v = v;
     current_h = h;
 
-    $arrow.l_r.animate({
+    var l_r = {
       'top': 50 * (1 - v) + '%',
       'margin-top': -arrow_size / 2 * (1 - v) + 'px'
-    }, duration);
-    $arrow.l.animateRotate(-90 * (1 - 0.5 * v), duration);
-    $arrow.r.animateRotate(90 * (1 - 0.5 * v), duration);
+    };
+    $arrow.l.animate($.extend({}, l_r, {
+      'left': -100 * h + '%',
+      'margin-left': arrow_size * h + 'px'
+    }), duration);
+    $arrow.r.animate($.extend({}, l_r, {
+      'right': 100 * h + '%',
+      'margin-right': -arrow_size * h + 'px'
+    }), duration);
+    $arrow.l.animateRotate(-90 * (1 - 0.5 * v) + 180 * Math.min(h, 0), duration);
+    $arrow.r.animateRotate(90 * (1 - 0.5 * v) + 180 * Math.max(h, 0), duration);
+    $arrow.l.t.animateRotate(180 * Math.min(v, 0), duration);
+    $arrow.r.t.animateRotate(180 * Math.min(v, 0), duration);
 
-    if (v < 0) {
-      $arrow.l.t.animateRotate(-180 * v, duration);
-      $arrow.r.t.animateRotate(180 * v, duration);
-    } else {
-      $arrow.l.t.animateRotate(0, duration);
-      $arrow.r.t.animateRotate(0, duration);
-    }
-
-    $arrow.t_b.animate({
+    var t_b = {
       'left': 50 * (1 - h) + '%',
       'margin-left': -arrow_size / 2 * (1 - h) + 'px'
-    }, duration);
-    $arrow.t.animateRotate(-90 * (0.5 * h), duration);
-    $arrow.b.animateRotate(90 * (0.5 * h), duration);
-
-    $arrow.t.i.animateRotate(90 * (v < 0 ? 1 + 2 * v : 1), duration);
-    $arrow.b.i.animateRotate(90 * (v > 0 ? -1 - 2 * v : -1), duration);
-    $arrow.t.t.animate({
-      'opacity': v < 0 ? 1 + v : 1
-    }, duration);
-    $arrow.b.t.animate({
-      'opacity': v > 0 ? 1 - v : 1
-    }, duration);
-
-    $arrow.l.i.animateRotate(90 * (h < 0 ? 1 + 2 * h : 1), duration);
-    $arrow.r.i.animateRotate(90 * (h > 0 ? 1 - 2 * h : 1), duration);
-    $arrow.l.t.animate({
-      'opacity': h < 0 ? 1 + h : 1
-    }, duration);
-    $arrow.r.t.animate({
-      'opacity': h > 0 ? 1 - h : 1
-    }, duration);
-    //}
+    };
+    $arrow.t.animate($.extend({}, t_b, {
+      'top': -100 * v + '%',
+      'margin-top': arrow_size * v + 'px'
+    }), duration);
+    $arrow.b.animate($.extend({}, t_b, {
+      'bottom': 100 * v + '%',
+      'margin-bottom': -arrow_size * v + 'px'
+    }), duration);
+    $arrow.t.animateRotate(-90 * (0.5 * h) + 180 * Math.min(v, 0), duration);
+    $arrow.b.animateRotate(90 * (0.5 * h) + 180 * Math.max(v, 0), duration);
+    $arrow.t.t.animateRotate(180 * Math.min(v, 0), duration);
+    $arrow.b.t.animateRotate(180 * Math.max(v, 0), duration);
 
     $page.c.animate({
       'top': -50 * v + '%',
@@ -113,22 +106,24 @@ $(function () {
 
   var orig_v = 0, orig_h = 0;
   var click = function (v, h) {
+    $arrow.removeClass('back');
     if (orig_v == v && orig_h == h) v = h = 0;
+    else $(this).addClass('back');
     move(v + offset_v, h + offset_h, true);
     orig_v = v;
     orig_h = h;
   };
   $arrow.t.click(function () {
-    click(-1, 0);
+    click.call(this, -1, 0);
   });
   $arrow.b.click(function () {
-    click(+1, 0);
+    click.call(this, +1, 0);
   });
   $arrow.l.click(function () {
-    click(0, -1);
+    click.call(this, 0, -1);
   });
   $arrow.r.click(function () {
-    click(0, +1);
+    click.call(this, 0, +1);
   });
 
   var distance = function (dx, dy) {
@@ -144,7 +139,6 @@ $(function () {
       'transform': 'rotateX(' + -ratio_v * 45 + 'deg) rotateY(' + ratio_h * 45 + 'deg)'
     });
     if (distance(height * (offset_v - last_offset_v), width * (offset_h - last_offset_h)) < 1) return;
-    console.log('aa');
     move(orig_v + offset_v, orig_h + offset_h);
     last_offset_v = offset_v;
     last_offset_h = offset_h;

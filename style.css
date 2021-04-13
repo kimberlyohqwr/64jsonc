@@ -76,6 +76,12 @@ body {
   flex-direction: column;
   justify-content: center;
   color: white; }
+  .arrow .home {
+    display: none; }
+  .arrow.back .normal {
+    display: none; }
+  .arrow.back .home {
+    display: inline-block; }
   .arrow .icon {
     width: 120px;
     height: 60px;

@@ -78,6 +78,16 @@ body
   justify-content: center
   color: white
 
+  .home
+    display: none
+
+  &.back
+    .normal
+      display: none
+
+    .home
+      display: inline-block
+
   .icon
     width: 120px
     height: 60px
@@ -94,7 +104,6 @@ body
     margin: -4px
 
   &:hover
-
     .text
       background: white
       color: black
@@ -116,8 +125,6 @@ body
 
   &.bottom
     bottom: 0
-
-    .text
 
     .icon
       transform: rotate(-90deg)
