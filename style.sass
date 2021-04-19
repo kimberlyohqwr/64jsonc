@@ -2,7 +2,7 @@ html
   height: 100%
   width: 100%
   margin: 0
-  background: white
+  font-size: 16px
 
 body
   position: relative
@@ -21,9 +21,10 @@ body
   -ms-user-select: none
   user-select: none
 
-.container
-  width: 100%
-  height: 100%
+a
+  text-decoration: none
+  color: inherit
+  font-weight: bold
 
 .square-wrapper
   position: absolute
@@ -43,6 +44,7 @@ body
   height: 60vmin
   background: white
   transform-style: preserve-3d
+  transition: width 1s ease-in-out, height 1s ease-in-out
 
 .content-wrapper
   position: absolute
@@ -53,11 +55,11 @@ body
   flex-direction: column
   text-align: center
   color: black
+  transition: opacity 1s ease-in-out
 
 .links a
   padding: 8px
-  text-decoration: none
-  color: inherit
+  font-weight: normal !important
   transition: color .3s ease-in-out, background .3s ease-in-out
 
   &:hover
@@ -69,14 +71,15 @@ body
 
 .arrow
   position: absolute
-  width: 120px
-  height: 120px
+  width: 7.5rem
+  height: 7.5rem
   text-align: center
   cursor: pointer
   display: flex
   flex-direction: column
   justify-content: center
   color: white
+  transition: opacity 1s ease-in-out
 
   .home
     display: none
@@ -89,9 +92,9 @@ body
       display: inline-block
 
   .icon
-    width: 120px
-    height: 60px
-    font-size: 48px
+    width: 7.5rem
+    height: 3.75rem
+    font-size: 3rem
     transform: rotate(90deg)
 
     &:before
@@ -110,11 +113,11 @@ body
 
   &.top, &.bottom
     left: 50%
-    margin-left: -60px
+    margin-left: -3.75em
 
   &.left, &.right
     top: 50%
-    margin-top: -60px
+    margin-top: -3.75em
 
   &.top
     top: 0
@@ -133,6 +136,9 @@ body
     right: 0
     transform: rotate(90deg)
 
+  &.fake
+    visibility: hidden
+
 .page
   position: absolute
   width: 100%
@@ -142,126 +148,96 @@ body
 
   &.top
     top: -100%
-    margin-top: 40px
-    padding-top: 120px
-    padding-left: 40px
-    padding-right: 40px
+    margin-top: 2.5rem
+    padding-top: 7.5rem
+    padding-left: 2.5rem
+    padding-right: 2.5rem
+    transition: opacity 1s ease-in-out
 
   &.left
     left: -100%
-    margin-left: 40px
-    padding-left: 120px
-    padding-top: 40px
-    padding-bottom: 40px
+    margin-left: 2.5rem
+    padding-left: 7.5rem
+    padding-top: 2.5rem
+    padding-bottom: 2.5rem
+    transition: opacity 1s ease-in-out
 
   &.bottom
     bottom: -100%
-    margin-bottom: 40px
-    padding-bottom: 120px
-    padding-left: 40px
-    padding-right: 40px
+    margin-bottom: 2.5rem
+    padding-bottom: 7.5rem
+    padding-left: 2.5rem
+    padding-right: 2.5rem
+    transition: opacity 1s ease-in-out
 
   &.right
     right: -100%
-    margin-right: 40px
-    padding-right: 120px
-    padding-top: 40px
-    padding-bottom: 40px
+    margin-right: 2.5rem
+    padding-right: 7.5rem
+    padding-top: 2.5rem
+    padding-bottom: 2.5rem
+    transition: opacity 1s ease-in-out
 
 .page.top
   display: flex
+  flex-flow: row wrap
 
   .edu
     flex: 1
-    display: flex
-    flex-direction: column
     justify-content: center
-    padding: 16px
-    margin: 16px
-    filter: grayscale(100%)
-    transition: .3s ease-in-out
 
-    &:hover
-      filter: none
-      transform: scale(1.05, 1.05)
+    .panel
+      background: none
+      position: absolute
+      top: 0
+      width: 100%
+      height: 100%
 
-  .logo
-    width: 100%
-    height: 120px
-    margin-bottom: 16px
+    .logo
+      width: 100%
+      height: 120px
+      margin-bottom: 16px
 
-  .name
-    font-size: 20px
-    margin-bottom: 12px
+    .name
+      font-size: 1.25em
+      margin-bottom: 12px
 
-  .date
-    font-weight: bold
-    margin-bottom: 16px
+    .date
+      font-weight: bold
+      margin-bottom: 16px
 
 .page.left
   display: flex
-  flex-direction: column
-
-  .row
-    flex: 1
-    display: flex
+  flex-flow: row wrap
 
   .prz
-    flex: 1
-    display: flex
-    flex-direction: column
-    justify-content: flex-end
-    transition: .3s ease-in-out
-    margin: 16px
-    filter: grayscale(100%)
+    flex: 1 25%
 
     &:hover
       filter: none
-      transform: scale(1.05, 1.05)
-
-    .panel
-      background: rgba(255, 255, 255, .8)
-      padding: 16px
-
-      span
-        display: block
-
-  .name
-    font-weight: bold
+      transform: scale(1, 1)
 
 .page.bottom
   display: flex
-  flex-direction: column
+  flex-flow: row wrap
 
-  .row
-    flex: 1
-    display: flex
-
-  .name
-    font-weight: bold
+  .exp
+    flex: 1 50%
 
 .page.right
   display: flex
-  flex-direction: column
+  flex-flow: row wrap
 
-  a
-    text-decoration: none
-    color: inherit
+  .prj
+    font-weight: normal !important
+    flex: 1 50%
 
-  .row
-    flex: 1
-    display: flex
-
-  .name
-    font-weight: bold
-
-.exp, .prj
-  flex: 1
+.edu, .prz, .exp, .prj
   display: flex
   flex-direction: column
   justify-content: flex-end
   transition: .3s ease-in-out
-  margin: 16px
+  transform: scale(.9, .9)
   filter: grayscale(100%)
 
   .hidden
@@ -269,7 +245,7 @@ body
 
   &:hover
     filter: none
-    transform: scale(1.05, 1.05)
+    transform: scale(1, 1)
 
     .hidden
       display: block
@@ -305,15 +281,13 @@ body
         padding: 0 0 0 12px
         border-left: 2px solid grey
 
-        a
-          color: inherit
-          text-decoration: none
-          font-weight: bold
+  .name
+    font-weight: bold
 
 .i-hate-ie
   display: none
   margin-top: 24px
-  font-size: 12px
+  font-size: 0.75em
   color: red
 
 #edu_kdmhs
@@ -400,3 +374,91 @@ body
 #prj_taskbar7
   background: url('./img/prj/taskbar7.png') center no-repeat
   background-size: cover
+
+@keyframes rotating
+  from
+    -ms-transform: rotateY(0deg)
+    -moz-transform: rotateY(0deg)
+    -webkit-transform: rotateY(0deg)
+    -o-transform: rotateY(0deg)
+    transform: rotateY(0deg)
+  to
+    -ms-transform: rotateY(180deg)
+    -moz-transform: rotateY(180deg)
+    -webkit-transform: rotateY(180deg)
+    -o-transform: rotateY(180deg)
+    transform: rotateY(180deg)
+
+.splash
+  .arrow
+    opacity: 0
+
+    &.fake
+      display: flex
+
+  .page
+    opacity: 0
+
+    &.home
+      opacity: 1
+
+      .content-wrapper
+        opacity: 0
+
+      .square
+        width: 8vmin
+        height: 8vmin
+        animation: rotating .5s ease-in-out infinite
+
+@media screen and (max-width: 768px)
+  html
+    font-size: 24px
+
+  .square
+    width: 50vmin
+    height: 50vmin
+
+  .edu
+    flex: 1 100% !important
+    background-size: cover !important
+
+    .panel
+      background: rgba(255, 255, 255, .8) !important
+
+  .prz
+    flex: 1 50% !important
+
+    .panel
+      position: absolute
+      top: 0
+      width: 100%
+      height: 100%
+
+  .prj, .exp
+    flex: 1 100% !important
+
+    .panel
+      position: absolute
+      top: 0
+      width: 100%
+      height: 100%
+
+  .page
+    margin: 0 !important
+    padding: 0
+
+    &.top
+      padding-top: 0
+      padding-bottom: 7.5rem
+
+    &.left
+      padding-left: 0
+      padding-right: 7.5rem
+
+    &.bottom
+      padding-bottom: 0
+      padding-top: 7.5rem
+
+    &.right
+      padding-right: 0
+      padding-left: 7.5rem

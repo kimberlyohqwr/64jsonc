@@ -1,17 +1,6 @@
 $(function () {
-  var $body = $('body');
-  var width, height;
-  var resize = function () {
-    width = $body.width();
-    height = $body.height();
-    $body.css('height', window.innerHeight);
-  };
-  $(window).resize(resize);
-  resize();
-
   $('a').attr('target', '_blank');
 
-  var arrow_size = 120;
   var $arrow = $('.arrow');
   var arrows = {
     t: $arrow.filter('.top'),
@@ -19,7 +8,8 @@ $(function () {
     b: $arrow.filter('.bottom'),
     r: $arrow.filter('.right'),
     l_r: $arrow.filter('.left, .right'),
-    t_b: $arrow.filter('.top, .bottom')
+    t_b: $arrow.filter('.top, .bottom'),
+    fake: $arrow.filter('.fake')
   };
   $.extend(true, $arrow, arrows);
   Object.keys(arrows).forEach(function (key) {
@@ -27,8 +17,19 @@ $(function () {
     arrows[key].t = arrows[key].find('.text');
   });
 
+  var $body = $('body');
+  var width, height, arrow_size;
+  var resize = function () {
+    width = $body.width();
+    height = $body.height();
+    $body.css('height', window.innerHeight);
+    arrow_size = $arrow.fake.width();
+  };
+  $(window).resize(resize);
+  resize();
+
   var $page = $('.page');
-  $page.c = $page.filter('.container');
+  $page.home = $page.filter('.home');
   $page.t = $page.filter('.top');
   $page.l = $page.filter('.left');
   $page.b = $page.filter('.bottom');
@@ -77,7 +78,7 @@ $(function () {
     $arrow.t.t.animateRotate(180 * Math.min(v, 0), duration);
     $arrow.b.t.animateRotate(180 * Math.max(v, 0), duration);
 
-    $page.c.animate({
+    $page.home.animate({
       'top': -50 * v + '%',
       'left': -50 * h + '%',
       'opacity': 1 - Math.abs(v) - Math.abs(h)
@@ -144,23 +145,55 @@ $(function () {
     last_offset_h = offset_h;
   };
 
-  var listener = function (e) {
-    var x = e.pageX;
-    var y = e.pageY;
-    var ratio_v = y / height - 0.5;
-    var ratio_h = x / width - 0.5;
-    control(ratio_v, ratio_h);
-  };
-
   if (document.documentMode || /Edge/.test(navigator.userAgent)) {
     $('.i-hate-ie').css('display', 'block');
     return;
   }
 
-  $body.mousemove(listener);
-  $body.on('touchmove', function (event) {
-    listener(event.originalEvent.touches[0]);
-    return false;
+  var afterSplash = function (func) {
+    setTimeout(function () {
+      setTimeout(function () {
+        func();
+      }, 1000);
+      $body.removeClass('splash');
+    }, 500);
+  };
+
+  var gn = new GyroNorm({screenAdjusted: true});
+  gn.init({
+    frequency: 30
+  }).then(function () {
+    var beta_zero = null;
+    var gamma_zero = null;
+    var adjust = function (v, r) {
+      if (v < -r) return r * 2 + v;
+      if (v > r) return v - r * 2;
+      return v;
+    };
+    afterSplash(function () {
+      gn.start(function (data) {
+        if (beta_zero == null && gamma_zero == null) {
+          beta_zero = data.do.beta;
+          gamma_zero = data.do.gamma;
+        }
+        var beta = data.do.beta - beta_zero;
+        var gamma = data.do.gamma - gamma_zero;
+        if (Math.abs(Math.abs(data.do.beta) - 90) < 1) return;
+        var y = adjust(beta, 180);
+        var x = adjust(gamma, 90);
+        control(y / 100, x / 100);
+      });
+    });
+  }).catch(function () {
+    afterSplash(function () {
+      $body.mousemove(function (e) {
+        var x = e.pageX;
+        var y = e.pageY;
+        var ratio_v = y / height - 0.5;
+        var ratio_h = x / width - 0.5;
+        control(ratio_v, ratio_h);
+      });
+    })
   });
 });
 
