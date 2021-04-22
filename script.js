@@ -145,55 +145,63 @@ $(function () {
     last_offset_h = offset_h;
   };
 
-  if (document.documentMode || /Edge/.test(navigator.userAgent)) {
-    $('.i-hate-ie').css('display', 'block');
-    return;
-  }
-
-  var afterSplash = function (func) {
+  var endSplash = function (func) {
     setTimeout(function () {
       setTimeout(function () {
-        func();
+        if (func) func();
+        else {
+          $body.mousemove(function (e) {
+            var x = e.pageX;
+            var y = e.pageY;
+            var ratio_v = y / height - 0.5;
+            var ratio_h = x / width - 0.5;
+            control(ratio_v, ratio_h);
+          });
+        }
       }, 1000);
       $body.removeClass('splash');
     }, 500);
   };
 
-  var gn = new GyroNorm({screenAdjusted: true});
+  if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+    $('.i-hate-ie').css('display', 'block');
+    endSplash();
+    return;
+  }
+
+  var gn = new GyroNorm();
   gn.init({
+    screenAdjusted: true,
+    gravityNormalized: false,
+    orientationBase: GyroNorm.WORLD,
     frequency: 30
   }).then(function () {
-    var beta_zero = null;
-    var gamma_zero = null;
-    var adjust = function (v, r) {
-      if (v < -r) return r * 2 + v;
-      if (v > r) return v - r * 2;
-      return v;
-    };
-    afterSplash(function () {
-      gn.start(function (data) {
-        if (beta_zero == null && gamma_zero == null) {
-          beta_zero = data.do.beta;
-          gamma_zero = data.do.gamma;
-        }
-        var beta = data.do.beta - beta_zero;
-        var gamma = data.do.gamma - gamma_zero;
-        if (Math.abs(Math.abs(data.do.beta) - 90) < 1) return;
-        var y = adjust(beta, 180);
-        var x = adjust(gamma, 90);
-        control(y / 100, x / 100);
+    if (gn.isAvailable(GyroNorm.DEVICE_ORIENTATION)) {
+      endSplash(function () {
+        var beta_zero = null;
+        var gamma_zero = null;
+        var adjust = function (v, r) {
+          if (v < -r) return r * 2 + v;
+          if (v > r) return v - r * 2;
+          return v;
+        };
+        gn.start(function (data) {
+          if (beta_zero == null && gamma_zero == null) {
+            beta_zero = data.do.beta;
+            gamma_zero = data.do.gamma;
+          }
+          var beta = data.do.beta - beta_zero;
+          var gamma = data.do.gamma - gamma_zero;
+          var y = adjust(beta, 180);
+          var x = adjust(gamma, 90);
+          control(y / 100, x / 100);
+        });
       });
-    });
+    } else {
+      endSplash();
+    }
   }).catch(function () {
-    afterSplash(function () {
-      $body.mousemove(function (e) {
-        var x = e.pageX;
-        var y = e.pageY;
-        var ratio_v = y / height - 0.5;
-        var ratio_h = x / width - 0.5;
-        control(ratio_v, ratio_h);
-      });
-    })
+    endSplash();
   });
 });
 
