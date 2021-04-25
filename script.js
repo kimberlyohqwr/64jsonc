@@ -24,6 +24,7 @@ $(function () {
     height = $body.height();
     $body.css('height', window.innerHeight);
     arrow_size = $arrow.fake.width();
+    if (move) move(orig_v + offset_v, orig_h + offset_h);
   };
   $(window).resize(resize);
   resize();
