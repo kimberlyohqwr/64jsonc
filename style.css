@@ -1,14 +1,14 @@
 @charset "UTF-8";
 html {
-  height: 100%;
   width: 100%;
+  height: 100%;
   margin: 0;
   font-size: 16px; }
 
 body {
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
   margin: 0;
   font-family: "Raleway", sans-serif;
   cursor: default;
@@ -21,6 +21,12 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
+
+.no-click {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none; }
 
 a {
   text-decoration: none;
@@ -353,6 +359,8 @@ a {
     -webkit-transform: rotateY(180deg);
     -o-transform: rotateY(180deg);
     transform: rotateY(180deg); } }
+.splash .no-click {
+  display: block; }
 .splash .arrow {
   opacity: 0; }
   .splash .arrow.fake {
