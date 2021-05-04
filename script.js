@@ -195,7 +195,7 @@ $(function () {
           var gamma = data.do.gamma - gamma_zero;
           var y = adjust(beta, 180);
           var x = adjust(gamma, 90);
-          control(y / 100, x / 100);
+          control(y / 50, x / 50);
         });
       });
     } else {
