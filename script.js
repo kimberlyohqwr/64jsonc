@@ -137,9 +137,16 @@ $(function () {
   var control = function (ratio_v, ratio_h) {
     offset_v = ratio_v / 50;
     offset_h = ratio_h / 50;
-    $square.css({
-      'transform': 'rotateX(' + -ratio_v * 45 + 'deg) rotateY(' + ratio_h * 45 + 'deg)'
-    });
+    if(window.usingGyroscope){
+		$square.css({
+		  'transform': 'rotateX(' + ratio_v * 45 + 'deg) rotateY(' + -ratio_h * 45 + 'deg)'
+		});
+    } else {
+		$square.css({
+		  'transform': 'rotateX(' + -ratio_v * 45 + 'deg) rotateY(' + ratio_h * 45 + 'deg)'
+		});
+    }
+    
     if (distance(height * (offset_v - last_offset_v), width * (offset_h - last_offset_h)) < 1) return;
     move(orig_v + offset_v, orig_h + offset_h);
     last_offset_v = offset_v;
@@ -178,6 +185,7 @@ $(function () {
     frequency: 30
   }).then(function () {
     if (gn.isAvailable(GyroNorm.DEVICE_ORIENTATION)) {
+      window.usingGyroscope = true;
       endSplash(function () {
         var beta_zero = null;
         var gamma_zero = null;
@@ -199,6 +207,7 @@ $(function () {
         });
       });
     } else {
+      window.usingGyroscope = false;
       endSplash();
     }
   }).catch(function () {
