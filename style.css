@@ -61,7 +61,10 @@ a {
   flex-direction: column;
   text-align: center;
   color: black;
-  transition: opacity 1s ease-in-out; }
+  transition: opacity 1s ease-in-out;
+  overflow: hidden; }
+  .content-wrapper * {
+    white-space: nowrap; }
 
 .links a {
   padding: 8px;
