@@ -1,0 +1,62 @@
+&#license {
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .row-container {
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      padding: 1rem 2rem;
+
+      .row {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: solid 1px #CCC;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .icon {
+          width: 4rem;
+          height: 4rem;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          margin-right: 1rem;
+        }
+
+        .info {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          margin-right: 2rem;
+
+          .path {
+            color: blue;
+            text-decoration: underline;
+          }
+
+          .artist {
+            flex: 1;
+
+            &:before {
+              content: 'by\00a0';
+            }
+          }
+        }
+
+        .link {
+          color: blue;
+          text-decoration: underline;
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}

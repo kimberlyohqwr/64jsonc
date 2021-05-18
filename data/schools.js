@@ -1,0 +1,33 @@
+module.exports = [{
+  key: 'kdmhs',
+  name: 'Korea Digital Media High School',
+  image: '/img/school/kdmhs.png',
+  date: 'Feb. 2014 - Oct. 2014',
+  gpa: '-',
+  location: 'Ansan, South Korea',
+  link: 'https://www.dimigo.hs.kr/',
+}, {
+  key: 'ncta',
+  name: 'North Central Texas Academy',
+  image: '/img/school/ncta.png',
+  date: 'Jan. 2015 - May 2016',
+  gpa: '4.0 / 4.0',
+  location: 'Granbury, Texas, USA',
+  link: 'https://www.northcentraltexasacademy.org/',
+}, {
+  key: 'kams',
+  name: 'Kansas Academy of Math and Science',
+  image: '/img/school/kams.png',
+  date: 'Aug. 2016 - May 2018',
+  gpa: '4.0 / 4.0',
+  location: 'Hays, Kansas, USA',
+  link: 'https://www.fhsu.edu/kams/',
+}, {
+  key: 'next',
+  name: 'And more to go!',
+  image: '/img/spinner.svg',
+  date: '-',
+  gpa: '-',
+  location: '-',
+  link: '-',
+}];

@@ -1,0 +1,209 @@
+doctype html
+html
+  head
+    title=title
+    meta(charset='utf-8')
+    meta(name='description', content=description)
+    meta(name='author', content=author)
+    meta(property='og:title', content=title)
+    meta(property='og:image', content='/screenshot.png')
+    meta(property='og:description', content=description)
+    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    meta(name='viewport' content='width=device-width, user-scalable=no')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:100,400,700')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto+Mono:300, 700')
+    link(rel='stylesheet', href='/stylesheet.css')
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+    script(type='text/javascript').
+      var data = !{JSON.stringify(data)};
+    script(type='text/javascript', src='/script.js')
+  body
+    .screen
+      .desktop
+        .app-container
+          a.app(href='#directory-projects')
+            .icon.icon-directory
+            .name Projects
+          a.app(href='#directory-experiences')
+            .icon.icon-directory
+            .name Work Experience
+          a.app(href='#directory-awards')
+            .icon.icon-directory
+            .name Awards
+          a.app(href='#directory-schools')
+            .icon.icon-directory
+            .name Education
+          a.app(href='#terminal')
+            .icon.icon-terminal
+            .name Terminal
+          a.app(href='#paypal')
+            .icon.icon-paypal
+            .name Paypal
+          a.app(href='https://github.com/parkjs814')
+            .icon.icon-github
+            .name GitHub
+          a.app(href='https://drive.google.com/file/d/0B0bKaqB-nQjqR3hxZWxSOVIwbEE/view')
+            .icon.icon-resume
+            .name Résumé
+          a.app(href='mailto:parkjs814@gmail.com')
+            .icon.icon-email
+            .name Email
+          a.app(href='#license')
+            .icon.icon-license
+            .name External Resources
+        .window-container
+          mixin window(id, width, height)
+            .window(id=id, style=`width: ${width}rem; height: ${height}rem`)
+              .toolbar
+                .button-container
+                  a.button.button-close(href='#')
+                  a.button.button-minimize(href='#')
+                  a.button.button-maximize(href='#')
+                if id === 'browser'
+                  .tab-container
+                else
+                  .title-container
+                    .icon
+                    .name
+              .content
+                block
+              .border-container
+                .border.border-top
+                .border.border-bottom
+                .border.border-left
+                .border.border-right
+                .border.border-top.border-left
+                .border.border-top.border-right
+                .border.border-bottom.border-right
+                .border.border-bottom.border-left
+          +window('directory', 50, 30)
+            .panel-container
+              .panel.panel-root.open
+                a.directory(href='#directory-projects')
+                  .icon.icon-directory
+                  .name Projects
+                a.directory(href='#directory-experiences')
+                  .icon.icon-directory
+                  .name Work Experience
+                a.directory(href='#directory-awards')
+                  .icon.icon-directory
+                  .name Awards
+                a.directory(href='#directory-schools')
+                  .icon.icon-directory
+                  .name Education
+            .panel-container
+              .panel.panel-child#directory-projects
+                each project in data.projects
+                  a.directory(href=`#directory-projects-${project.key}`)
+                    .icon(style=`background-image: url(${project.image})`)
+                    .name= project.name
+              .panel.panel-child#directory-experiences
+                each experience in data.experiences
+                  a.directory(href=`#directory-experiences-${experience.key}`)
+                    .icon(style=`background-image: url(${experience.image})`)
+                    .name= experience.name
+              .panel.panel-child#directory-awards
+                each award in data.awards
+                  a.directory(href=`#directory-awards-${award.key}`)
+                    .icon(style=`background-image: url(${award.image})`)
+                    .name= award.name
+              .panel.panel-child#directory-schools
+                each school in data.schools
+                  a.directory(href=`#directory-schools-${school.key}`)
+                    .icon(style=`background-image: url(${school.image})`)
+                    .name= school.name
+            .panel-container.panel-container-preview
+              each project in data.projects
+                .panel.panel-preview(id=`directory-projects-${project.key}`)
+                  img.preview(src=project.image)
+                  .property-container
+                    .property.property-name= project.name
+                    .property.property-date= project.date
+                    if project.link === '-'
+                      .property.property-link= project.link
+                    else if /^https?:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(project.link)
+                      a.property.property-link(href=`#browser-${project.key}`, data-name=project.name, data-image=project.image, data-url=project.link)= project.link
+                    else
+                      a.property.property-link(href=project.link)= project.link
+                    .property.property-detail= project.detail
+              each experience in data.experiences
+                .panel.panel-preview(id=`directory-experiences-${experience.key}`)
+                  img.preview(src=experience.image)
+                  .property-container
+                    .property.property-name= experience.name
+                    .property.property-date= experience.date
+                    .property.property-location: div!= experience.location
+                    .property.property-position= experience.position
+                    .property.property-detail: div!= experience.detail
+              each award in data.awards
+                .panel.panel-preview(id=`directory-awards-${award.key}`)
+                  img.preview(src=award.image)
+                  .property-container
+                    .property.property-name= award.name
+                    .property.property-date= award.date
+                    .property.property-organizer= award.organizer
+                    .property.property-place: div!= award.place
+              each school in data.schools
+                .panel.panel-preview(id=`directory-schools-${school.key}`)
+                  img.preview(src=school.image)
+                  .property-container
+                    .property.property-name= school.name
+                    .property.property-location: div!= school.location
+                    .property.property-date= school.date
+                    .property.property-gpa= school.gpa
+                    if school.link === '-'
+                      .property.property-link= school.link
+                    else
+                      a.property.property-link(href=school.link)= school.link
+          +window('browser', 60, 40)
+            .addressbar
+              a.button.button-refresh(href='#')
+              .url
+              a.button.button-new(href='#')
+            .iframe-container
+              iframe.iframe
+              .interceptor
+          +window('paypal', 50, 30)
+            #paypal-success
+            .message
+            .menu-container
+              each menu in data.menus
+                form.menu(action='https://www.paypal.com/cgi-bin/webscr', method='post', target='_top')
+                  input(type='hidden', name='cmd', value='_s-xclick')
+                  input(type='hidden', name='hosted_button_id', value=menu.hosted_button_id)
+                  .icon(style=`background-image: url(${menu.image})`)
+                  .name= menu.name
+                  .price= menu.price
+                  button.donate(type='submit')
+          +window('terminal', 40, 28)
+          +window('license', 30, 30)
+            .row-container
+              each license in data.licenses
+                .row
+                  .icon(style=`background-image: url(${license.image})`)
+                  .info
+                    a.path(href=license.image)= license.image
+                    .artist= license.artist
+                  a.link(href=license.link) Link
+      .taskbar
+        .label
+          .icon.icon-profile
+          .name Jinseo Jason Park
+        .shortcut-container
+          a.shortcut(href='#directory')
+            .icon.icon-directory
+            .name Directory
+          a.shortcut.hidden(href='#browser')
+            .icon.icon-browser
+            .name Browser
+          a.shortcut(href='#terminal')
+            .icon.icon-terminal
+            .name Terminal
+          a.shortcut(href='#paypal')
+            .icon.icon-paypal
+            .name Paypal
+          a.shortcut(href='#license')
+            .icon.icon-license
+            .name External Resources
+        .label.clock
+          .name

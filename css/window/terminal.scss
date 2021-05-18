@@ -1,0 +1,77 @@
+&#terminal {
+  background: none;
+
+  &.focus {
+    .content {
+      .line {
+        .letter {
+          &.cursor {
+            border: none;
+            margin: 0;
+            background-color: #2FCB29;
+            color: black;
+            @keyframes blink {
+              from {
+                background-color: #2FCB29;
+                color: black;
+              }
+              50% {
+                background-color: black;
+                color: #2FCB29;
+              }
+            }
+            animation: blink 1s 1s infinite step-end;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: rgba(black, .9);
+    padding: .2rem;
+    overflow-y: scroll;
+
+    .line {
+      flex-shrink: 0;
+      font-family: 'Roboto Mono', sans-serif;
+      color: #2FCB29;
+      font-weight: lighter;
+      display: flex;
+      flex-wrap: wrap;
+      white-space: pre-wrap;
+      word-break: break-all;
+
+      &.word-break {
+        word-break: normal;
+      }
+
+      &:empty {
+        &:before {
+          content: '\00a0';
+        }
+      }
+
+      .letter {
+        padding: 0;
+        margin: 0;
+        white-space: pre;
+
+        &.cursor {
+          border: solid 1px #2FCB29;
+          margin: -1px;
+          box-sizing: border-box;
+
+          &:empty {
+            &:before {
+              content: '\00a0';
+            }
+          }
+        }
+      }
+    }
+  }
+}

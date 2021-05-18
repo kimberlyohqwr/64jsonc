@@ -1,0 +1,39 @@
+.icon {
+  flex-shrink: 0;
+
+  &.icon-terminal {
+    background-image: url(/img/icon/terminal.png);
+  }
+
+  &.icon-directory {
+    background-image: url(/img/icon/directory.png);
+  }
+
+  &.icon-github {
+    background-image: url(/img/icon/github.png);
+  }
+
+  &.icon-resume {
+    background-image: url(/img/icon/resume.png);
+  }
+
+  &.icon-email {
+    background-image: url(/img/icon/email.png);
+  }
+
+  &.icon-paypal {
+    background-image: url(/img/icon/paypal.png);
+  }
+
+  &.icon-profile {
+    background-image: url(/img/profile.jpg);
+  }
+
+  &.icon-browser {
+    background-image: url(/img/icon/browser.png);
+  }
+
+  &.icon-license {
+    background-image: url(/img/icon/license.png);
+  }
+}

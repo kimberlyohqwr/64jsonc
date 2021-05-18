@@ -1,0 +1,33 @@
+module.exports = [{
+  key: 'chaporoyal',
+  name: 'ChapoRoyal',
+  image: '/img/experience/chaporoyal.jpg',
+  date: 'Feb. 2017 -',
+  location: 'Lyon, France;<br>Seoul, South Korea; and<br>Remote Working',
+  position: 'Web Developer',
+  detail: 'Developing several websites including an online store and a business analyzer',
+}, {
+  key: 'incubatex',
+  name: 'IncubateX Hackathon',
+  image: '/img/experience/incubatex.png',
+  date: 'Mar. 2016 - Aug. 2016',
+  location: 'Dallas, Texas, USA',
+  position: 'Web Developer',
+  detail: 'Developed the skeleton website for each <a href="http://jasonpark.me/IncubateDFW/">IncubateX</a> location',
+}, {
+  key: 'freelancer',
+  name: 'Freelancer',
+  image: '/img/experience/freelancer.jpg',
+  date: 'July 2013 -',
+  location: 'Remote Working',
+  position: 'Software Developer',
+  detail: 'Worked on several projects ranging from an online judge to a battery management system',
+}, {
+  key: 'deblur',
+  name: 'Deblur',
+  image: '/img/experience/deblur.png',
+  date: 'Mar. 2012 - Feb. 2014',
+  location: 'Seoul, South Korea',
+  position: 'Android Developer',
+  detail: 'Developed lifestyle Android applications including an <a href="https://play.google.com/store/apps/details?id=com.provision.alarmemi">alarm app</a> and a <a href="https://play.google.com/store/apps/details?id=com.deblur.mallow">planner app</a>',
+}];
