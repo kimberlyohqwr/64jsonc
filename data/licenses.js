@@ -14,4 +14,8 @@ module.exports = [{
   image: '/img/icon/terminal.png',
   artist: 'paomedia',
   link: 'http://www.iconarchive.com/show/small-n-flat-icons-by-paomedia/terminal-icon.html',
+}, {
+  image: '/img/wallpaper.jpg',
+  artist: 'Derrick Brutel',
+  link: 'https://www.flickr.com/photos/143951935@N07/30593604650',
 }];
