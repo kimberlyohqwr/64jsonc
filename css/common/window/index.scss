@@ -18,14 +18,51 @@
   visibility $anim-duration,
   box-shadow $anim-duration;
 
+  &.focus {
+    .content {
+      .interceptor {
+        display: none;
+      }
+    }
+  }
+
   &.moving,
   &.resizing {
     transition: none;
+
+    .content {
+      .interceptor {
+        display: block;
+      }
+    }
   }
 
   &.open {
     visibility: visible;
     opacity: 1;
+  }
+
+  &.no-toolbar {
+    .toolbar {
+      flex: 1;
+      border-bottom: none;
+      background: none;
+
+      .title-container {
+        .name {
+          color: #DDD;
+        }
+      }
+    }
+
+    .content {
+      position: absolute;
+      top: 2.8rem;
+      bottom: 0;
+      width: 100%;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
   }
 
   &.focus {
@@ -72,8 +109,7 @@
 
     .button-container {
       position: absolute;
-      top: 1rem;
-      left: .8rem;
+      padding: 1rem .8rem;
       display: flex;
 
       .button {
@@ -85,6 +121,10 @@
         box-sizing: border-box;
         margin-right: .5rem;
         transition: background-color $anim-duration;
+
+        &:last-child {
+          margin-right: 0;
+        }
 
         &:active {
           border-width: 2px;
@@ -227,8 +267,17 @@
   }
 
   .content {
+    position: relative;
     flex: 1 0;
     overflow: hidden;
+
+    .interceptor {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
 
   $border-width: 4px;
@@ -290,9 +339,11 @@
     }
   }
 
-  @import "./directory";
-  @import "./browser";
-  @import "./paypal";
-  @import "./terminal";
-  @import "./license";
+  @import "directory";
+  @import "browser";
+  @import "paypal";
+  @import "terminal";
+  @import "attribution";
+  @import "instagram";
+  @import "version_history";
 }

@@ -33,7 +33,7 @@
     align-items: stretch;
     background-color: rgba(black, .9);
     padding: .2rem;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .line {
       flex-shrink: 0;

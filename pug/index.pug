@@ -19,41 +19,30 @@ html
     script(type='text/javascript', src='/script.js')
   body
     .screen
+      mixin name(id)
+        = id.split('_').map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' ')
       .desktop
         .app-container
-          a.app(href='#directory-projects')
-            .icon.icon-directory
-            .name Projects
-          a.app(href='#directory-experiences')
-            .icon.icon-directory
-            .name Work Experience
-          a.app(href='#directory-awards')
-            .icon.icon-directory
-            .name Awards
-          a.app(href='#directory-schools')
-            .icon.icon-directory
-            .name Education
-          a.app(href='#terminal')
-            .icon.icon-terminal
-            .name Terminal
-          a.app(href='#paypal')
-            .icon.icon-paypal
-            .name Paypal
-          a.app(href='https://github.com/parkjs814')
-            .icon.icon-github
-            .name GitHub
-          a.app(href='https://drive.google.com/file/d/0B0bKaqB-nQjqR3hxZWxSOVIwbEE/view')
-            .icon.icon-resume
-            .name Résumé
-          a.app(href='mailto:parkjs814@gmail.com')
-            .icon.icon-email
-            .name Email
-          a.app(href='#license')
-            .icon.icon-license
-            .name External Resources
+          mixin app(id, link)
+            a.app(href=link || `#${id}`)
+              .icon(class=`icon-${id.split('-').shift()}`)
+              .name
+                +name(id.split('-').pop())
+          +app('directory-projects')
+          +app('directory-work_experience')
+          +app('directory-awards')
+          +app('directory-education')
+          +app('terminal')
+          +app('instagram')
+          +app('paypal')
+          +app('github', 'https://github.com/parkjs814')
+          +app('resume', 'https://drive.google.com/file/d/0B0bKaqB-nQjqR3hxZWxSOVIwbEE/view')
+          +app('email', 'mailto:parkjs814@gmail.com')
+          +app('version_history')
+          +app('attribution')
         .window-container
-          mixin window(id, width, height)
-            .window(id=id, style=`width: ${width}rem; height: ${height}rem`)
+          mixin window(id, width, height, noToolbar)
+            .window(id=id, style=`width: ${width}rem; height: ${height}rem`, class=noToolbar && 'no-toolbar')
               .toolbar
                 .button-container
                   a.button.button-close(href='#')
@@ -67,6 +56,7 @@ html
                     .name
               .content
                 block
+                .interceptor
               .border-container
                 .border.border-top
                 .border.border-bottom
@@ -82,88 +72,73 @@ html
                 a.directory(href='#directory-projects')
                   .icon.icon-directory
                   .name Projects
-                a.directory(href='#directory-experiences')
+                a.directory(href='#directory-work_experience')
                   .icon.icon-directory
                   .name Work Experience
                 a.directory(href='#directory-awards')
                   .icon.icon-directory
                   .name Awards
-                a.directory(href='#directory-schools')
+                a.directory(href='#directory-education')
                   .icon.icon-directory
                   .name Education
             .panel-container
-              .panel.panel-child#directory-projects
-                each project in data.projects
-                  a.directory(href=`#directory-projects-${project.key}`)
-                    .icon(style=`background-image: url(${project.image})`)
-                    .name= project.name
-              .panel.panel-child#directory-experiences
-                each experience in data.experiences
-                  a.directory(href=`#directory-experiences-${experience.key}`)
-                    .icon(style=`background-image: url(${experience.image})`)
-                    .name= experience.name
-              .panel.panel-child#directory-awards
-                each award in data.awards
-                  a.directory(href=`#directory-awards-${award.key}`)
-                    .icon(style=`background-image: url(${award.image})`)
-                    .name= award.name
-              .panel.panel-child#directory-schools
-                each school in data.schools
-                  a.directory(href=`#directory-schools-${school.key}`)
-                    .icon(style=`background-image: url(${school.image})`)
-                    .name= school.name
+              each child in ['projects', 'work_experience', 'awards', 'education']
+                .panel.panel-child(id=`directory-${child}`)
+                  a.directory.directory-parent(href='#directory-')
+                    .icon.icon-directory
+                    .name ..
+                  each file in data[child]
+                    a.directory(href=`#directory-${child}-${file.key}`)
+                      .icon(style=`background-image: url(${file.image})`)
+                      .name= file.name
             .panel-container.panel-container-preview
-              each project in data.projects
-                .panel.panel-preview(id=`directory-projects-${project.key}`)
-                  img.preview(src=project.image)
+              mixin panel-preview(child, file)
+                .panel.panel-preview(id=`directory-${child}-${file.key}`)
+                  img.preview(src=file.image)
                   .property-container
-                    .property.property-name= project.name
-                    .property.property-date= project.date
-                    if project.link === '-'
-                      .property.property-link= project.link
-                    else if /^https?:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(project.link)
-                      a.property.property-link(href=`#browser-${project.key}`, data-name=project.name, data-image=project.image, data-url=project.link)= project.link
-                    else
-                      a.property.property-link(href=project.link)= project.link
-                    .property.property-detail= project.detail
-              each experience in data.experiences
-                .panel.panel-preview(id=`directory-experiences-${experience.key}`)
-                  img.preview(src=experience.image)
-                  .property-container
-                    .property.property-name= experience.name
-                    .property.property-date= experience.date
-                    .property.property-location: div!= experience.location
-                    .property.property-position= experience.position
-                    .property.property-detail: div!= experience.detail
-              each award in data.awards
-                .panel.panel-preview(id=`directory-awards-${award.key}`)
-                  img.preview(src=award.image)
-                  .property-container
-                    .property.property-name= award.name
-                    .property.property-date= award.date
-                    .property.property-organizer= award.organizer
-                    .property.property-place: div!= award.place
-              each school in data.schools
-                .panel.panel-preview(id=`directory-schools-${school.key}`)
-                  img.preview(src=school.image)
-                  .property-container
-                    .property.property-name= school.name
-                    .property.property-location: div!= school.location
-                    .property.property-date= school.date
-                    .property.property-gpa= school.gpa
-                    if school.link === '-'
-                      .property.property-link= school.link
-                    else
-                      a.property.property-link(href=school.link)= school.link
+                    block
+                  a.close(href=`#directory-${child}`)
+              each file in data.projects
+                +panel-preview('projects', file)
+                  .property.property-name= file.name
+                  .property.property-date= file.date
+                  if file.link === '-'
+                    .property.property-link= file.link
+                  else if /^https?:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(file.link)
+                    a.property.property-link(href=`#browser-${file.key}`, data-name=file.name, data-image=file.image, data-url=file.link)= file.link
+                  else
+                    a.property.property-link(href=file.link)= file.link
+                  .property.property-detail= file.detail
+              each file in data.work_experience
+                +panel-preview('work_experience', file)
+                  .property.property-name= file.name
+                  .property.property-date= file.date
+                  .property.property-location: div!= file.location
+                  .property.property-position= file.position
+                  .property.property-detail: div!= file.detail
+              each file in data.awards
+                +panel-preview('awards', file)
+                  .property.property-name= file.name
+                  .property.property-date= file.date
+                  .property.property-organizer= file.organizer
+                  .property.property-place: div!= file.place
+              each file in data.education
+                +panel-preview('education', file)
+                  .property.property-name= file.name
+                  .property.property-location: div!= file.location
+                  .property.property-date= file.date
+                  .property.property-gpa= file.gpa
+                  if file.link === '-'
+                    .property.property-link= file.link
+                  else
+                    a.property.property-link(href=file.link)= file.link
           +window('browser', 60, 40)
             .addressbar
               a.button.button-refresh(href='#')
               .url
               a.button.button-new(href='#')
-            .iframe-container
-              iframe.iframe
-              .interceptor
-          +window('paypal', 50, 30)
+            iframe.iframe
+          +window('paypal', 50, 30, true)
             #paypal-success
             .message
             .menu-container
@@ -176,34 +151,55 @@ html
                   .price= menu.price
                   button.donate(type='submit')
           +window('terminal', 40, 28)
-          +window('license', 30, 30)
+          +window('attribution', 30, 30)
             .row-container
-              each license in data.licenses
+              each attribution in data.attributions
                 .row
-                  .icon(style=`background-image: url(${license.image})`)
+                  .icon(style=`background-image: url(${attribution.image})`)
                   .info
-                    a.path(href=license.image)= license.image
-                    .artist= license.artist
-                  a.link(href=license.link) Link
+                    a.path(href=attribution.image)= attribution.image
+                    .artist= attribution.artist
+                  a.link(href=attribution.link) Link
+          +window('instagram', 44, 30, true)
+            .photo-container
+              each instagram in data.instagrams
+                a.photo(style=`background-image: url(https://instagram.com/p/${instagram}/media/?size=m)`, href=`#instagram-${instagram}`, data-instagram=instagram)
+                  img.ratio(src='/img/insta-ratio.png')
+            a.embed-container(href='#instagram-')
+          +window('version_history', 30, 30)
+            .version-container
+              each version in [0, 1, 2]
+                a.version(class=`version-${version}`, href=`#browser-v_${version}`, data-name=`Version ${version}`, data-image='/img/icon/version_history.png', data-url=`./version_history/v${version}`)
       .taskbar
-        .label
+        .label.label-profile
           .icon.icon-profile
           .name Jinseo Jason Park
         .shortcut-container
-          a.shortcut(href='#directory')
-            .icon.icon-directory
-            .name Directory
-          a.shortcut.hidden(href='#browser')
-            .icon.icon-browser
-            .name Browser
-          a.shortcut(href='#terminal')
-            .icon.icon-terminal
-            .name Terminal
-          a.shortcut(href='#paypal')
-            .icon.icon-paypal
-            .name Paypal
-          a.shortcut(href='#license')
-            .icon.icon-license
-            .name External Resources
-        .label.clock
+          mixin shortcut(id, hidden)
+            a.shortcut(href=`#${id}`, class=hidden && 'hidden')
+              .icon(class=`icon-${id}`)
+              .name
+                +name(id)
+          +shortcut('directory')
+          +shortcut('browser', true)
+          +shortcut('terminal')
+          +shortcut('instagram')
+          +shortcut('paypal')
+          +shortcut('version_history')
+          +shortcut('attribution')
+        .label.label-clock
           .name
+    script.
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                  (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-74575204-1', 'auto');
+      ga('send', 'pageview');
+    script(async='', defer='', src='//platform.instagram.com/en_US/embeds.js')

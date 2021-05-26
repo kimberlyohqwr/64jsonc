@@ -15,6 +15,13 @@
     align-items: center;
     background-color: rgba(black, .2);
     padding: 0 1rem;
+    white-space: nowrap;
+
+    &.label-profile {
+    }
+
+    &.label-clock {
+    }
 
     .icon {
       height: 2rem;
@@ -34,14 +41,15 @@
   .shortcut-container {
     flex: 1;
     display: flex;
+    overflow-x: auto;
 
     .shortcut {
+      flex-shrink: 0;
       position: relative;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       box-sizing: border-box;
-      flex-shrink: 1;
       overflow: hidden;
       transition: max-width $anim-duration,
       opacity $anim-duration,

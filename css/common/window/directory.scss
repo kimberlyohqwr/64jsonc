@@ -7,7 +7,7 @@
       flex: 1;
       border-right: solid 1px #CCC;
       box-sizing: border-box;
-      overflow-y: scroll;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
 
@@ -32,6 +32,10 @@
             display: flex;
             align-items: center;
             padding: .2rem .4rem;
+
+            &.directory-parent {
+              display: none;
+            }
 
             .icon {
               height: 1.2rem;

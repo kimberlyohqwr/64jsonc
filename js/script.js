@@ -5,13 +5,17 @@ $(document).ready(() => {
   const $terminal = $('#terminal');
   const $toolbar = $window.find('.toolbar');
   const $buttonContainer = $toolbar.find('.button-container');
-  const $iframe = $browser.find('.iframe');
-  const $addressbar = $browser.find('.addressbar');
+  const $browserIframe = $browser.find('.iframe');
+  const $browserAddressbar = $browser.find('.addressbar');
+  const $instagram = $('#instagram');
+  const $instagramEmbedContainer = $instagram.find('.embed-container');
   const $body = $('body');
-  const $clock = $('.clock');
+  const $labelClock = $('.label-clock');
   const $a = $('a');
 
   let zIndex = 2;
+  let desktop = null;
+  let mobile = null;
 
   const focus = ($selectedWindow) => {
     window.location.hash = $selectedWindow.data('last-hash');
@@ -23,6 +27,12 @@ $(document).ready(() => {
 
   const handleHashChange = () => {
     const { hash } = window.location;
+    if (hash.endsWith('-')) {
+      const newHash = hash.substring(0, hash.length - 1);
+      $(newHash).data('last-hash', null);
+      window.location.hash = newHash;
+      return;
+    }
     const $hash = $(hash);
     if ($hash.hasClass('window', 'open')) {
       const lastHash = $hash.data('last-hash');
@@ -65,61 +75,95 @@ $(document).ready(() => {
       $launcher.addClass('active');
       $selector.addClass('open');
     }
-    const $tabContainer = $selectedWindow.find('.tab-container');
-    if ($tabContainer.length) {
-      if ($hash.length) {
-        const tab = $hash[0];
-        tab.click();
-      } else {
-        const $tab = $('<a class="tab open active"></a>');
-        $tab.attr('id', hash.substring(1));
-        $tab.attr('href', hash);
-        const url = $firstLauncher.data('url');
-        $tab.data({ url });
-        const $icon = $('<div class="icon"></div>');
-        const $name = $('<div class="name"></div>');
-        const $close = $('<a class="close" href="#"></a>');
-        $icon.css('background-image', `url(${$firstLauncher.data('image')})`);
-        $name.text($firstLauncher.data('name'));
-        $close.attr('href', '#');
-        $close.click((e) => {
-          e.preventDefault();
-          const isOpen = $tab.hasClass('open');
-          const prevTab = $tab.prev()[0] || $tab.next()[0];
-          $tab.remove();
-          if (isOpen) {
-            if (prevTab) {
-              prevTab.click();
-            } else {
-              const [buttonClose] = $selectedWindow.find('.button-close');
-              buttonClose.click();
+    const windowId = $selectedWindow.attr('id');
+    switch (windowId) {
+      case 'browser': {
+        const $tabContainer = $selectedWindow.find('.tab-container');
+        if ($hash.length) {
+          const tab = $hash[0];
+          tab.click();
+        } else {
+          const $tab = $('<a class="tab open active"></a>');
+          $tab.attr('id', hash.substring(1));
+          $tab.attr('href', hash);
+          const url = $firstLauncher.data('url');
+          $tab.data({ url });
+          $tab.mousedown((e) => e.stopPropagation());
+          const $icon = $('<div class="icon"></div>');
+          const $name = $('<div class="name"></div>');
+          const $close = $('<a class="close" href="#"></a>');
+          $icon.css('background-image', `url(${$firstLauncher.data('image')})`);
+          $name.text($firstLauncher.data('name'));
+          $close.attr('href', '#');
+          $close.click((e) => {
+            e.preventDefault();
+            const isOpen = $tab.hasClass('open');
+            const prevTab = $tab.prev()[0] || $tab.next()[0];
+            $tab.remove();
+            if (isOpen) {
+              if (prevTab) {
+                prevTab.click();
+              } else {
+                const [buttonClose] = $selectedWindow.find('.button-close');
+                buttonClose.click();
+              }
             }
-          }
-        });
-        $close.mousedown((e) => {
-          e.stopPropagation();
-        });
-        $tab.append($icon);
-        $tab.append($name);
-        $tab.append($close);
-        $tab.click(() => {
-          if ($iframe.attr('src') !== url) {
-            $iframe.attr('src', url);
-          }
-          $addressbar.find('.url').text(url);
-        });
-        $tab.click();
-        $tabContainer.append($tab);
+          });
+          $tab.append($icon);
+          $tab.append($name);
+          $tab.append($close);
+          $tab.click(() => {
+            if ($browserIframe.attr('src') !== url) {
+              $browserIframe.attr('src', url);
+            }
+            $browserAddressbar.find('.url').text(url);
+          });
+          $tab.click();
+          $tabContainer.append($tab);
+        }
+        break;
       }
-    } else {
-      const $titleContainer = $selectedWindow.find('.title-container');
-      $titleContainer.empty();
-      $titleContainer.append($firstLauncher.children().clone());
+      case 'instagram': {
+        const $titleContainer = $selectedWindow.find('.title-container');
+        $titleContainer.empty();
+        $titleContainer.append('<div class="icon icon-instagram">');
+        $titleContainer.append('<div class="name">Instagram</div>');
+        if (!$hash.length) {
+          const instagram = $firstLauncher.data('instagram');
+          $.ajax({
+            url: "https://api.instagram.com/oembed/",
+            dataType: "jsonp",
+            data: {
+              url: `http://instagram.com/p/${instagram}/`,
+              omitscript: true,
+            },
+            success: (res) => {
+              $instagramEmbedContainer.attr('id', `instagram-${instagram}`);
+              $instagramEmbedContainer.html(res.html);
+              instgrm.Embeds.process();
+              $instagramEmbedContainer.addClass('open');
+            },
+          });
+        }
+        break;
+      }
+      default: {
+        const $titleContainer = $selectedWindow.find('.title-container');
+        $titleContainer.empty();
+        $titleContainer.append($firstLauncher.children().clone());
+        break;
+      }
     }
   };
   window.setTimeout(handleHashChange, 0);
   $(window).on('hashchange', handleHashChange);
 
+  $buttonContainer.click(function () {
+    if (mobile) {
+      const [buttonClose] = $(this).find('.button-close');
+      buttonClose.click();
+    }
+  });
   $buttonContainer.find('.button-close').click(function (e) {
     const $selectedWindow = $(this).parents('.window');
     const id = $selectedWindow.attr('id');
@@ -133,28 +177,30 @@ $(document).ready(() => {
         break;
       case 'browser':
         $selectedWindow.find('.tab-container').empty();
-        $iframe.attr('src', null);
-        $addressbar.find('.url').text(null);
+        $browserIframe.attr('src', null);
+        $browserAddressbar.find('.url').text(null);
         break;
     }
   });
   $buttonContainer.find('.button-minimize').click(function (e) {
+    if (mobile) return;
     const $selectedWindow = $(this).parents('.window');
     $selectedWindow.addClass('minimize');
   });
   $buttonContainer.find('.button-maximize').click(function (e) {
+    if (mobile) return;
     e.preventDefault();
     const $selectedWindow = $(this).parents('.window');
     $selectedWindow.toggleClass('maximize');
   });
 
-  $addressbar.find('.button-refresh').click((e) => {
+  $browserAddressbar.find('.button-refresh').click((e) => {
     e.preventDefault();
-    $iframe.attr('src', $iframe.attr('src'));
+    $browserIframe.attr('src', $browserIframe.attr('src'));
   });
-  $addressbar.find('.button-new').click((e) => {
+  $browserAddressbar.find('.button-new').click((e) => {
     e.preventDefault();
-    window.open($iframe.attr('src'));
+    window.open($browserIframe.attr('src'));
   });
 
   $('.desktop').mousedown(() => {
@@ -569,8 +615,8 @@ $(document).ready(() => {
   });
 
   $window.each(function (i) {
-    const top = 20 + i * 40;
-    const left = 20 + i * 40;
+    const top = 20 + i * 20;
+    const left = 20 + i * 20;
     $(this).css({ top, left });
   });
 
@@ -578,6 +624,7 @@ $(document).ready(() => {
   let windowStyle = {};
   let cursor = {};
   $toolbar.mousedown(function (e) {
+    if (mobile) return;
     if (e.which !== 1) return;
     $selectedWindow = $(this).parents('.window');
     if ($selectedWindow.hasClass('maximize')) return;
@@ -613,6 +660,7 @@ $(document).ready(() => {
     let windowStyle = {};
     let cursor = {};
     $window.find('.border-container').find(selector).mousedown(function (e) {
+      if (mobile) return;
       if (e.which !== 1) return;
       $selectedWindow = $(this).parents('.window');
       if ($selectedWindow.hasClass('maximize')) return;
@@ -652,7 +700,7 @@ $(document).ready(() => {
     const mm = two(m);
     const A = ['AM', 'PM'][H / 12 | 0];
     const format = `${hh}:${mm} ${A}`;
-    $clock.find('.name').text(format);
+    $labelClock.find('.name').text(format);
   };
   window.setInterval(refreshClock, 1000);
   refreshClock();
@@ -661,13 +709,14 @@ $(document).ready(() => {
     const href = $(this).attr('href');
     if (!href.startsWith('#')) {
       $(this).attr('target', '_blank');
+      $(this).addClass('link-external');
     }
   });
 
   const onResize = () => {
     const { clientWidth } = document.body;
-    const desktop = clientWidth > 960;
-    const mobile = !desktop;
+    desktop = clientWidth > 512;
+    mobile = !desktop;
     $body.toggleClass('desktop', desktop);
     $body.toggleClass('mobile', mobile);
   };
