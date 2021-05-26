@@ -1,21 +1,21 @@
 &#directory {
   .content {
+    position: relative;
+
     .panel-container {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
-      right: 0;
-      pointer-events: none;
 
       .panel {
-        position: absolute;
+        position: relative;
         top: 0;
         bottom: 0;
         left: 0;
-        right: 0;
+        width: 100vw;
+        box-sizing: border-box;
         background-color: white;
-        pointer-events: auto;
 
         &.panel-root,
         &.panel-child {

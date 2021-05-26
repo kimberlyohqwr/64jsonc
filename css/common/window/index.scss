@@ -18,11 +18,13 @@
   visibility $anim-duration,
   box-shadow $anim-duration;
 
+  iframe {
+    display: none;
+  }
+
   &.focus {
-    .content {
-      .interceptor {
-        display: none;
-      }
+    .interceptor {
+      display: none;
     }
   }
 
@@ -30,16 +32,18 @@
   &.resizing {
     transition: none;
 
-    .content {
-      .interceptor {
-        display: block;
-      }
+    .interceptor {
+      display: block;
     }
   }
 
   &.open {
     visibility: visible;
     opacity: 1;
+
+    iframe {
+      display: block;
+    }
   }
 
   &.no-toolbar {
@@ -57,7 +61,7 @@
 
     .content {
       position: absolute;
-      top: 2.8rem;
+      top: $toolbar-height;
       bottom: 0;
       width: 100%;
       pointer-events: none;
@@ -90,7 +94,7 @@
   &.maximize {
     top: 0 !important;
     left: 0 !important;
-    height: calc(100vh - #{$taskbar-height}) !important;
+    height: calc(100% - #{$taskbar-height}) !important;
     width: 100vw !important;
   }
 
@@ -164,7 +168,7 @@
       margin-left: 5.8rem;
       display: flex;
       align-items: flex-end;
-      height: 2.8rem;
+      height: $toolbar-height;
 
       .tab {
         position: relative;
@@ -270,72 +274,61 @@
     position: relative;
     flex: 1 0;
     overflow: hidden;
-
-    .interceptor {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
   }
 
-  $border-width: 4px;
-
-  .border-container {
+  .interceptor {
     position: absolute;
-    z-index: 1;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    pointer-events: none;
+  }
 
-    .border {
-      position: absolute;
-      pointer-events: auto;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
+  $border-width: 4px;
 
-      &.border-top,
-      &.border-bottom {
-        height: $border-width;
-        cursor: ns-resize;
-      }
+  .border {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
-      &.border-top {
-        bottom: auto
-      }
+    &.border-top,
+    &.border-bottom {
+      height: $border-width;
+      cursor: ns-resize;
+    }
 
-      &.border-bottom {
-        top: auto;
-      }
+    &.border-top {
+      bottom: auto
+    }
 
-      &.border-left,
-      &.border-right {
-        width: $border-width;
-        cursor: ew-resize;
-      }
+    &.border-bottom {
+      top: auto;
+    }
 
-      &.border-left {
-        right: auto;
-      }
+    &.border-left,
+    &.border-right {
+      width: $border-width;
+      cursor: ew-resize;
+    }
 
-      &.border-right {
-        left: auto;
-      }
+    &.border-left {
+      right: auto;
+    }
 
-      &.border-top.border-left,
-      &.border-bottom.border-right {
-        cursor: nwse-resize;
-      }
+    &.border-right {
+      left: auto;
+    }
 
-      &.border-top.border-right,
-      &.border-bottom.border-left {
-        cursor: nesw-resize;
-      }
+    &.border-top.border-left,
+    &.border-bottom.border-right {
+      cursor: nwse-resize;
+    }
+
+    &.border-top.border-right,
+    &.border-bottom.border-left {
+      cursor: nesw-resize;
     }
   }
 

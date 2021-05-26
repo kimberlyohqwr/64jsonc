@@ -9,7 +9,7 @@ $(document).ready(() => {
   const $browserAddressbar = $browser.find('.addressbar');
   const $instagram = $('#instagram');
   const $instagramEmbedContainer = $instagram.find('.embed-container');
-  const $body = $('body');
+  const $html = $('html');
   const $labelClock = $('.label-clock');
   const $a = $('a');
 
@@ -659,7 +659,7 @@ $(document).ready(() => {
     let $selectedWindow = null;
     let windowStyle = {};
     let cursor = {};
-    $window.find('.border-container').find(selector).mousedown(function (e) {
+    $window.find(selector).mousedown(function (e) {
       if (mobile) return;
       if (e.which !== 1) return;
       $selectedWindow = $(this).parents('.window');
@@ -709,6 +709,7 @@ $(document).ready(() => {
     const href = $(this).attr('href');
     if (!href.startsWith('#')) {
       $(this).attr('target', '_blank');
+      $(this).attr('rel', 'noopener');
       $(this).addClass('link-external');
     }
   });
@@ -717,8 +718,8 @@ $(document).ready(() => {
     const { clientWidth } = document.body;
     desktop = clientWidth > 512;
     mobile = !desktop;
-    $body.toggleClass('desktop', desktop);
-    $body.toggleClass('mobile', mobile);
+    $html.toggleClass('desktop', desktop);
+    $html.toggleClass('mobile', mobile);
   };
   onResize();
   window.onresize = onResize;

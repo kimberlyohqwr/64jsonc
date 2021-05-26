@@ -3,6 +3,8 @@ $font-size-normal: 1rem;
 $font-size-small: .8rem;
 $taskbar-height: 3rem;
 $anim-duration: .2s;
+$toolbar-height: 2.8rem;
+$theme-color: #3D3D3D;
 
 a {
   display: inline-block;
@@ -29,13 +31,24 @@ a {
     bottom: 0;
     left: 0;
     right: 0;
-    background: url(/img/wallpaper.jpg) center;
+    background: $theme-color url(img/wallpaper.jpg) center;
     background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding-bottom: $taskbar-height;
+
+    .github-corner {
+      svg {
+        fill: #E54E43;
+        color: $theme-color;
+        position: absolute;
+        top: 0;
+        border: 0;
+        right: 0;
+      }
+    }
 
     .app-container {
       display: flex;
@@ -46,6 +59,8 @@ a {
       padding: 1rem;
 
       .app {
+        position: relative;
+        z-index: 1;
         width: 8rem;
         height: 8rem;
         display: flex;
@@ -68,7 +83,7 @@ a {
               margin-left: .15rem;
               width: .8em;
               height: 100%;
-              background: url(/img/link-external.png) no-repeat bottom;
+              background: url(img/link-external.png) no-repeat bottom;
               background-size: contain;
               opacity: .5;
             }

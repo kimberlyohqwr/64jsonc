@@ -8,19 +8,16 @@ body {
 }
 
 html {
+  @import "common/index";
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   user-select: none;
-}
-
-body {
-  @import "common/index";
-
-  &.desktop {
-    @import "desktop/index";
-  }
 
   &.mobile {
-    @import "mobile/index";
+    font-size: 18px;
+
+    body {
+      @import "mobile/index";
+    }
   }
 }

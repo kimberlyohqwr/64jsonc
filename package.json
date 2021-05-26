@@ -1,7 +1,7 @@
 {
-  "name": "jasonpark",
-  "version": "1.0.0",
-  "description": "Jason Park",
+  "name": "jasonpark.me",
+  "version": "3.0.0",
+  "description": "Jinseo Jason Park",
   "scripts": {
     "start": "gulp",
     "build": "gulp build"
@@ -10,8 +10,8 @@
     "type": "git",
     "url": "https://github.com/parkjs814/parkjs814.github.io"
   },
-  "author": "Jason Park",
-  "license": "ISC",
+  "author": "Jinseo Jason Park",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/parkjs814/parkjs814.github.io/issues"
   },

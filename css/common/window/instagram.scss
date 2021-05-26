@@ -55,9 +55,9 @@
 
       iframe {
         flex-shrink: 0;
-        width: 100%;
+        width: calc(100% - 4rem) !important;
         max-width: 480px !important;
-        margin: 2rem 4rem !important;
+        margin: 2rem !important;
         box-shadow: 0 0 48px rgba(black, .3) !important;
       }
     }
