@@ -44,6 +44,10 @@
     iframe {
       display: block;
     }
+
+    .content {
+      display: flex;
+    }
   }
 
   &.no-toolbar {
@@ -274,6 +278,7 @@
     position: relative;
     flex: 1 0;
     overflow: hidden;
+    display: none;
   }
 
   .interceptor {
