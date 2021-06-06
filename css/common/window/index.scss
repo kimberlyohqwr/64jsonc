@@ -23,8 +23,10 @@
   }
 
   &.focus {
-    .interceptor {
-      display: none;
+    .content {
+      .interceptor {
+        display: none;
+      }
     }
   }
 
@@ -32,8 +34,10 @@
   &.resizing {
     transition: none;
 
-    .interceptor {
-      display: block;
+    .content {
+      .interceptor {
+        display: block;
+      }
     }
   }
 
@@ -279,14 +283,14 @@
     flex: 1 0;
     overflow: hidden;
     display: none;
-  }
 
-  .interceptor {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    .interceptor {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
 
   $border-width: 4px;
