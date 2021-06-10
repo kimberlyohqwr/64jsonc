@@ -305,9 +305,11 @@ $(document).ready(() => {
     const tokens = pathArg ? pathArg.split('/') : [];
     let directories = [...currentDirectories];
     if (tokens[0] === '') {
-      directories = []
+      directories = [];
+      tokens.shift();
     } else if (tokens[0] === '~') {
       directories = ['users', 'jason'];
+      tokens.shift();
     }
     for (const token of tokens) {
       switch (token) {
@@ -358,6 +360,7 @@ $(document).ready(() => {
   const reattachCursor = ($cursor) => {
     $cursor.prev().after($cursor);
   };
+  const isDir = (path, directory) => Object.keys(path[directory]).length > 0;
   const processCommand = (input) => {
     const [command, ...args] = input.split(/\s+/);
     switch (command) {
@@ -379,7 +382,7 @@ $(document).ready(() => {
       }
       case 'whoami': {
         print([
-          `<b>Jinseo Jason Park</b>:`,
+          `<div class="highlight">Jinseo Jason Park</div>:`,
           `I'm a web developer, hackathoner, and traveler.`,
           `I prefer leading a busy life, but also love to waste time having miscellaneous thoughts. Currently I am a highschool senior in Kansas and a remote working developer. ` +
           `During the break, I work for my company on site either in Lyon, France or in Seoul, Korea; and enjoy traveling the world. `,
@@ -408,10 +411,10 @@ $(document).ready(() => {
           print(`-bash: ${command}: ${pathArg}: No such file or directory`);
           break;
         } else if (Object.keys(path).length === 0) {
-          print(directories.pop());
+          print(`<div class="file">${directories.pop()}</div>`);
           break;
         }
-        print(Object.keys(path));
+        print(Object.keys(path).map(directory => `<div class="${isDir(path, directory) ? 'dir' : 'file'}">${directory}</div>`));
         break;
       }
       case 'pwd': {
@@ -516,7 +519,7 @@ $(document).ready(() => {
                 $cursor.detach();
                 $line.before($line.clone());
                 for (const directory of possibleDirectories) {
-                  $line.before(`<div class="line">${directory}</div>`);
+                  $line.before(`<div class="line"><div class="${isDir(path, directory) ? 'dir' : 'file'}">${directory}</div></div>`);
                 }
                 $cursor.appendTo($line);
               }

@@ -71,6 +71,19 @@
           }
         }
       }
+
+      .highlight {
+        font-weight: bold;
+      }
+
+      .dir {
+        color: #65A6CA;
+        font-weight: bold;
+      }
+
+      .file {
+        color: #9DD55E;
+      }
     }
   }
 }
