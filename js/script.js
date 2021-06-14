@@ -218,7 +218,7 @@ $(document).ready(() => {
     const { keyCode } = e;
     switch (keyCode) {
       case 38:
-        const [prevDirectory] = $selectedDirectory.prev();
+        const [prevDirectory] = $selectedDirectory.prev(':not(.directory-parent)');
         if (prevDirectory) prevDirectory.click();
         break;
       case 40:
@@ -230,7 +230,7 @@ $(document).ready(() => {
         if (parentDirectory) parentDirectory.click();
         break;
       case 39:
-        const [childDirectory] = $selectedDirectory.parents('.panel-container').next().find('.panel.open .directory').first();
+        const [childDirectory] = $selectedDirectory.parents('.panel-container').next().find('.panel.open .directory:not(.directory-parent)').first();
         if (childDirectory) childDirectory.click();
         break;
     }
@@ -282,9 +282,9 @@ $(document).ready(() => {
     hackertyperIndex = 0;
   };
   const newInputLine = (clear = false, prompt = true) => {
-    const $content = $terminal.find('.content');
+    const $lineContainer = $terminal.find('.line-container');
     if (clear) {
-      $content.empty();
+      $lineContainer.empty();
     }
     const $newLine = $('<div class="line">');
     if (prompt) {
@@ -298,7 +298,7 @@ $(document).ready(() => {
     const $cursor = $terminal.find('.cursor');
     $cursor.removeClass('cursor');
     $newLine.append('<div class="letter cursor">');
-    $content.append($newLine);
+    $lineContainer.append($newLine);
     return $newLine;
   };
   const getDirectories = (pathArg) => {
@@ -333,14 +333,15 @@ $(document).ready(() => {
     }
     return path;
   };
+  const getSelector = (directories) => '#' + directories.slice(3).join('-');
   const print = (lines, wordBreak = false) => {
     if (!Array.isArray(lines)) lines = [lines];
-    const $content = $terminal.find('.content');
+    const $lineContainer = $terminal.find('.line-container');
     lines.forEach((line) => {
       const $newLine = $('<div class="line">');
       $newLine.html(line);
       if (wordBreak) $newLine.addClass('word-break');
-      $content.append($newLine);
+      $lineContainer.append($newLine);
     });
   };
   const type = (string) => {
@@ -368,16 +369,20 @@ $(document).ready(() => {
         break;
       case 'help': {
         print([
-          ' help            show all the possible commands',
-          ' whoami          display information about jason',
-          ' cd [dir]        change the working directory',
-          ' ls [dir]        list directory contents',
-          ' pwd             return the working directory',
-          ' open [files]    open the files',
-          ' clear           clear the terminal screen',
-          ' exit            close the terminal window',
-          ' hackertyper     ?????',
-        ]);
+          ' *help*            show all the possible commands',
+          ' *whoami*          display information about jason',
+          ' *cd* {dir}        change the working directory',
+          ' *ls* {dir}        list directory contents',
+          ' *pwd*             return the working directory',
+          ' *rm* [-fr] {dir}  remove directory entries',
+          ' *open* {files}    open the files',
+          ' *clear*           clear the terminal screen',
+          ' *exit*            close the terminal window',
+          ' *hackertyper*     ?????',
+        ].map(line => line
+          .replace(/ /g, '&nbsp;')
+          .replace(/\{(\w+)\}/g, '<div class="underline">$1</div>&nbsp;&nbsp;')
+          .replace(/\*(\w+)\*/g, '<div class="highlight">$1</div>')));
         break;
       }
       case 'whoami': {
@@ -421,6 +426,39 @@ $(document).ready(() => {
         print('/' + currentDirectories.join('/'));
         break;
       }
+      case 'rm': {
+        const pathArg = args.find(arg => !arg.startsWith('-'));
+        const optionArg = args.find(arg => arg.startsWith('-'));
+        const options = optionArg ? optionArg.substring(1).split('') : [];
+        const directories = getDirectories(pathArg);
+        const path = getPath(directories);
+        if (path === undefined) {
+          print(`-bash: ${command}: ${pathArg}: No such file or directory`);
+          break;
+        } else {
+          if (Object.keys(path).length && !options.includes('r')) {
+            print(`-bash: ${command}: ${pathArg}: Is a directory`);
+            break;
+          }
+          const selector = getSelector(directories);
+          // TODO: wildcard selector?
+          if (selector === '#') {
+            if (!options.includes('f')) {
+              print(`-bash: ${command}: ${pathArg}: Permission denied (try again with -f)`);
+              break;
+            }
+            $('.desktop').remove();
+          } else {
+            $(`a[href='${selector}']`).remove();
+            $(`[id='${selector.substring(1)}']`).remove();
+            $(`a[href^='${selector}-']`).remove();
+            $(`[id^='${selector.substring(1)}-']`).remove();
+          }
+          const directory = directories.pop();
+          delete getPath(directories)[directory];
+          break;
+        }
+      }
       case 'open': {
         let delay = 0;
         for (const pathArg of args) {
@@ -435,7 +473,7 @@ $(document).ready(() => {
           }
           const hash = '#' + directories.join('-');
           if (hash === '#' || !$(hash).length) {
-            print(`-bash: ${command}: ${pathArg}: Permission Denied`);
+            print(`-bash: ${command}: ${pathArg}: Permission denied`);
             continue;
           }
           window.setTimeout(() => {
@@ -603,6 +641,7 @@ $(document).ready(() => {
     const [cursor] = $terminal.find('.cursor');
     cursor.scrollIntoView();
   };
+
 
   $(document).keydown((e) => {
     if ($directory.hasClass('focus')) {

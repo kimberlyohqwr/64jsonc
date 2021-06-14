@@ -3,24 +3,26 @@
 
   &.focus {
     .content {
-      .line {
-        .letter {
-          &.cursor {
-            border: none;
-            margin: 0;
-            background-color: #2FCB29;
-            color: black;
-            @keyframes blink {
-              from {
-                background-color: #2FCB29;
-                color: black;
+      .line-container {
+        .line {
+          .letter {
+            &.cursor {
+              border: none;
+              margin: 0;
+              background-color: #2FCB29;
+              color: black;
+              @keyframes blink {
+                from {
+                  background-color: #2FCB29;
+                  color: black;
+                }
+                50% {
+                  background-color: black;
+                  color: #2FCB29;
+                }
               }
-              50% {
-                background-color: black;
-                color: #2FCB29;
-              }
+              animation: blink 1s 1s infinite step-end;
             }
-            animation: blink 1s 1s infinite step-end;
           }
         }
       }
@@ -30,59 +32,67 @@
   .content {
     flex-direction: column;
     align-items: stretch;
-    background-color: rgba(black, .9);
-    padding: .2rem;
-    overflow-y: auto;
 
-    .line {
-      flex-shrink: 0;
-      font-family: 'Roboto Mono', sans-serif;
-      color: #2FCB29;
-      font-weight: lighter;
-      display: flex;
-      flex-wrap: wrap;
-      white-space: pre-wrap;
-      word-break: break-all;
+    .line-container {
+      flex: 1;
+      background-color: rgba(black, .9);
+      padding: .2rem;
+      overflow-y: auto;
 
-      &.word-break {
-        word-break: normal;
-      }
+      .line {
+        flex-shrink: 0;
+        font-family: 'Roboto Mono', sans-serif;
+        color: #2FCB29;
+        font-weight: lighter;
+        display: flex;
+        flex-wrap: wrap;
+        white-space: pre-wrap;
+        word-break: break-all;
 
-      &:empty {
-        &:before {
-          content: '\00a0';
+        &.word-break {
+          word-break: normal;
         }
-      }
 
-      .letter {
-        padding: 0;
-        margin: 0;
-        white-space: pre;
+        &:empty {
+          &:before {
+            content: '\00a0';
+          }
+        }
 
-        &.cursor {
-          border: solid 1px #2FCB29;
-          margin: -1px;
-          box-sizing: border-box;
+        .letter {
+          padding: 0;
+          margin: 0;
+          white-space: pre;
 
-          &:empty {
-            &:before {
-              content: '\00a0';
+          &.cursor {
+            border: solid 1px #2FCB29;
+            margin: -1px;
+            box-sizing: border-box;
+
+            &:empty {
+              &:before {
+                content: '\00a0';
+              }
             }
           }
         }
-      }
 
-      .highlight {
-        font-weight: bold;
-      }
+        .highlight {
+          font-weight: bold;
+        }
 
-      .dir {
-        color: #65A6CA;
-        font-weight: bold;
-      }
+        .underline {
+          text-decoration: underline;
+        }
 
-      .file {
-        color: #9DD55E;
+        .dir {
+          color: #65A6CA;
+          font-weight: bold;
+        }
+
+        .file {
+          color: #9DD55E;
+        }
       }
     }
   }
