@@ -4,7 +4,8 @@
   "description": "Jinseo Jason Park",
   "scripts": {
     "start": "gulp",
-    "build": "gulp build"
+    "build": "gulp build",
+    "publish": "npm run build && git add . && git commit && git push"
   },
   "repository": {
     "type": "git",
