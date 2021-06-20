@@ -5,7 +5,7 @@ module.exports = [{
   date: 'Feb. 2017 -',
   location: 'Lyon, France;<br>Seoul, South Korea; and<br>Remote Working',
   position: 'Web Developer',
-  detail: 'Developing several websites including an online store and a business analyzer',
+  detail: 'Developing the <a href="http://chaporoyal.com/">corporate website</a> and additional softwares for internal projects',
 }, {
   key: 'incubatex',
   name: 'IncubateX Hackathon',
