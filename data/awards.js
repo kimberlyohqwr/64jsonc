@@ -89,4 +89,25 @@ module.exports = [{
   organizer: 'Kansas State University',
   date: '2016',
   place: '2nd in Advanced Category',
+}, {
+  key: '2016_hackkstate',
+  name: 'Hack K-State',
+  image: 'img/award/2016_hackkstate.jpg',
+  organizer: 'Kansas State University',
+  date: '2016',
+  place: 'Sponsor Prize',
+}, {
+  key: '2017_earthack',
+  name: 'Earthack',
+  image: 'img/award/2017_earthack.jpg',
+  organizer: 'HackDFW',
+  date: '2017',
+  place: 'Sponsor Prize',
+}, {
+  key: '2017_ccsc',
+  name: 'CCSC Midwest Student Showcase',
+  image: 'img/award/2017_ccsc.jpg',
+  organizer: 'The Consortium for Computing Sciences in Colleges',
+  date: '2017',
+  place: '1st in Application Track',
 }];
