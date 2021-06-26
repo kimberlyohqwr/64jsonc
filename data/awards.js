@@ -110,4 +110,18 @@ module.exports = [{
   organizer: 'The Consortium for Computing Sciences in Colleges',
   date: '2017',
   place: '1st in Application Track',
+}, {
+  key: '2017_ksu',
+  name: 'KSU HS Programming Contest',
+  image: 'img/award/2017_ksu.jpg',
+  organizer: 'Kansas State University',
+  date: '2017',
+  place: '1st in Advanced Category',
+}, {
+  key: '2017_hackkstate',
+  name: 'Hack K-State',
+  image: 'img/award/2017_hackkstate.jpg',
+  organizer: 'Kansas State University',
+  date: '2017',
+  place: '2nd Overall and <br>Best Use of AWS',
 }];
