@@ -1,4 +1,11 @@
 module.exports = [{
+  key: 'codehigh',
+  name: 'CodeHigh',
+  image: 'img/project/codehigh.png',
+  date: '2017',
+  link: 'http://codehigh.net/',
+  detail: 'CodeHigh is a platform for coders to compete real-time. After 2 to 8 players join, a random algorithm problem is given. Each player writes his/her own solution within 3 minutes. Once everyone submits (or gives up), they vote for the most creative solution. CodeHigh lets users learn from others while having fun.',
+}, {
   key: 'duocoder',
   name: 'DuoCoder',
   image: 'img/project/duocoder.png',
