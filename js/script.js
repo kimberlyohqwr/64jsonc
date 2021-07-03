@@ -264,6 +264,9 @@ $(document).ready(() => {
   let sourceCode = null;
   $.get('/js/script.js', (data) => sourceCode = data, 'text');
 
+  let personalStatement = null;
+  $.get('/data/personal_statement.txt', (data) => personalStatement = data, 'text');
+
   let currentDirectories = null;
   const inputHistory = [];
   let inputHistoryIndex = 0;
@@ -334,13 +337,19 @@ $(document).ready(() => {
     return path;
   };
   const getSelector = (directories) => '#' + directories.slice(3).join('-');
-  const print = (lines, wordBreak = false) => {
+  const print = (lines, markdown = false) => {
     if (!Array.isArray(lines)) lines = [lines];
     const $lineContainer = $terminal.find('.line-container');
     lines.forEach((line) => {
       const $newLine = $('<div class="line">');
-      $newLine.html(line);
-      if (wordBreak) $newLine.addClass('word-break');
+      if (markdown) {
+        $newLine.html(line && line
+          .replace(/([.,?!"';]*\w*[.,?!"';]*\s*)/g, '<span>$1</span>')
+          .replace(/\{(.+)\}/g, '<div class="underline">$1</div>&nbsp;&nbsp;')
+          .replace(/\*(.+)\*/g, '<div class="highlight">$1</div>'));
+      } else {
+        $newLine.html(line);
+      }
       $lineContainer.append($newLine);
     });
   };
@@ -364,13 +373,16 @@ $(document).ready(() => {
   const isDir = (path, directory) => Object.keys(path[directory]).length > 0;
   const processCommand = (input) => {
     const [command, ...args] = input.split(/\s+/);
+    const pathArgs = args.filter(arg => !arg.startsWith('-'));
+    const optionArg = args.find(arg => arg.startsWith('-'));
+    const options = optionArg ? optionArg.substring(1).split('') : [];
     switch (command) {
       case '':
         break;
       case 'help': {
         print([
           ' *help*            show all the possible commands',
-          ' *whoami*          display information about jason',
+          ' *whoami* [-j]     display information about Jason',
           ' *cd* {dir}        change the working directory',
           ' *ls* {dir}        list directory contents',
           ' *pwd*             return the working directory',
@@ -379,23 +391,27 @@ $(document).ready(() => {
           ' *clear*           clear the terminal screen',
           ' *exit*            close the terminal window',
           ' *hackertyper*     ?????',
-        ].map(line => line
-          .replace(/ /g, '&nbsp;')
-          .replace(/\{(\w+)\}/g, '<div class="underline">$1</div>&nbsp;&nbsp;')
-          .replace(/\*(\w+)\*/g, '<div class="highlight">$1</div>')));
-        break;
-      }
-      case 'whoami': {
-        print([
-          `<div class="highlight">Jinseo Jason Park</div>:`,
-          `I'm a web developer, hackathoner, and traveler.`,
-          `I prefer leading a busy life, but also love to waste time having miscellaneous thoughts. Currently I am a highschool senior in Kansas and a remote working developer. ` +
-          `During the break, I work for my company on site either in Lyon, France or in Seoul, Korea; and enjoy traveling the world. `,
         ], true);
         break;
       }
+      case 'whoami': {
+        if (options.includes('j')) {
+          print([
+            '*Jinseo Jason Park*',
+            '',
+            ...personalStatement.split('\n')
+          ], true);
+        } else {
+          print([
+            '*Jinseo Jason Park*',
+            'I am a developer, hackathoner, and backpacker.',
+            'Type "*whoami -j*" to show my journey so far.',
+          ], true);
+        }
+        break;
+      }
       case 'cd': {
-        const pathArg = args.shift();
+        const pathArg = pathArgs.shift();
         const directories = getDirectories(pathArg);
         const path = getPath(directories);
         if (path === undefined) {
@@ -409,7 +425,7 @@ $(document).ready(() => {
         break;
       }
       case 'ls': {
-        const pathArg = args.shift();
+        const pathArg = pathArgs.shift();
         const directories = getDirectories(pathArg);
         const path = getPath(directories);
         if (path === undefined) {
@@ -427,9 +443,7 @@ $(document).ready(() => {
         break;
       }
       case 'rm': {
-        const pathArg = args.find(arg => !arg.startsWith('-'));
-        const optionArg = args.find(arg => arg.startsWith('-'));
-        const options = optionArg ? optionArg.substring(1).split('') : [];
+        const pathArg = pathArgs.shift();
         const directories = getDirectories(pathArg);
         const path = getPath(directories);
         if (path === undefined) {
@@ -461,7 +475,7 @@ $(document).ready(() => {
       }
       case 'open': {
         let delay = 0;
-        for (const pathArg of args) {
+        for (const pathArg of pathArgs) {
           const directories = getDirectories(pathArg);
           const path = getPath(directories);
           if (path === undefined) {
@@ -697,7 +711,7 @@ $(document).ready(() => {
     ['.border-top', 'top', 'height', 'y', 'clientY'],
     ['.border-right', null, 'width', 'x', 'clientX'],
     ['.border-bottom', null, 'height', 'y', 'clientY'],
-  ].map(([selector, pos, dim, xy, clientXY ]) => {
+  ].map(([selector, pos, dim, xy, clientXY]) => {
     let $selectedWindow = null;
     let windowStyle = {};
     let cursor = {};
