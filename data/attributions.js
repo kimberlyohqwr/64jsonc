@@ -15,6 +15,10 @@ module.exports = [{
   artist: 'paomedia',
   link: 'http://www.iconarchive.com/show/small-n-flat-icons-by-paomedia/terminal-icon.html',
 }, {
+  image: 'img/icon/version_history.png',
+  artist: 'Hamza Saleem',
+  link: 'http://www.iconarchive.com/show/stock-icons-by-hamzasaleem/Time-Machine-icon.html',
+}, {
   image: 'img/wallpaper.jpg',
   artist: 'Derrick Brutel',
   link: 'https://www.flickr.com/photos/143951935@N07/30593604650',
