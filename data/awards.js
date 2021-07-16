@@ -1,4 +1,11 @@
 module.exports = [{
+  key: '2017_developercircles',
+  name: 'Developer Circles Community Challenge',
+  image: 'img/award/2017_developercircles.png',
+  organizer: 'Facebook',
+  date: '2017',
+  place: 'Best Updated Pre-Existing App',
+}, {
   key: '2017_hackkstate',
   name: 'Hack K-State',
   image: 'img/award/2017_hackkstate.jpg',
