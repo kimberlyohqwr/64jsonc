@@ -1,4 +1,11 @@
 module.exports = [{
+  key: '2018_earthxhack',
+  name: 'EarthxHack',
+  image: 'img/award/2018_earthxhack.jpg',
+  organizer: 'HackDFW',
+  date: '2018',
+  place: '3rd',
+}, {
   key: '2017_developercircles',
   name: 'Developer Circles Community Challenge',
   image: 'img/award/2017_developercircles.png',
@@ -61,13 +68,6 @@ module.exports = [{
   organizer: 'Lockheed Martin',
   date: '2016',
   place: '3rd Regional and<br>4th National<br>in Advanced Category',
-}, {
-  key: '2016_hackdfw',
-  name: 'HackDFW',
-  image: 'img/award/2016_hackdfw.jpg',
-  organizer: 'HackDFW',
-  date: '2016',
-  place: '12th out of 144+ teams',
 }, {
   key: '2016_tapps',
   name: 'TAPPS Math Contests',
