@@ -11,7 +11,7 @@ html(lang='en')
     meta(http-equiv='x-ua-compatible', content='ie=edge')
     meta(name='viewport' content='width=device-width')
     meta(name='theme-color', content='#3D3D3D')
-    link(rel='icon', type='image/jpeg', href='http://graph.facebook.com/1935436059816712/picture?type=normal')
+    link(rel='icon', type='image/jpeg', href='https://graph.facebook.com/1935436059816712/picture?type=normal')
     link(rel='manifest', href='manifest.json')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:100,400,700')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto+Mono:300, 700')
@@ -44,7 +44,7 @@ html(lang='en')
           +app('instagram')
           +app('paypal')
           +app('github', 'https://github.com/parkjs814')
-          +app('resume', 'http://jasonpark.me/resume/')
+          +app('resume', 'https://jasonpark.me/resume/')
           +app('email', 'mailto:parkjs814@gmail.com')
           +app('version_history')
           +app('attribution')
@@ -111,7 +111,7 @@ html(lang='en')
                   .property.property-date= file.date
                   if file.link === '-'
                     .property.property-link= file.link
-                  else if /^https?:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(file.link)
+                  else if /^https:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(file.link)
                     a.property.property-link(href=`#browser-${file.key}`, data-name=file.name, data-image=file.image, data-url=file.link)= file.link
                   else
                     a.property.property-link(href=file.link)= file.link
@@ -177,7 +177,7 @@ html(lang='en')
           +window('version_history', 30, 30)
             .version-container
               each version in [0, 1, 2]
-                a.version(class=`version-${version}`, href=`#browser-v_${version}`, data-name=`Version ${version}`, data-image='img/icon/version_history.png', data-url=`./version_history/v${version}`)
+                a.version(class=`version-${version}`, href=`#browser-v_${version}`, data-name=`Version ${version}`, data-image='img/icon/version_history.png', data-url=`./version_history/v${version}/`)
       .taskbar
         .label.label-profile
           .icon.icon-profile

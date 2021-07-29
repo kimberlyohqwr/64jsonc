@@ -13,7 +13,7 @@ module.exports = [{
   date: 'Mar. 2016 - Aug. 2016',
   location: 'Dallas, Texas, USA',
   position: 'Web Developer',
-  detail: 'Developed the skeleton website for each <a href="http://jasonpark.me/IncubateDFW/">IncubateX</a> location',
+  detail: 'Developed the skeleton website for each <a href="https://jasonpark.me/IncubateDFW/">IncubateX</a> location',
 }, {
   key: 'freelancer',
   name: 'Freelancer',

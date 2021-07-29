@@ -9,17 +9,17 @@
   "description": "Jinseo Jason Park",
   "icons": [
     {
-      "src": "http://graph.facebook.com/1935436059816712/picture?type=small",
+      "src": "https://graph.facebook.com/1935436059816712/picture?type=small",
       "sizes": "50x50",
       "type": "image/jpeg"
     },
     {
-      "src": "http://graph.facebook.com/1935436059816712/picture?type=normal",
+      "src": "https://graph.facebook.com/1935436059816712/picture?type=normal",
       "sizes": "100x100",
       "type": "image/jpeg"
     },
     {
-      "src": "http://graph.facebook.com/1935436059816712/picture?type=large",
+      "src": "https://graph.facebook.com/1935436059816712/picture?type=large",
       "sizes": "200x200",
       "type": "image/jpeg"
     }

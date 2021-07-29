@@ -134,7 +134,7 @@ $(document).ready(() => {
             url: "https://api.instagram.com/oembed/",
             dataType: "jsonp",
             data: {
-              url: `http://instagram.com/p/${instagram}/`,
+              url: `https://instagram.com/p/${instagram}/`,
               omitscript: true,
             },
             success: (res) => {

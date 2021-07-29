@@ -10,7 +10,7 @@ module.exports = [{
   name: 'DuoCoder',
   image: 'img/project/duocoder.png',
   date: '2016 -',
-  link: 'http://jasonpark.me/DuoCoder/',
+  link: 'https://jasonpark.me/DuoCoder/',
   detail: 'Learning a programming language with human languages is quite a tough thing. What if we can learn a new programming language from another programming language that you already know? Here comes DuoCoder.',
 }, {
   key: 'algovis',
@@ -24,7 +24,7 @@ module.exports = [{
   name: 'Hole in the Wall',
   image: 'img/project/hitw.png',
   date: '2015',
-  link: 'http://jasonpark.me/HoleInTheWall/',
+  link: 'https://jasonpark.me/HoleInTheWall/',
   detail: `When you were watching TV show 'Hole in the Wall,' you were always murmuring "even I could do better than that." Really? Prove it.`,
 }, {
   key: 'taskbar7',
