@@ -1,4 +1,11 @@
 module.exports = [{
+  key: 'gt-scheduler',
+  name: 'GT Scheduler',
+  image: 'img/project/gt-scheduler.png',
+  date: '2018',
+  link: 'https://jasonpark.me/gt-scheduler/',
+  detail: 'GT Scheduler helps Georgia Tech students find the schedules that fit them best among all the possible combinations of courses.',
+}, {
   key: 'codehigh',
   name: 'CodeHigh',
   image: 'img/project/codehigh.png',
