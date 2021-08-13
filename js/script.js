@@ -7,8 +7,6 @@ $(document).ready(() => {
   const $buttonContainer = $toolbar.find('.button-container');
   const $browserIframe = $browser.find('.iframe');
   const $browserAddressbar = $browser.find('.addressbar');
-  const $instagram = $('#instagram');
-  const $instagramEmbedContainer = $instagram.find('.embed-container');
   const $html = $('html');
   const $labelClock = $('.label-clock');
   const $a = $('a');
@@ -50,7 +48,6 @@ $(document).ready(() => {
     $(`[id^='${selector.substring(1)}-']`).removeClass('open');
     const parentSelectors = [selector];
     while (true) {
-      let parentSelector = null;
       const index = selector.lastIndexOf('-');
       if (!~index) break;
       selector = selector.substring(0, index);
@@ -128,23 +125,6 @@ $(document).ready(() => {
         $titleContainer.empty();
         $titleContainer.append('<div class="icon icon-instagram">');
         $titleContainer.append('<div class="name">Instagram</div>');
-        if (!$hash.length) {
-          const instagram = $firstLauncher.data('instagram');
-          $.ajax({
-            url: "https://api.instagram.com/oembed/",
-            dataType: "jsonp",
-            data: {
-              url: `https://instagram.com/p/${instagram}/`,
-              omitscript: true,
-            },
-            success: (res) => {
-              $instagramEmbedContainer.attr('id', `instagram-${instagram}`);
-              $instagramEmbedContainer.html(res.html);
-              instgrm.Embeds.process();
-              $instagramEmbedContainer.addClass('open');
-            },
-          });
-        }
         break;
       }
       default: {
@@ -399,7 +379,7 @@ $(document).ready(() => {
           print([
             '*Jinseo Jason Park*',
             '',
-            ...personalStatement.split('\n')
+            ...personalStatement.split('\n'),
           ], true);
         } else {
           print([

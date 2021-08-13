@@ -171,9 +171,8 @@ html(lang='en')
           +window('instagram', 44, 30, true)
             .photo-container
               each instagram in data.instagrams
-                a.photo(style=`background-image: url(https://instagram.com/p/${instagram}/media/?size=m)`, href=`#instagram-${instagram}`, data-instagram=instagram)
+                a.photo(style=`background-image: url(https://instagram.com/p/${instagram}/media/?size=m)`, href=`http://instagr.am/p/${instagram}/`)
                   img.ratio(src='img/insta-ratio.png')
-            a.embed-container(href='#instagram-')
           +window('version_history', 30, 30)
             .version-container
               each version in [0, 1, 2]
@@ -210,4 +209,3 @@ html(lang='en')
       })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
       ga('create', 'UA-74575204-1', 'auto');
       ga('send', 'pageview');
-    script(async='', defer='', src='//platform.instagram.com/en_US/embeds.js')
