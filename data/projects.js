@@ -24,7 +24,7 @@ module.exports = [{
   name: 'Algorithm Visualizer',
   image: 'img/project/algovis.png',
   date: '2016',
-  link: 'http://algo-visualizer.jasonpark.me/',
+  link: 'https://algorithm-visualizer.org/',
   detail: 'Algorithms were abstract concepts, but not anymore with visualization. Algorithm Visualizer not only visualizes a vast amount of algorithms but also lets you visualize your own algorithm.',
 }, {
   key: 'hitw',
