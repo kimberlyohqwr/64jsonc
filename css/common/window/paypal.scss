@@ -11,16 +11,8 @@
     #paypal-success {
       &.open {
         & ~ .message {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 0;
-
           &:before {
-            content: 'Thank you!';
-          }
-          &:after {
-            content: 'Jason appreciates your donation.';
+            content: 'Thank you for your donation!';
           }
         }
 
@@ -38,7 +30,7 @@
       text-align: center;
 
       &:before {
-        content: 'Keep Calm and ...'
+        content: 'parkjs814@gmail.com'
       }
     }
 
