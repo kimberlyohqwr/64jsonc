@@ -1,4 +1,11 @@
 module.exports = [{
+  key: '2018_bloomberg_gatech',
+  name: 'Bloomberg Codecon @ Georgia Tech',
+  image: 'img/award/2018_bloomberg_gatech.jpg',
+  organizer: 'Bloomberg',
+  date: '2018',
+  place: '3rd',
+}, {
   key: '2018_earthxhack',
   name: 'EarthxHack',
   image: 'img/award/2018_earthxhack.jpg',
