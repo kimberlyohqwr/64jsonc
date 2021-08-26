@@ -4,8 +4,8 @@ module.exports = [{
   image: 'img/experience/chaporoyal.jpg',
   date: 'Feb. 2017 -',
   location: 'Lyon, France;<br>Seoul, South Korea; and<br>Remote Working',
-  position: 'Web Developer',
-  detail: 'Developing the <a href="http://chaporoyal.com/">corporate website</a> and additional softwares for internal projects',
+  position: 'Web Development Team Lead',
+  detail: 'Leading the team of 2 front-end and 2 back-end developers. Planning projects with my employer, setting tech agendas for the team, and reviewing my teammates\' code. Working on several B2B projects, including an exhibition ticketing solution.',
 }, {
   key: 'incubatex',
   name: 'IncubateX Hackathon',
@@ -13,7 +13,7 @@ module.exports = [{
   date: 'Mar. 2016 - Aug. 2016',
   location: 'Dallas, Texas, USA',
   position: 'Web Developer',
-  detail: 'Developed the skeleton website for each <a href="https://jasonpark.me/IncubateDFW/">IncubateX</a> location',
+  detail: 'Developed a skeleton website for each <a href="https://jasonpark.me/IncubateDFW/">IncubateX</a> location.',
 }, {
   key: 'freelancer',
   name: 'Freelancer',
@@ -21,7 +21,7 @@ module.exports = [{
   date: 'July 2013 -',
   location: 'Remote Working',
   position: 'Software Developer',
-  detail: 'Worked on several projects ranging from an online judge to a battery management system',
+  detail: 'Worked on several projects ranging from an online judge to a battery management system.',
 }, {
   key: 'deblur',
   name: 'Deblur',
@@ -29,5 +29,5 @@ module.exports = [{
   date: 'Mar. 2012 - Feb. 2014',
   location: 'Seoul, South Korea',
   position: 'Android Developer',
-  detail: 'Developed lifestyle Android applications including an <a href="https://play.google.com/store/apps/details?id=com.provision.alarmemi">alarm app</a> and a <a href="https://play.google.com/store/apps/details?id=com.deblur.mallow">planner app</a>',
+  detail: 'Developed lifestyle Android applications including an <a href="https://play.google.com/store/apps/details?id=com.provision.alarmemi">alarm app</a> and a <a href="https://play.google.com/store/apps/details?id=com.deblur.mallow">planner app</a>.',
 }];
