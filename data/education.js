@@ -3,7 +3,7 @@ module.exports = [{
   name: 'Georgia Institute of Technology',
   image: 'img/school/gatech.png',
   date: 'Aug. 2018 - ',
-  gpa: '-',
+  gpa: '3.43 / 4.0',
   location: 'Atlanta, Georgia, USA',
   link: 'http://www.gatech.edu/',
 }, {
@@ -11,7 +11,7 @@ module.exports = [{
   name: 'Kansas Academy of Math and Science',
   image: 'img/school/kams.png',
   date: 'Aug. 2016 - May 2018',
-  gpa: '3.5 / 4.0',
+  gpa: '3.63 / 4.0',
   location: 'Hays, Kansas, USA',
   link: 'https://www.fhsu.edu/kams/',
 }, {
