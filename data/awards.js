@@ -1,4 +1,11 @@
 module.exports = [{
+  key: '2019_tmobile',
+  name: 'T-Mobile C2CHack',
+  image: 'img/award/2019_tmobile.jpg',
+  organizer: 'T-Mobile',
+  date: '2019',
+  place: '1st',
+}, {
   key: '2019_hackcu',
   name: 'HackCU',
   image: 'img/award/2019_hackcu.jpg',
