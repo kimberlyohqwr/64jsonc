@@ -245,7 +245,7 @@ $(document).ready(() => {
   $.get('/js/script.js', (data) => sourceCode = data, 'text');
 
   let personalStatement = null;
-  $.get('/data/personal_statement.txt', (data) => personalStatement = data, 'text');
+  $.get('/whoami.txt', (data) => personalStatement = data, 'text');
 
   let currentDirectories = null;
   const inputHistory = [];
