@@ -1,3 +1,3 @@
 # [jasonpark.me](https://jasonpark.me)
 
-![Screenshot](/screenshot.png)
+![Screenshot](/src/static/screenshot.png)
