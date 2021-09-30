@@ -8,6 +8,7 @@ import sass from 'gulp-sass';
 import connect from 'gulp-connect';
 import babel from 'gulp-babel';
 import uglify from 'gulp-uglify';
+import rename from 'gulp-rename';
 import pkg from './package';
 
 const srcPath = path.join(__dirname, 'src');
@@ -24,6 +25,7 @@ gulp.task('buildJs', () =>
     .src(path.join(jsPath, 'script.js'))
     .pipe(babel())
     .pipe(uglify())
+    .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest(builtPath))
     .pipe(connect.reload()),
 );
@@ -61,6 +63,12 @@ gulp.task('copyStatic', () =>
     .pipe(gulp.dest(builtPath)),
 );
 
+gulp.task('copySource', () =>
+  gulp
+    .src(path.join(jsPath, '**', '*'), { base: jsPath })
+    .pipe(gulp.dest(builtPath)),
+);
+
 gulp.task('openServer', done => {
   connect.server({
     port,
@@ -76,7 +84,7 @@ gulp.task('closeServer', done => {
 });
 
 gulp.task('watch', done => {
-  gulp.watch(jsPath, gulp.series('buildJs'));
+  gulp.watch(jsPath, gulp.parallel('buildJs', 'copySource'));
   gulp.watch(dataPath, gulp.series('buildPug'));
   gulp.watch(pugPath, gulp.series('buildPug'));
   gulp.watch(sassPath, gulp.series('buildSass'));
@@ -84,6 +92,6 @@ gulp.task('watch', done => {
   done();
 });
 
-gulp.task('build', gulp.parallel('buildJs', 'buildPug', 'buildSass', 'copyStatic'));
+gulp.task('build', gulp.parallel('buildJs', 'copySource', 'buildPug', 'buildSass', 'copyStatic'));
 
 gulp.task('default', gulp.parallel('openServer', 'build', 'watch'));

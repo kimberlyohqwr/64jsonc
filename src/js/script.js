@@ -242,7 +242,7 @@ $(document).ready(() => {
   }
 
   let sourceCode = null;
-  $.get('/js/script.js', (data) => sourceCode = data, 'text');
+  $.get('/script.js', (data) => sourceCode = data, 'text');
 
   let personalStatement = null;
   $.get('/whoami.txt', (data) => personalStatement = data, 'text');
