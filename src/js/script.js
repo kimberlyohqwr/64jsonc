@@ -244,9 +244,6 @@ $(document).ready(() => {
   let sourceCode = null;
   $.get('/script.js', (data) => sourceCode = data, 'text');
 
-  let personalStatement = null;
-  $.get('/whoami.txt', (data) => personalStatement = data, 'text');
-
   let currentDirectories = null;
   const inputHistory = [];
   let inputHistoryIndex = 0;
@@ -376,16 +373,12 @@ $(document).ready(() => {
       }
       case 'whoami': {
         if (options.includes('j')) {
-          print([
-            '*Jinseo Jason Park*',
-            '',
-            ...personalStatement.split('\n'),
-          ], true);
+          window.open('https://www.instagram.com/jspark98/');
         } else {
           print([
-            '*Jinseo Jason Park*',
-            'I am a developer, hackathoner, and backpacker.',
-            'Type "*whoami -j*" to show my journey so far.',
+            '*Jinseo Park* (Jason)',
+            'A CS undergrad at Georgia Tech and a Software (and DevOps) Engineer at Prendssoin. Currently on an exchange program at National University of Singapore. Travelling on a regular basis is a necessity for him.',
+            'Type "*whoami -j*" to show some snapshots of his journey.',
           ], true);
         }
         break;
