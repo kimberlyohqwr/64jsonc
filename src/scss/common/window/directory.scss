@@ -104,6 +104,10 @@
                 content: 'Name';
               }
 
+              &.property-type:before {
+                content: 'Type';
+              }
+
               &.property-location:before {
                 content: 'Location';
               }

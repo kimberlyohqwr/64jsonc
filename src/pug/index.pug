@@ -132,6 +132,7 @@ html(lang='en')
               each file in data.education
                 +panel-preview('education', file)
                   .property.property-name= file.name
+                  .property.property-type!= file.type
                   .property.property-location: div!= file.location
                   .property.property-date= file.date
                   .property.property-gpa= file.gpa
