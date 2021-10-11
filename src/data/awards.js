@@ -46,7 +46,7 @@ module.exports = [{
   image: 'img/award/2017_hackkstate.jpg',
   organizer: 'Kansas State University',
   date: '2017',
-  place: '2nd Overall and <br>Best Use of AWS',
+  place: '2nd Overall;<br>Best Use of AWS',
 }, {
   key: '2017_ksu',
   name: 'KSU HS Programming Contest',
@@ -95,14 +95,14 @@ module.exports = [{
   image: 'img/award/2016_codequest.jpg',
   organizer: 'Lockheed Martin',
   date: '2016',
-  place: '3rd Regional and<br>4th National<br>in Advanced Category',
+  place: '3rd Regional;<br>4th National<br>in Advanced Category',
 }, {
   key: '2016_tapps',
   name: 'TAPPS Math Contests',
   image: 'img/award/2015_2016_tapps.jpg',
   organizer: 'The Texas Association of Private and Parochial Schools',
   date: '2016',
-  place: '1st in Number Sense,<br>1st in Calculator, and<br>2nd in Advanced Math',
+  place: '1st in Number Sense;<br>1st in Calculator;<br>2nd in Advanced Math',
 }, {
   key: '2016_utd',
   name: 'UT Dallas HS Programming Contest',
@@ -123,7 +123,7 @@ module.exports = [{
   image: 'img/award/2015_2016_tapps.jpg',
   organizer: 'The Texas Association of Private and Parochial Schools',
   date: '2015',
-  place: '1st in Number Sense and<br>1st in Math',
+  place: '1st in Number Sense;<br>1st in Math',
 }, {
   key: '2015_codeday',
   name: 'CodeDay Dallas Spring',
