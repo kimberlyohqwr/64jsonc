@@ -39,5 +39,5 @@ module.exports = [{
   image: 'img/project/taskbar7.png',
   date: '2013',
   link: 'https://www.youtube.com/watch?v=sQd3ySM3J0A',
-  detail: `Multitasking on Android is annoying. So I just transplanted Windows taskbar into Android. (Unfortunately, it is unavailable on Google Play since Google deprecated one of the core APIs it uses.)`,
+  detail: `Multitasking on Android is annoying. So I just transplanted Windows taskbar into Android. (Unfortunately, it is not published on Google Play anymore since Google deprecated one of the core APIs it relies on.)`,
 }];
