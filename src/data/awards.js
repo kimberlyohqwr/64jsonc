@@ -1,4 +1,11 @@
 module.exports = [{
+  key: '2019_bestcoder',
+  name: 'I\'m the Best Coder! Challenge',
+  image: 'img/award/2019_bestcoder.jpg',
+  organizer: 'Shopee',
+  date: '2019',
+  place: '3rd in Undergraduate Category',
+}, {
   key: '2019_tmobile',
   name: 'T-Mobile C2CHack',
   image: 'img/award/2019_tmobile.jpg',
