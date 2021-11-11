@@ -1,4 +1,6 @@
-.window {
+@import "../../common/constants";
+
+.Window {
   position: absolute;
   background-color: white;
   box-shadow: 0 0 48px rgba(black, .3);
@@ -17,12 +19,33 @@
   opacity $anim-duration,
   visibility $anim-duration,
   box-shadow $anim-duration;
+  cursor: auto;
 
   iframe {
     display: none;
   }
 
-  &.focus {
+  &.focused {
+    box-shadow: 0 0 48px rgba(black, .4);
+
+    .toolbar {
+      .button-container {
+        .button {
+          &.button-close {
+            background-color: #FC615D;
+          }
+
+          &.button-minimize {
+            background-color: #FDBC40;
+          }
+
+          &.button-maximize {
+            background-color: #34C749;
+          }
+        }
+      }
+    }
+
     .content {
       .interceptor {
         display: none;
@@ -41,7 +64,7 @@
     }
   }
 
-  &.open {
+  &.opened {
     visibility: visible;
     opacity: 1;
 
@@ -77,36 +100,14 @@
     }
   }
 
-  &.focus {
-    box-shadow: 0 0 48px rgba(black, .4);
-
-    .toolbar {
-      .button-container {
-        .button {
-          &.button-close {
-            background-color: #FC615D;
-          }
-
-          &.button-minimize {
-            background-color: #FDBC40;
-          }
-
-          &.button-maximize {
-            background-color: #34C749;
-          }
-        }
-      }
-    }
-  }
-
-  &.maximize {
+  &.maximized {
     top: 0 !important;
     left: 0 !important;
     height: calc(100% - #{$taskbar-height}) !important;
     width: 100vw !important;
   }
 
-  &.minimize {
+  &.minimized {
     top: 100vh !important;
     opacity: 0;
   }
@@ -340,12 +341,4 @@
       cursor: nesw-resize;
     }
   }
-
-  @import "directory";
-  @import "browser";
-  @import "paypal";
-  @import "terminal";
-  @import "attribution";
-  @import "instagram";
-  @import "version_history";
 }

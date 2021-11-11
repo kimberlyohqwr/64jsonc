@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
 import Shortcut from 'components/Shortcut';
+import Icon from '../Icon';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -13,7 +14,7 @@ const getClock = () => {
   return `${hh}:${mm} ${A}`;
 };
 
-function Taskbar() {
+function Taskbar({ openedWindowKeys }) {
   const [clock, setClock] = useState(getClock());
 
   useEffect(() => {
@@ -30,17 +31,24 @@ function Taskbar() {
   return (
     <div className="Taskbar">
       <div className="label label-profile">
-        <div className="icon icon-profile"/>
+        <Icon className="icon" path="/profile"/>
         <div className="name">Jinseo Park</div>
       </div>
       <div className="shortcut-container">
-        <Shortcut type="directory"/>
-        <Shortcut type="browser" hidden/>
-        <Shortcut type="terminal"/>
-        <Shortcut type="instagram"/>
-        <Shortcut type="paypal"/>
-        <Shortcut type="version_history"/>
-        <Shortcut type="attribution"/>
+        {
+          [
+            'directory',
+            'browser',
+            'terminal',
+            'instagram',
+            'paypal',
+            'version_history',
+            'attribution',
+          ].map(windowKey => (
+            <Shortcut key={windowKey} path={`/${windowKey}`} hidden={windowKey === 'browser'}
+                      active={openedWindowKeys.includes(windowKey)}/>
+          ))
+        }
       </div>
       <div className="label label-clock">
         <div className="name">{clock}</div>

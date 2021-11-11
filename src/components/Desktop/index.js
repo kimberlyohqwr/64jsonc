@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
+import App from 'components/App';
+import DirectoryWindow from '../Window/DirectoryWindow';
+import Link from 'components/Link';
 
-function Desktop() {
+const WindowComponents = [
+  DirectoryWindow,
+];
+
+function Desktop({ onChangeOpenedWindowKeys }) {
+  const [zIndices, setZIndices] = useState(new Array(WindowComponents.length).fill(1));
+  const [openedWindowKeys, setOpenedWindowKeys] = useState([]);
+
+  useEffect(() => {
+    if (onChangeOpenedWindowKeys) onChangeOpenedWindowKeys(openedWindowKeys);
+  }, [openedWindowKeys]);
+
   return (
-    <div className="Desktop">
+    <Link className="Desktop" path="/">
       <a className="github-corner" href="https://github.com/parkjs814/parkjs814.github.io"
          aria-label="View source on Github">
         <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
@@ -14,7 +28,38 @@ function Desktop() {
                 d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"/>
         </svg>
       </a>
-    </div>
+      <div className="app-container">
+        <App path="/directory/projects"/>
+        <App path="/directory/work_experience"/>
+        <App path="/directory/awards"/>
+        <App path="/directory/education"/>
+        <App path="/terminal"/>
+        <App path="/instagram"/>
+        <App path="/paypal"/>
+        <App path="/github" href="https://github.com/parkjs814"/>
+        <App path="/resume" href="https://jasonpark.me/resume/"/>
+        <App path="/email" href="mailto:jason.park@gatech.edu"/>
+        <App path="/version_history"/>
+        <App path="/attribution"/>
+      </div>
+      <div className="window-container">
+        {
+          [
+            DirectoryWindow,
+          ].map((WindowComponent, i) => (
+            <WindowComponent key={i} zIndex={zIndices[i]} onFocus={() => {
+              const newZIndices = [...zIndices];
+              newZIndices[i] = Math.max(...zIndices) + 1;
+              setZIndices(newZIndices);
+            }} onChangeOpened={(opened, windowKey) => {
+              const newOpenedWindowKeys = openedWindowKeys.filter(key => key !== windowKey);
+              if (opened) newOpenedWindowKeys.push(windowKey);
+              setOpenedWindowKeys(newOpenedWindowKeys);
+            }} defaultTop={(i + 1) * 20} defaultLeft={(i + 1) * 20}/>
+          ))
+        }
+      </div>
+    </Link>
   );
 }
 

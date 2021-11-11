@@ -10,67 +10,10 @@ $(document).ready(() => {
   const $html = $('html');
   const $a = $('a');
 
-  let zIndex = 2;
   let desktop = null;
   let mobile = null;
 
-  const focus = ($selectedWindow) => {
-    window.location.hash = $selectedWindow.data('last-hash');
-    $window.removeClass('focus');
-    $selectedWindow.removeClass('minimize');
-    $selectedWindow.addClass('focus');
-    $selectedWindow.css('z-index', zIndex++);
-  };
-
   const handleHashChange = () => {
-    const { hash } = window.location;
-    if (hash.endsWith('-')) {
-      const newHash = hash.substring(0, hash.length - 1);
-      $(newHash).data('last-hash', null);
-      window.location.hash = newHash;
-      return;
-    }
-    const $hash = $(hash);
-    if ($hash.hasClass('window', 'open')) {
-      const lastHash = $hash.data('last-hash');
-      if (lastHash && lastHash !== hash) {
-        window.location.hash = lastHash;
-        return;
-      }
-    }
-    let selector = hash;
-    if (/^#?$/.test(selector)) {
-      $window.removeClass('focus');
-      return;
-    }
-    $(`a[href^='${selector}-']`).removeClass('active');
-    $(`[id^='${selector.substring(1)}-']`).removeClass('open');
-    const parentSelectors = [selector];
-    while (true) {
-      const index = selector.lastIndexOf('-');
-      if (!~index) break;
-      selector = selector.substring(0, index);
-      parentSelectors.unshift(selector);
-    }
-    const $selectedWindow = $(selector);
-    $selectedWindow.data('last-hash', hash);
-    focus($selectedWindow);
-    let $firstLauncher = null;
-    for (let i = 0; i < parentSelectors.length; i++) {
-      const selector = parentSelectors[i];
-      const $selector = $(selector);
-      const $launcher = $(`a[href='${selector}']`);
-      if ($launcher.length) {
-        $firstLauncher = $launcher.first();
-      }
-      if (i > 0) {
-        const parentSelector = parentSelectors[i - 1];
-        $(`a[href^='${parentSelector}-']`).removeClass('active');
-        $(`[id^='${parentSelector.substring(1)}-']`).removeClass('open');
-      }
-      $launcher.addClass('active');
-      $selector.addClass('open');
-    }
     const windowId = $selectedWindow.attr('id');
     switch (windowId) {
       case 'browser': {
@@ -180,11 +123,6 @@ $(document).ready(() => {
   $browserAddressbar.find('.button-new').click((e) => {
     e.preventDefault();
     window.open($browserIframe.attr('src'));
-  });
-
-  $('.desktop').mousedown(() => {
-    window.location.hash = '#';
-    $window.removeClass('focus');
   });
 
   $window.mousedown(function (e) {
@@ -640,83 +578,6 @@ $(document).ready(() => {
     if ($terminal.hasClass('focus')) {
       handleTerminalKeyPress(e);
     }
-  });
-
-  $window.each(function (i) {
-    const top = 20 + i * 20;
-    const left = 20 + i * 20;
-    $(this).css({ top, left });
-  });
-
-  let $selectedWindow = null;
-  let windowStyle = {};
-  let cursor = {};
-  $toolbar.mousedown(function (e) {
-    if (mobile) return;
-    if (e.which !== 1) return;
-    $selectedWindow = $(this).parents('.window');
-    if ($selectedWindow.hasClass('maximize')) return;
-    $selectedWindow.addClass('moving');
-    windowStyle = $selectedWindow.position();
-    cursor.x = e.clientX;
-    cursor.y = e.clientY;
-    $(document).mousemove((e) => {
-      const dx = e.clientX - cursor.x;
-      const dy = e.clientY - cursor.y;
-      windowStyle.left += dx;
-      windowStyle.top += dy;
-      cursor.x = e.clientX;
-      cursor.y = e.clientY;
-      $selectedWindow.css(windowStyle);
-    });
-    $(document).mouseup(() => {
-      $selectedWindow.removeClass('moving');
-      $(document).off('mousemove');
-      $(document).off('mouseup');
-    });
-  });
-  $a.mousedown((e) => {
-    e.stopPropagation();
-  });
-  [
-    ['.border-left', 'left', 'width', 'x', 'clientX'],
-    ['.border-top', 'top', 'height', 'y', 'clientY'],
-    ['.border-right', null, 'width', 'x', 'clientX'],
-    ['.border-bottom', null, 'height', 'y', 'clientY'],
-  ].map(([selector, pos, dim, xy, clientXY]) => {
-    let $selectedWindow = null;
-    let windowStyle = {};
-    let cursor = {};
-    $window.find(selector).mousedown(function (e) {
-      if (mobile) return;
-      if (e.which !== 1) return;
-      $selectedWindow = $(this).parents('.window');
-      if ($selectedWindow.hasClass('maximize')) return;
-      $selectedWindow.addClass('resizing');
-      if (pos) {
-        const position = $selectedWindow.position();
-        windowStyle[pos] = position[pos];
-      }
-      windowStyle[dim] = $selectedWindow[dim]();
-      cursor[xy] = e[clientXY];
-      $(document).mousemove((e) => {
-        const delta = e[clientXY] - cursor[xy];
-        if (pos) {
-          windowStyle[pos] += delta;
-          windowStyle[dim] -= delta;
-        } else {
-          windowStyle[dim] += delta;
-        }
-        cursor[xy] = e[clientXY];
-        if (windowStyle.width < 280 || windowStyle.height < 60) return;
-        $selectedWindow.css(windowStyle);
-      });
-      $(document).mouseup(() => {
-        $selectedWindow.removeClass('resizing');
-        $(document).off('mousemove');
-        $(document).off('mouseup');
-      });
-    });
   });
 
   $a.each(function () {

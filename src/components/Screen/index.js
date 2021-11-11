@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './stylesheet.scss';
 import Desktop from 'components/Desktop';
 import Taskbar from 'components/Taskbar';
 
 function Screen() {
+  const [openedWindowKeys, setOpenedWindowKeys] = useState([]);
+
   return (
-    <div className="Screen">
-      <Desktop/>
-      <Taskbar/>
-    </div>
+    <Router>
+      <div className="Screen">
+        <Desktop onChangeOpenedWindowKeys={setOpenedWindowKeys}/>
+        <Taskbar openedWindowKeys={openedWindowKeys}/>
+      </div>
+    </Router>
   );
 }
 

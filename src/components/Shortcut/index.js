@@ -2,13 +2,14 @@ import React from 'react';
 import './stylesheet.scss';
 import { classes, name } from 'common/utils';
 import Icon from 'components/Icon';
+import Link from 'components/Link';
 
-function Shortcut({ type, hidden }) {
+function Shortcut({ path, hidden, active }) {
   return (
-    <a className={classes('Shortcut', hidden && 'hidden')} href={`#${type}`}>
-      <Icon className="icon" type={type}/>
-      <div className="name">{name(type)}</div>
-    </a>
+    <Link className={classes('Shortcut', hidden && 'hidden', active && 'active')} path={path}>
+      <Icon className="icon" path={path}/>
+      <div className="name">{name(path)}</div>
+    </Link>
   );
 }
 
