@@ -8,7 +8,6 @@ $(document).ready(() => {
   const $browserIframe = $browser.find('.iframe');
   const $browserAddressbar = $browser.find('.addressbar');
   const $html = $('html');
-  const $labelClock = $('.label-clock');
   const $a = $('a');
 
   let zIndex = 2;
@@ -719,20 +718,6 @@ $(document).ready(() => {
       });
     });
   });
-
-  const refreshClock = () => {
-    const two = (x) => x < 10 ? `0${x}` : x;
-    const date = new Date();
-    const H = date.getHours();
-    const m = date.getMinutes();
-    const hh = two(H % 12 || 12);
-    const mm = two(m);
-    const A = ['AM', 'PM'][H / 12 | 0];
-    const format = `${hh}:${mm} ${A}`;
-    $labelClock.find('.name').text(format);
-  };
-  window.setInterval(refreshClock, 1000);
-  refreshClock();
 
   $a.each(function () {
     const href = $(this).attr('href');
