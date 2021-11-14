@@ -4,7 +4,7 @@ import { classes, getWindowKey } from 'common/utils';
 import { useLocation } from 'react-router-dom';
 import Link from 'components/Link';
 
-function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, defaultHeight, noToolbar, children, zIndex, onFocus, onChangeOpened }) {
+function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, defaultHeight, noToolbar, children, zIndex, onFocus, onChangeOpened, onChangeSubKeys }) {
   const location = useLocation();
   const currentPath = location.pathname;
   const focused = getWindowKey(currentPath) === windowKey;
@@ -22,6 +22,11 @@ function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, d
   }, [focused]);
   useEffect(() => {
     if (focused) {
+      if (onChangeSubKeys) {
+        const keys = currentPath.split('/');
+        const subKeys = keys.slice(2);
+        onChangeSubKeys(subKeys);
+      }
       setLastPath(currentPath);
     }
   }, [focused, currentPath]);

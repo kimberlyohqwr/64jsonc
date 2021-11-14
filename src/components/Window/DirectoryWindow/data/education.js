@@ -1,7 +1,7 @@
 module.exports = [{
   key: 'nus',
   name: 'National University of Singapore',
-  image: 'img/school/nus.png',
+  image: '/img/school/nus.png',
   type: 'Exchange Program',
   date: 'Aug. 2019 - Dec. 2019',
   gpa: '-',
@@ -10,7 +10,7 @@ module.exports = [{
 }, {
   key: 'gatech',
   name: 'Georgia Institute of Technology',
-  image: 'img/school/gatech.png',
+  image: '/img/school/gatech.png',
   type: 'BS in Computer Science;<br>Minor in Economics',
   date: 'Aug. 2018 - (Dec. 2020)',
   gpa: '3.55 / 4.0',
@@ -19,7 +19,7 @@ module.exports = [{
 }, {
   key: 'kams',
   name: 'Kansas Academy of Math and Science',
-  image: 'img/school/kams.png',
+  image: '/img/school/kams.png',
   type: 'Dual Enrollment',
   date: 'Aug. 2016 - May 2018',
   gpa: '3.63 / 4.0',
@@ -28,7 +28,7 @@ module.exports = [{
 }, {
   key: 'ncta',
   name: 'North Central Texas Academy',
-  image: 'img/school/ncta.png',
+  image: '/img/school/ncta.png',
   type: 'High School',
   date: 'Jan. 2015 - May 2016',
   gpa: '4.0 / 4.0',
@@ -37,7 +37,7 @@ module.exports = [{
 }, {
   key: 'kdmhs',
   name: 'Korea Digital Media High School',
-  image: 'img/school/kdmhs.png',
+  image: '/img/school/kdmhs.png',
   type: 'High School',
   date: 'Feb. 2014 - Oct. 2014',
   gpa: '-',

@@ -1,17 +1,29 @@
 import React from 'react';
 import { Link as PathLink } from 'react-router-dom';
+import { classes } from 'common/utils';
 
-function Link({ href, path, onMouseDown, ...props }) {
+function Link({ className, href, path, onMouseDown, onClick, ...props }) {
   const handleMouseDown = e => {
     e.stopPropagation();
     e.preventDefault();
     if (onMouseDown) onMouseDown(e);
   };
 
+  const handleClick = e => {
+    e.stopPropagation();
+    if (onClick) onClick(e);
+  };
+
+  const commonProps = {
+    ...props,
+    onMouseDown: handleMouseDown,
+    onClick: handleClick,
+  };
+
   return href ? (
-    <a href={href} onMouseDown={handleMouseDown} {...props}/>
+    <a className={classes(className, 'link-external')} href={href} target="_blank" rel="noopener" {...commonProps}/>
   ) : (
-    <PathLink to={path} onMouseDown={handleMouseDown} {...props}/>
+    <PathLink className={className} to={path} {...commonProps}/>
   );
 }
 

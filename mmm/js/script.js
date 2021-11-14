@@ -125,11 +125,6 @@ $(document).ready(() => {
     window.open($browserIframe.attr('src'));
   });
 
-  $window.mousedown(function (e) {
-    e.stopPropagation();
-    focus($(this));
-  });
-
   const handleDirectoryKeyDown = (e) => {
     const $selectedDirectory = $directory.find('.panel.open .directory.active').last();
     const { keyCode } = e;
@@ -577,15 +572,6 @@ $(document).ready(() => {
   $(document).keypress((e) => {
     if ($terminal.hasClass('focus')) {
       handleTerminalKeyPress(e);
-    }
-  });
-
-  $a.each(function () {
-    const href = $(this).attr('href');
-    if (!href.startsWith('#')) {
-      $(this).attr('target', '_blank');
-      $(this).attr('rel', 'noopener');
-      $(this).addClass('link-external');
     }
   });
 

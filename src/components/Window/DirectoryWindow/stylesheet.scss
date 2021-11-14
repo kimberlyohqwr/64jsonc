@@ -18,14 +18,9 @@
       }
 
       .panel {
-        display: none;
+        display: flex;
 
-        &.open {
-          display: flex;
-        }
-
-        &.panel-root,
-        &.panel-child {
+        &.panel-list {
           flex-direction: column;
 
           .directory {

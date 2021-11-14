@@ -1,7 +1,7 @@
 module.exports = [{
   key: 'prendssoin',
   name: 'Prendssoin',
-  image: 'img/experience/prendssoin.jpg',
+  image: '/img/experience/prendssoin.jpg',
   date: 'Feb. 2017 -',
   location: 'Seoul, South Korea',
   position: 'Software Engineer',
@@ -9,7 +9,7 @@ module.exports = [{
 }, {
   key: 'incubatex',
   name: 'IncubateX Hackathon',
-  image: 'img/experience/incubatex.png',
+  image: '/img/experience/incubatex.png',
   date: 'Mar. 2016 - Aug. 2016',
   location: 'Dallas, Texas, USA',
   position: 'Web Developer',
@@ -17,7 +17,7 @@ module.exports = [{
 }, {
   key: 'freelancer',
   name: 'Freelancer',
-  image: 'img/experience/freelancer.jpg',
+  image: '/img/experience/freelancer.jpg',
   date: 'July 2013 -',
   location: 'Remote Working',
   position: 'Software Engineer',
@@ -25,7 +25,7 @@ module.exports = [{
 }, {
   key: 'deblur',
   name: 'Deblur',
-  image: 'img/experience/deblur.jpg',
+  image: '/img/experience/deblur.jpg',
   date: 'Mar. 2012 - Feb. 2014',
   location: 'Seoul, South Korea',
   position: 'Mobile App Developer',

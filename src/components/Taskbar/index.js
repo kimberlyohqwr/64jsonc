@@ -31,7 +31,7 @@ function Taskbar({ openedWindowKeys }) {
   return (
     <div className="Taskbar">
       <div className="label label-profile">
-        <Icon className="icon" path="/profile"/>
+        <Icon className="icon" path="profile"/>
         <div className="name">Jinseo Park</div>
       </div>
       <div className="shortcut-container">

@@ -1,84 +1,125 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './stylesheet.scss';
-import { name } from 'common/utils';
+import { classes, name } from 'common/utils';
 import * as directoryMap from './data';
 import Window from 'components/Window';
 import Link from 'components/Link';
 import Icon from 'components/Icon';
 
 function DirectoryWindow(props) {
+  const [subKeys, setSubKeys] = useState([]);
+  const [directoryKey, fileKey] = subKeys;
+  const file = directoryMap[directoryKey] && directoryMap[directoryKey].find(file => file.key === fileKey);
+
   return (
-    <Window className="DirectoryWindow" windowKey="directory" defaultWidth={50 * 16} defaultHeight={30 * 16} {...props}>
+    <Window className="DirectoryWindow" windowKey="directory" defaultWidth={50 * 16} defaultHeight={30 * 16}
+            onChangeSubKeys={setSubKeys} {...props}>
       <div className="panel-container">
-        <div className="panel panel-root open">
+        <div className={classes('panel', 'panel-list')}>
           {
-            Object.keys(directoryMap).map(directoryKey => (
-              <Link className="directory" path={`/directory/${directoryKey}`} key={directoryKey}>
-                <Icon className="icon" path="/directory"/>
-                <div className="name">{name(directoryKey)}</div>
+            Object.keys(directoryMap).map(key => (
+              <Link className={classes('directory', key === directoryKey && 'active')} path={`/directory/${key}`}
+                    key={key}>
+                <Icon className="icon" windowKey="directory"/>
+                <div className="name">{name(key)}</div>
               </Link>
             ))
           }
         </div>
       </div>
+      <div className="panel-container">
+        {
+          directoryMap[directoryKey] && (
+            <div className={classes('panel', 'panel-list')}>
+              <Link className={classes('directory', 'directory-parent')} path="/directory">
+                <Icon className="icon" windowKey="directory"/>
+                <div className="name">..</div>
+              </Link>
+              {
+                directoryMap[directoryKey].map(file => (
+                  <Link className={classes('directory', file.key === fileKey && 'active')}
+                        path={`/directory/${directoryKey}/${file.key}`} key={file.key}>
+                    <Icon className="icon" imageUrl={file.image}/>
+                    <div className="name">{name(file.name)}</div>
+                  </Link>
+                ))
+              }
+            </div>
+          )
+        }
+      </div>
+      <div className={classes('panel-container', 'panel-container-preview')}>
+        {
+          file && (
+            <div className={classes('panel', 'panel-preview')}>
+              <img className="preview" src={file.image}/>
+              {
+                {
+                  projects: (
+                    <div className="property-container">
+                      <div className={classes('property', 'property-name')}>{file.name}</div>
+                      <div className={classes('property', 'property-date')}>{file.date}</div>
+                      {
+                        file.link === '-' ? (
+                          <div className={classes('property', 'property-link')}>{file.link}</div>
+                        ) : /^https:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(file.link) ? (
+                          <Link className={classes('property', 'property-link')}
+                                path={`/browser/${file.key}`}>{file.link}</Link>
+                        ) : (
+                          <Link className={classes('property', 'property-link')} href={file.link}>{file.link}</Link>
+                        )
+                      }
+                      <div className={classes('property', 'property-detail')}>{file.detail}</div>
+                    </div>
+                  ),
+                  work_experience: (
+                    <div className="property-container">
+                      <div className={classes('property', 'property-name')}>{file.name}</div>
+                      <div className={classes('property', 'property-date')}>{file.date}</div>
+                      <div className={classes('property', 'property-location')}>{file.location}</div>
+                      <div className={classes('property', 'property-position')}>{file.position}</div>
+                      <div className={classes('property', 'property-detail')}>
+                        <div dangerouslySetInnerHTML={{ __html: file.detail }}/>
+                      </div>
+                    </div>
+                  ),
+                  awards: (
+                    <div className="property-container">
+                      <div className={classes('property', 'property-name')}>{file.name}</div>
+                      <div className={classes('property', 'property-date')}>{file.date}</div>
+                      <div className={classes('property', 'property-organizer')}>{file.organizer}</div>
+                      <div className={classes('property', 'property-place')}>
+                        <div dangerouslySetInnerHTML={{ __html: file.place }}/>
+                      </div>
+                    </div>
+                  ),
+                  education: (
+                    <div className="property-container">
+                      <div className={classes('property', 'property-name')}>{file.name}</div>
+                      <div className={classes('property', 'property-type')}>
+                        <div dangerouslySetInnerHTML={{ __html: file.type }}/>
+                      </div>
+                      <div className={classes('property', 'property-location')}>{file.location}</div>
+                      <div className={classes('property', 'property-date')}>{file.date}</div>
+                      <div className={classes('property', 'property-gpa')}>{file.gpa}</div>
+                      {
+                        file.link === '-' ? (
+                          <div className={classes('property', 'property-link')}>{file.link}</div>
+                        ) : (
+                          <Link className={classes('property', 'property-link')} href={file.link}>{file.link}</Link>
+                        )
+                      }
+                    </div>
+                  ),
+                }[directoryKey]
+              }
+              <Link className="close" path={`/directory/${directoryKey}`}/>
+            </div>
+          )
+        }
+      </div>
     </Window>
   );
 }
-
-/*
-.panel-container
-each child in ['projects', 'work_experience', 'awards', 'education']
-  .panel.panel-child(id=`directory-${child}`)
-    a.directory.directory-parent(href='#directory-')
-      .icon.icon-directory
-      .name ..
-    each file in data[child]
-      a.directory(href=`#directory-${child}-${file.key}`)
-        .icon(style=`background-image: url(${file.image})`)
-        .name= file.name
-.panel-container.panel-container-preview
-mixin panel-preview(child, file)
-  .panel.panel-preview(id=`directory-${child}-${file.key}`)
-    img.preview(src=file.image)
-    .property-container
-      block
-    a.close(href=`#directory-${child}`)
-each file in data.projects
-  +panel-preview('projects', file)
-    .property.property-name= file.name
-    .property.property-date= file.date
-    if file.link === '-'
-      .property.property-link= file.link
-    else if /^https:\/\/([a-zA-Z0-9_-]+\.)*jasonpark\.me/i.test(file.link)
-      a.property.property-link(href=`#browser-${file.key}`, data-name=file.name, data-image=file.image, data-url=file.link)= file.link
-    else
-      a.property.property-link(href=file.link)= file.link
-    .property.property-detail= file.detail
-each file in data.work_experience
-  +panel-preview('work_experience', file)
-    .property.property-name= file.name
-    .property.property-date= file.date
-    .property.property-location: div!= file.location
-    .property.property-position= file.position
-    .property.property-detail: div!= file.detail
-each file in data.awards
-  +panel-preview('awards', file)
-    .property.property-name= file.name
-    .property.property-date= file.date
-    .property.property-organizer= file.organizer
-    .property.property-place: div!= file.place
-each file in data.education
-  +panel-preview('education', file)
-    .property.property-name= file.name
-    .property.property-type!= file.type
-    .property.property-location: div!= file.location
-    .property.property-date= file.date
-    .property.property-gpa= file.gpa
-    if file.link === '-'
-      .property.property-link= file.link
-    else
-      a.property.property-link(href=file.link)= file.link
-
- */
 
 export default DirectoryWindow;
