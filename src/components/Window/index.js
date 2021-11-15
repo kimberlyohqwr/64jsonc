@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { classes, getWindowKey } from 'common/utils';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Link from 'components/Link';
 
 function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, defaultHeight, noToolbar, children, zIndex, onFocus, onChangeOpened, onChangeSubKeys }) {
+  const history = useHistory();
   const location = useLocation();
   const currentPath = location.pathname;
   const focused = getWindowKey(currentPath) === windowKey;
@@ -42,9 +43,13 @@ function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, d
   const [resizing, setResizing] = useState(false);
 
   return (
-    <Link path={lastPath}
-          className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', opened && 'opened', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
-          style={{ width, height, top, left, zIndex }}>
+    <div
+      className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', opened && 'opened', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
+      style={{ width, height, top, left, zIndex }}
+      onClick={e => {
+        e.stopPropagation();
+        if (!focused) history.push(lastPath);
+      }}>
       <div className="toolbar" onMouseDown={e => {
         // if (mobile) return;
         if (e.button !== 0) return;
@@ -147,7 +152,7 @@ function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, d
                }}/>
         ))
       }
-    </Link>
+    </div>
   );
 }
 
