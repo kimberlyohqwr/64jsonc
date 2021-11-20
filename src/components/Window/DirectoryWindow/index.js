@@ -9,10 +9,14 @@ import Icon from 'components/Icon';
 function DirectoryWindow(props) {
   const [subKeys, setSubKeys] = useState([]);
   const [directoryKey, fileKey] = subKeys;
-  const file = directoryMap[directoryKey] && directoryMap[directoryKey].find(file => file.key === fileKey);
+  const directory = directoryMap[directoryKey];
+  const file = directory && directory.find(file => file.key === fileKey);
 
   return (
-    <Window className="DirectoryWindow" windowKey="directory" defaultWidth={50 * 16} defaultHeight={30 * 16}
+    <Window className="DirectoryWindow"
+            windowKey="directory" title={file ? file.name : directory ? name(directoryKey) : 'Directory'}
+            iconProps={file ? { imageUrl: file.image } : { windowKey: 'directory' }}
+            defaultWidth={50 * 16} defaultHeight={30 * 16}
             onChangeSubKeys={setSubKeys} {...props}>
       <div className="panel-container">
         <div className={classes('panel', 'panel-list')}>
@@ -29,14 +33,14 @@ function DirectoryWindow(props) {
       </div>
       <div className="panel-container">
         {
-          directoryMap[directoryKey] && (
+          directory && (
             <div className={classes('panel', 'panel-list')}>
               <Link className={classes('directory', 'directory-parent')} path="/directory">
                 <Icon className="icon" windowKey="directory"/>
                 <div className="name">..</div>
               </Link>
               {
-                directoryMap[directoryKey].map(file => (
+                directory.map(file => (
                   <Link className={classes('directory', file.key === fileKey && 'active')}
                         path={`/directory/${directoryKey}/${file.key}`} key={file.key}>
                     <Icon className="icon" imageUrl={file.image}/>

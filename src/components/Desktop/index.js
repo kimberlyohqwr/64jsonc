@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
 import App from 'components/App';
 import DirectoryWindow from '../Window/DirectoryWindow';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const WindowComponents = [
   DirectoryWindow,
@@ -10,6 +10,9 @@ const WindowComponents = [
 
 function Desktop({ onChangeOpenedWindowKeys }) {
   const history = useHistory();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   const [zIndices, setZIndices] = useState(new Array(WindowComponents.length).fill(1));
   const [openedWindowKeys, setOpenedWindowKeys] = useState([]);
 
@@ -18,7 +21,9 @@ function Desktop({ onChangeOpenedWindowKeys }) {
   }, [openedWindowKeys]);
 
   return (
-    <div className="Desktop" onClick={() => history.push('/')}>
+    <div className="Desktop" onMouseDown={() => {
+      if (currentPath !== '/') history.push('/');
+    }}>
       <a className="github-corner" href="https://github.com/parkjs814/parkjs814.github.io"
          aria-label="View source on Github">
         <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">

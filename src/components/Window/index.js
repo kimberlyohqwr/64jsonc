@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { classes, getWindowKey } from 'common/utils';
+import { classes, getSubKeys, getWindowKey } from 'common/utils';
 import { useHistory, useLocation } from 'react-router-dom';
 import Link from 'components/Link';
+import Icon from '../Icon';
 
-function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, defaultHeight, noToolbar, children, zIndex, onFocus, onChangeOpened, onChangeSubKeys }) {
+function Window({ className, windowKey, iconProps, title, defaultLeft, defaultTop, defaultWidth, defaultHeight, noToolbar, children, zIndex, onFocus, onChangeOpened, onChangeSubKeys }) {
   const history = useHistory();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -23,16 +24,21 @@ function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, d
   }, [focused]);
   useEffect(() => {
     if (focused) {
-      if (onChangeSubKeys) {
-        const keys = currentPath.split('/');
-        const subKeys = keys.slice(2);
-        onChangeSubKeys(subKeys);
+      const subKeys = getSubKeys(currentPath);
+      const lastSubKeys = getSubKeys(lastPath);
+      if (subKeys.length === 0 && lastSubKeys.length > 0) {
+        history.push(lastPath);
+      } else {
+        if (onChangeSubKeys) onChangeSubKeys(subKeys);
+        setLastPath(currentPath);
       }
-      setLastPath(currentPath);
     }
   }, [focused, currentPath]);
   useEffect(() => {
     if (onChangeOpened) onChangeOpened(opened, windowKey);
+    if (!opened) {
+      setLastPath(`/${windowKey}`);
+    }
   }, [opened]);
 
   const [left, setLeft] = useState(defaultLeft);
@@ -46,7 +52,7 @@ function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, d
     <div
       className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', opened && 'opened', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
       style={{ width, height, top, left, zIndex }}
-      onClick={e => {
+      onMouseDown={e => {
         e.stopPropagation();
         if (!focused) history.push(lastPath);
       }}>
@@ -82,8 +88,8 @@ function Window({ className, windowKey, defaultLeft, defaultTop, defaultWidth, d
             </div>
           ) : (
             <div className="title-container">
-              <div className="icon"></div>
-              <div className="name"></div>
+              <Icon className="icon" {...iconProps}/>
+              <div className="name">{title}</div>
             </div>
           )
         }
