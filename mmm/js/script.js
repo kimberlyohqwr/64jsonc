@@ -125,29 +125,6 @@ $(document).ready(() => {
     window.open($browserIframe.attr('src'));
   });
 
-  const handleDirectoryKeyDown = (e) => {
-    const $selectedDirectory = $directory.find('.panel.open .directory.active').last();
-    const { keyCode } = e;
-    switch (keyCode) {
-      case 38:
-        const [prevDirectory] = $selectedDirectory.prev(':not(.directory-parent)');
-        if (prevDirectory) prevDirectory.click();
-        break;
-      case 40:
-        const [nextDirectory] = $selectedDirectory.next();
-        if (nextDirectory) nextDirectory.click();
-        break;
-      case 37:
-        const [parentDirectory] = $selectedDirectory.parents('.panel-container').prev().find('.panel.open .directory.active');
-        if (parentDirectory) parentDirectory.click();
-        break;
-      case 39:
-        const [childDirectory] = $selectedDirectory.parents('.panel-container').next().find('.panel.open .directory:not(.directory-parent)').first();
-        if (childDirectory) childDirectory.click();
-        break;
-    }
-  };
-
   const paths = {
     users: {
       jason: {

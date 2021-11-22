@@ -3,22 +3,63 @@ import './stylesheet.scss';
 import App from 'components/App';
 import DirectoryWindow from '../Window/DirectoryWindow';
 import { useHistory, useLocation } from 'react-router-dom';
+import { getSubKeys, getWindowKey } from '../../common/utils';
 
-const WindowComponents = [
-  DirectoryWindow,
-];
+function Desktop({ onChangeWindows }) {
+  const [windows, setWindows] = useState([{
+    Component: DirectoryWindow,
+    windowKey: 'directory',
+    width: 50 * 16,
+    height: 30 * 16,
+  }].map((window, i) => ({
+    ...window,
+    left: (i + 1) * 20,
+    top: (i + 1) * 20,
+    path: `/${window.windowKey}`,
+    opened: false,
+    minimized: false,
+    maximized: false,
+    focused: false,
+  })));
 
-function Desktop({ onChangeOpenedWindowKeys }) {
   const history = useHistory();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [zIndices, setZIndices] = useState(new Array(WindowComponents.length).fill(1));
-  const [openedWindowKeys, setOpenedWindowKeys] = useState([]);
+  useEffect(() => {
+    const newWindows = windows.map(window => {
+      const focused = getWindowKey(currentPath) === window.windowKey;
+      if (focused) {
+        const subKeys = getSubKeys(currentPath);
+        const lastSubKeys = getSubKeys(window.path);
+        if (subKeys.length === 0 && lastSubKeys.length > 0) {
+          history.replace(window.path);
+          return window;
+        }
+      }
+      if (focused) {
+        return {
+          ...window,
+          focused: true,
+          path: currentPath,
+          ...(!window.focused ? {
+            opened: true,
+            minimized: false,
+          } : {}),
+        };
+      } else {
+        return {
+          ...window,
+          focused: false,
+        };
+      }
+    });
+    setWindows(newWindows);
+  }, [currentPath]);
 
   useEffect(() => {
-    if (onChangeOpenedWindowKeys) onChangeOpenedWindowKeys(openedWindowKeys);
-  }, [openedWindowKeys]);
+    if (onChangeWindows) onChangeWindows(windows);
+  }, [windows]);
 
   return (
     <div className="Desktop" onMouseDown={() => {
@@ -50,19 +91,18 @@ function Desktop({ onChangeOpenedWindowKeys }) {
       </div>
       <div className="window-container">
         {
-          [
-            DirectoryWindow,
-          ].map((WindowComponent, i) => (
-            <WindowComponent key={i} zIndex={zIndices[i]} onFocus={() => {
-              const newZIndices = [...zIndices];
-              newZIndices[i] = Math.max(...zIndices) + 1;
-              setZIndices(newZIndices);
-            }} onChangeOpened={(opened, windowKey) => {
-              const newOpenedWindowKeys = openedWindowKeys.filter(key => key !== windowKey);
-              if (opened) newOpenedWindowKeys.push(windowKey);
-              setOpenedWindowKeys(newOpenedWindowKeys);
-            }} defaultTop={(i + 1) * 20} defaultLeft={(i + 1) * 20}/>
-          ))
+          windows.map((window, i) => {
+            const { Component, ...windowProps } = window;
+            return (
+              <Component key={i} windowProps={windowProps} onUpdate={patch => {
+                const newWindows = windows.map(w => w.windowKey === windowProps.windowKey ? { ...w, ...patch } : w);
+                setWindows(newWindows);
+              }} onFocus={() => {
+                const newWindows = [...windows.filter(w => w.windowKey !== windowProps.windowKey), window];
+                setWindows(newWindows);
+              }}/>
+            );
+          })
         }
       </div>
     </div>

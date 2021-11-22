@@ -5,13 +5,13 @@ import Desktop from 'components/Desktop';
 import Taskbar from 'components/Taskbar';
 
 function Screen() {
-  const [openedWindowKeys, setOpenedWindowKeys] = useState([]);
+  const [windows, setWindows] = useState([]);
 
   return (
     <Router>
       <div className="Screen">
-        <Desktop onChangeOpenedWindowKeys={setOpenedWindowKeys}/>
-        <Taskbar openedWindowKeys={openedWindowKeys}/>
+        <Desktop onChangeWindows={setWindows}/>
+        <Taskbar windows={windows}/>
       </div>
     </Router>
   );

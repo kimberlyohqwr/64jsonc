@@ -1,28 +1,71 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './stylesheet.scss';
-import { classes, name } from 'common/utils';
-import * as directoryMap from './data';
+import { classes, getSubKeys, name } from 'common/utils';
 import Window from 'components/Window';
 import Link from 'components/Link';
 import Icon from 'components/Icon';
+import { useHistory } from 'react-router-dom';
+import * as directoryMap from './data';
 
-function DirectoryWindow(props) {
-  const [subKeys, setSubKeys] = useState([]);
+const directoryKeys = Object.keys(directoryMap);
+
+function DirectoryWindow({ windowProps, ...restProps }) {
+  const { windowKey, path } = windowProps;
+
+  const history = useHistory();
+  const subKeys = getSubKeys(path);
   const [directoryKey, fileKey] = subKeys;
   const directory = directoryMap[directoryKey];
   const file = directory && directory.find(file => file.key === fileKey);
 
   return (
-    <Window className="DirectoryWindow"
-            windowKey="directory" title={file ? file.name : directory ? name(directoryKey) : 'Directory'}
-            iconProps={file ? { imageUrl: file.image } : { windowKey: 'directory' }}
-            defaultWidth={50 * 16} defaultHeight={30 * 16}
-            onChangeSubKeys={setSubKeys} {...props}>
+    <Window className="DirectoryWindow" windowKey={windowKey}
+            title={file ? file.name : directory ? name(directoryKey) : 'Directory'}
+            iconProps={file ? { imageUrl: file.image } : { windowKey }}
+            onKeyDown={e => {
+              e.preventDefault();
+              switch (e.keyCode) {
+                case 37:
+                  if (file) {
+                    history.push(`/${windowKey}/${directoryKey}`);
+                  } else if (directory) {
+                    history.push(`/${windowKey}`);
+                  }
+                  break;
+                case 39:
+                  if (!directory) {
+                    history.push(`/${windowKey}/${directoryKeys[0]}`);
+                  } else if (!file) {
+                    history.push(`/${windowKey}/${directoryKey}/${directory[0].key}`);
+                  }
+                  break;
+                case 38:
+                  if (file) {
+                    const newFileIndex = Math.max(0, directory.indexOf(file) - 1);
+                    history.push(`/${windowKey}/${directoryKey}/${directory[newFileIndex].key}`);
+                  } else if (directory) {
+                    const newDirectoryIndex = Math.max(0, directoryKeys.indexOf(directoryKey) - 1);
+                    history.push(`/${windowKey}/${directoryKeys[newDirectoryIndex]}`);
+                  }
+                  break;
+                case 40:
+                  if (file) {
+                    const newFileIndex = Math.min(directory.length - 1, directory.indexOf(file) + 1);
+                    history.push(`/${windowKey}/${directoryKey}/${directory[newFileIndex].key}`);
+                  } else if (directory) {
+                    const newDirectoryIndex = Math.min(directoryKeys.length - 1, directoryKeys.indexOf(directoryKey) + 1);
+                    history.push(`/${windowKey}/${directoryKeys[newDirectoryIndex]}`);
+                  }
+                  break;
+              }
+            }}
+            windowProps={windowProps}
+            {...restProps}>
       <div className="panel-container">
         <div className={classes('panel', 'panel-list')}>
           {
-            Object.keys(directoryMap).map(key => (
-              <Link className={classes('directory', key === directoryKey && 'active')} path={`/directory/${key}`}
+            directoryKeys.map(key => (
+              <Link className={classes('directory', key === directoryKey && 'active')} path={`/${windowKey}/${key}`}
                     key={key}>
                 <Icon className="icon" windowKey="directory"/>
                 <div className="name">{name(key)}</div>
@@ -35,14 +78,14 @@ function DirectoryWindow(props) {
         {
           directory && (
             <div className={classes('panel', 'panel-list')}>
-              <Link className={classes('directory', 'directory-parent')} path="/directory">
+              <Link className={classes('directory', 'directory-parent')} path={`/${windowKey}`}>
                 <Icon className="icon" windowKey="directory"/>
                 <div className="name">..</div>
               </Link>
               {
                 directory.map(file => (
                   <Link className={classes('directory', file.key === fileKey && 'active')}
-                        path={`/directory/${directoryKey}/${file.key}`} key={file.key}>
+                        path={`/${windowKey}/${directoryKey}/${file.key}`} key={file.key}>
                     <Icon className="icon" imageUrl={file.image}/>
                     <div className="name">{name(file.name)}</div>
                   </Link>
@@ -117,7 +160,7 @@ function DirectoryWindow(props) {
                   ),
                 }[directoryKey]
               }
-              <Link className="close" path={`/directory/${directoryKey}`}/>
+              <Link className="close" path={`/${windowKey}/${directoryKey}`}/>
             </div>
           )
         }

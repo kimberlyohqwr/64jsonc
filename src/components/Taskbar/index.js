@@ -14,7 +14,7 @@ const getClock = () => {
   return `${hh}:${mm} ${A}`;
 };
 
-function Taskbar({ openedWindowKeys }) {
+function Taskbar({ windows }) {
   const [clock, setClock] = useState(getClock());
 
   useEffect(() => {
@@ -44,10 +44,13 @@ function Taskbar({ openedWindowKeys }) {
             'paypal',
             'version_history',
             'attribution',
-          ].map(windowKey => (
-            <Shortcut key={windowKey} path={`/${windowKey}`} hidden={windowKey === 'browser'}
-                      active={openedWindowKeys.includes(windowKey)}/>
-          ))
+          ].map(windowKey => {
+            const window = windows.find(w => w.windowKey === windowKey);
+            return (
+              <Shortcut key={windowKey} path={`/${windowKey}`} hidden={windowKey === 'browser'}
+                        active={window && window.opened}/>
+            );
+          })
         }
       </div>
       <div className="label label-clock">

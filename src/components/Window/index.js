@@ -1,60 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { classes, getSubKeys, getWindowKey } from 'common/utils';
-import { useHistory, useLocation } from 'react-router-dom';
+import { classes } from 'common/utils';
+import { useHistory } from 'react-router-dom';
 import Link from 'components/Link';
 import Icon from '../Icon';
 
-function Window({ className, windowKey, iconProps, title, defaultLeft, defaultTop, defaultWidth, defaultHeight, noToolbar, children, zIndex, onFocus, onChangeOpened, onChangeSubKeys }) {
+function Window({
+                  className, iconProps, title, noToolbar, children, onKeyDown,
+                  onUpdate, onFocus, windowProps,
+                }) {
+  const { windowKey, width, height, left, top, path, opened, minimized, maximized, focused } = windowProps;
+
   const history = useHistory();
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const focused = getWindowKey(currentPath) === windowKey;
 
-  const [opened, setOpened] = useState(false);
-  const [minimized, setMinimized] = useState(false);
-  const [maximized, setMaximized] = useState(false);
-  const [lastPath, setLastPath] = useState(`/${windowKey}`);
   useEffect(() => {
-    if (focused) {
-      if (onFocus) onFocus();
-      setOpened(true);
-      setMinimized(false);
+    if (focused && onKeyDown) {
+      window.addEventListener('keydown', onKeyDown);
+      return () => {
+        window.removeEventListener('keydown', onKeyDown);
+      };
     }
-  }, [focused]);
-  useEffect(() => {
-    if (focused) {
-      const subKeys = getSubKeys(currentPath);
-      const lastSubKeys = getSubKeys(lastPath);
-      if (subKeys.length === 0 && lastSubKeys.length > 0) {
-        history.push(lastPath);
-      } else {
-        if (onChangeSubKeys) onChangeSubKeys(subKeys);
-        setLastPath(currentPath);
-      }
-    }
-  }, [focused, currentPath]);
-  useEffect(() => {
-    if (onChangeOpened) onChangeOpened(opened, windowKey);
-    if (!opened) {
-      setLastPath(`/${windowKey}`);
-    }
-  }, [opened]);
+  }, [focused, onKeyDown]);
 
-  const [left, setLeft] = useState(defaultLeft);
-  const [top, setTop] = useState(defaultTop);
-  const [width, setWidth] = useState(defaultWidth);
-  const [height, setHeight] = useState(defaultHeight);
   const [moving, setMoving] = useState(false);
   const [resizing, setResizing] = useState(false);
 
   return (
     <div
       className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', opened && 'opened', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
-      style={{ width, height, top, left, zIndex }}
+      style={{ width, height, top, left }}
       onMouseDown={e => {
         e.stopPropagation();
-        if (!focused) history.push(lastPath);
+        if (!focused) history.push(path);
       }}>
       <div className="toolbar" onMouseDown={e => {
         // if (mobile) return;
@@ -66,8 +43,10 @@ function Window({ className, windowKey, iconProps, title, defaultLeft, defaultTo
         const onMouseMove = e => {
           const dx = e.clientX - offsetX;
           const dy = e.clientY - offsetY;
-          setLeft(left + dx);
-          setTop(top + dy);
+          onUpdate({
+            left: left + dx,
+            top: top + dy,
+          });
         };
         const onMouseUp = () => {
           setMoving(false);
@@ -78,9 +57,13 @@ function Window({ className, windowKey, iconProps, title, defaultLeft, defaultTo
         window.addEventListener('mouseup', onMouseUp);
       }}>
         <div className="button-container">
-          <Link className="button button-close" path="/" onClick={() => setOpened(false)}/>
-          <Link className="button button-minimize" path="/" onClick={() => setMinimized(true)}/>
-          <Link className="button button-maximize" path={lastPath} onClick={() => setMaximized(!maximized)}/>
+          <Link className="button button-close" path="/" onClick={() => onUpdate({
+            opened: false,
+            path: `/${windowKey}`,
+          })}/>
+          <Link className="button button-minimize" path="/" onClick={() => onUpdate({ minimized: true })}/>
+          <Link className="button button-maximize" path={path}
+                onClick={() => onUpdate({ maximized: !maximized })}/>
         </div>
         {
           windowKey === 'browser' ? (
@@ -143,10 +126,12 @@ function Window({ className, windowKey, iconProps, title, defaultLeft, defaultTo
                      }
                    });
                    if (newWidth < 280 || newHeight < 60) return;
-                   setLeft(newLeft);
-                   setTop(newTop);
-                   setWidth(newWidth);
-                   setHeight(newHeight);
+                   onUpdate({
+                     left: newLeft,
+                     top: newTop,
+                     width: newWidth,
+                     height: newHeight,
+                   });
                  };
                  const onMouseUp = () => {
                    setResizing(false);
