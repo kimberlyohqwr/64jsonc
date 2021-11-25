@@ -3,22 +3,26 @@ import './stylesheet.scss';
 import App from 'components/App';
 import DirectoryWindow from '../Window/DirectoryWindow';
 import { useHistory, useLocation } from 'react-router-dom';
-import { getSubKeys, getWindowKey } from '../../common/utils';
+import { getWindowKey } from '../../common/utils';
+import BrowserWindow from '../Window/BrowserWindow';
 
 function Desktop({ onChangeWindows }) {
   const [windows, setWindows] = useState([{
     Component: DirectoryWindow,
     windowKey: 'directory',
-    width: 50 * 16,
-    height: 30 * 16,
+    defaultWidth: 50 * 16,
+    defaultHeight: 30 * 16,
+  }, {
+    Component: BrowserWindow,
+    windowKey: 'browser',
+    defaultWidth: 60 * 16,
+    defaultHeight: 40 * 16,
   }].map((window, i) => ({
     ...window,
-    left: (i + 1) * 20,
-    top: (i + 1) * 20,
+    defaultLeft: (i + 1) * 20,
+    defaultTop: (i + 1) * 20,
     path: `/${window.windowKey}`,
     opened: false,
-    minimized: false,
-    maximized: false,
     focused: false,
   })));
 
@@ -29,14 +33,6 @@ function Desktop({ onChangeWindows }) {
   useEffect(() => {
     const newWindows = windows.map(window => {
       const focused = getWindowKey(currentPath) === window.windowKey;
-      if (focused) {
-        const subKeys = getSubKeys(currentPath);
-        const lastSubKeys = getSubKeys(window.path);
-        if (subKeys.length === 0 && lastSubKeys.length > 0) {
-          history.replace(window.path);
-          return window;
-        }
-      }
       if (focused) {
         return {
           ...window,
@@ -54,7 +50,9 @@ function Desktop({ onChangeWindows }) {
         };
       }
     });
-    setWindows(newWindows);
+    const focusedWindow = newWindows.find(w => w.focused);
+    const reorderedWindows = focusedWindow ? [...newWindows.filter(w => w !== focusedWindow), focusedWindow] : newWindows;
+    setWindows(reorderedWindows);
   }, [currentPath]);
 
   useEffect(() => {
@@ -91,14 +89,11 @@ function Desktop({ onChangeWindows }) {
       </div>
       <div className="window-container">
         {
-          windows.map((window, i) => {
+          windows.map(window => {
             const { Component, ...windowProps } = window;
             return (
-              <Component key={i} windowProps={windowProps} onUpdate={patch => {
+              <Component key={window.windowKey} windowProps={windowProps} onUpdate={patch => {
                 const newWindows = windows.map(w => w.windowKey === windowProps.windowKey ? { ...w, ...patch } : w);
-                setWindows(newWindows);
-              }} onFocus={() => {
-                const newWindows = [...windows.filter(w => w.windowKey !== windowProps.windowKey), window];
                 setWindows(newWindows);
               }}/>
             );

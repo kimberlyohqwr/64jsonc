@@ -19,7 +19,6 @@
   opacity $anim-duration,
   visibility $anim-duration,
   box-shadow $anim-duration;
-  cursor: auto;
   z-index: 1;
 
   iframe {
@@ -192,6 +191,7 @@
         max-width: 12rem;
         padding: 0 .5rem;
         transition: background-color $anim-duration;
+        cursor: pointer;
 
         .icon {
           width: 1.2rem;
@@ -221,6 +221,7 @@
           align-items: center;
           justify-content: center;
           transition: color $anim-duration;
+          cursor: pointer;
 
           &:after {
             content: '×';

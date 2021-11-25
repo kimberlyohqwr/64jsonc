@@ -1,12 +1,8 @@
 $(document).ready(() => {
   const $window = $('.window');
-  const $directory = $('#directory');
-  const $browser = $('#browser');
   const $terminal = $('#terminal');
   const $toolbar = $window.find('.toolbar');
   const $buttonContainer = $toolbar.find('.button-container');
-  const $browserIframe = $browser.find('.iframe');
-  const $browserAddressbar = $browser.find('.addressbar');
   const $html = $('html');
   const $a = $('a');
 
@@ -77,8 +73,6 @@ $(document).ready(() => {
       }
     }
   };
-  window.setTimeout(handleHashChange, 0);
-  $(window).on('hashchange', handleHashChange);
 
   $buttonContainer.click(function () {
     if (mobile) {
@@ -104,25 +98,10 @@ $(document).ready(() => {
         break;
     }
   });
-  $buttonContainer.find('.button-minimize').click(function (e) {
-    if (mobile) return;
-    const $selectedWindow = $(this).parents('.window');
-    $selectedWindow.addClass('minimize');
-  });
-  $buttonContainer.find('.button-maximize').click(function (e) {
-    if (mobile) return;
-    e.preventDefault();
-    const $selectedWindow = $(this).parents('.window');
-    $selectedWindow.toggleClass('maximize');
-  });
 
   $browserAddressbar.find('.button-refresh').click((e) => {
     e.preventDefault();
     $browserIframe.attr('src', $browserIframe.attr('src'));
-  });
-  $browserAddressbar.find('.button-new').click((e) => {
-    e.preventDefault();
-    window.open($browserIframe.attr('src'));
   });
 
   const paths = {

@@ -46,9 +46,10 @@ function Taskbar({ windows }) {
             'attribution',
           ].map(windowKey => {
             const window = windows.find(w => w.windowKey === windowKey);
+            if (!window) return;
             return (
-              <Shortcut key={windowKey} path={`/${windowKey}`} hidden={windowKey === 'browser'}
-                        active={window && window.opened}/>
+              <Shortcut key={windowKey} path={window.path} hidden={windowKey === 'browser'}
+                        active={window.opened}/>
             );
           })
         }

@@ -20,7 +20,7 @@ function Link({ className, href, path, onMouseDown, onClick, ...props }) {
     onClick: handleClick,
   };
 
-  return href ? (
+  return href !== undefined ? (
     <a className={classes(className, 'link-external')} href={href} target="_blank" rel="noopener" {...commonProps}/>
   ) : (
     <PathLink className={className} to={path} {...commonProps}/>
