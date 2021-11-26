@@ -18,7 +18,7 @@ function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
   const [refresh, setRefresh] = useState(0);
 
   const project = projects.find(project => project.key === projectKey);
-  const src = project && project.link || '';
+  const src = project ? project.link : '';
 
   useEffect(() => {
     if (projectKey) {

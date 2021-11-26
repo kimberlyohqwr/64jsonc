@@ -16,6 +16,12 @@ function Window({
 
   const history = useHistory();
 
+  const [[left, top, width, height], setCoords] = useState([defaultLeft, defaultTop, defaultWidth, defaultHeight]);
+  const [maximized, setMaximized] = useState(false);
+  const [minimized, setMinimized] = useState(false);
+  const [moving, setMoving] = useState(false);
+  const [resizing, setResizing] = useState(false);
+
   useEffect(() => {
     if (focused && onKeyDown) {
       window.addEventListener('keydown', onKeyDown);
@@ -30,12 +36,6 @@ function Window({
       setMinimized(false);
     }
   }, [focused]);
-
-  const [[left, top, width, height], setCoords] = useState([defaultLeft, defaultTop, defaultWidth, defaultHeight]);
-  const [maximized, setMaximized] = useState(false);
-  const [minimized, setMinimized] = useState(false);
-  const [moving, setMoving] = useState(false);
-  const [resizing, setResizing] = useState(false);
 
   return (
     <div
@@ -137,6 +137,7 @@ function Window({
                        case 'right':
                          newWidth += dx;
                          break;
+                       default:
                      }
                    });
                    if (newWidth < 280 || newHeight < 60) return;

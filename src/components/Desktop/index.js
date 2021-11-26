@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './stylesheet.scss';
 import App from 'components/App';
-import DirectoryWindow from '../Window/DirectoryWindow';
 import { useHistory, useLocation } from 'react-router-dom';
-import { getWindowKey } from '../../common/utils';
-import BrowserWindow from '../Window/BrowserWindow';
+import { getWindowKey } from 'common/utils';
+import { WindowsContext } from 'components/Screen';
 
-function Desktop({ onChangeWindows }) {
-  const [windows, setWindows] = useState([{
-    Component: DirectoryWindow,
-    windowKey: 'directory',
-    defaultWidth: 50 * 16,
-    defaultHeight: 30 * 16,
-  }, {
-    Component: BrowserWindow,
-    windowKey: 'browser',
-    defaultWidth: 60 * 16,
-    defaultHeight: 40 * 16,
-  }].map((window, i) => ({
-    ...window,
-    defaultLeft: (i + 1) * 20,
-    defaultTop: (i + 1) * 20,
-    path: `/${window.windowKey}`,
-    opened: false,
-    focused: false,
-  })));
+function Desktop() {
+  const [windows, setWindows] = useContext(WindowsContext);
 
   const history = useHistory();
   const location = useLocation();
@@ -54,10 +36,6 @@ function Desktop({ onChangeWindows }) {
     const reorderedWindows = focusedWindow ? [...newWindows.filter(w => w !== focusedWindow), focusedWindow] : newWindows;
     setWindows(reorderedWindows);
   }, [currentPath]);
-
-  useEffect(() => {
-    if (onChangeWindows) onChangeWindows(windows);
-  }, [windows]);
 
   return (
     <div className="Desktop" onMouseDown={() => {

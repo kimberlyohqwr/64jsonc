@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
 import Shortcut from 'components/Shortcut';
-import Icon from '../Icon';
+import Icon from 'components/Icon';
+import { WindowsContext } from 'components/Screen';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -14,7 +15,8 @@ const getClock = () => {
   return `${hh}:${mm} ${A}`;
 };
 
-function Taskbar({ windows }) {
+function Taskbar() {
+  const [windows, setWindows] = useContext(WindowsContext);
   const [clock, setClock] = useState(getClock());
 
   useEffect(() => {
@@ -46,7 +48,7 @@ function Taskbar({ windows }) {
             'attribution',
           ].map(windowKey => {
             const window = windows.find(w => w.windowKey === windowKey);
-            if (!window) return;
+            if (!window) return null;
             return (
               <Shortcut key={windowKey} path={window.path} hidden={windowKey === 'browser'}
                         active={window.opened}/>
