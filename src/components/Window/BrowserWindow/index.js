@@ -33,7 +33,7 @@ function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
   return (
     <Window className="BrowserWindow" windowKey={windowKey}
             tabs={tabKeys.map((tabKey, i) => {
-              const project = projectKey && projects.find(project => project.key === tabKey);
+              const project = projects.find(project => project.key === tabKey);
               return (
                 <Link className={classes('tab', activeKey === tabKey && 'active')} key={tabKey}
                       path={`/${windowKey}/${tabKey}`}>

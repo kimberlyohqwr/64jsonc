@@ -12,52 +12,6 @@ $(document).ready(() => {
   const handleHashChange = () => {
     const windowId = $selectedWindow.attr('id');
     switch (windowId) {
-      case 'browser': {
-        const $tabContainer = $selectedWindow.find('.tab-container');
-        if ($hash.length) {
-          const tab = $hash[0];
-          tab.click();
-        } else {
-          const $tab = $('<a class="tab open active"></a>');
-          $tab.attr('id', hash.substring(1));
-          $tab.attr('href', hash);
-          const url = $firstLauncher.data('url');
-          $tab.data({ url });
-          $tab.mousedown((e) => e.stopPropagation());
-          const $icon = $('<div class="icon"></div>');
-          const $name = $('<div class="name"></div>');
-          const $close = $('<a class="close" href="#"></a>');
-          $icon.css('background-image', `url(${$firstLauncher.data('image')})`);
-          $name.text($firstLauncher.data('name'));
-          $close.attr('href', '#');
-          $close.click((e) => {
-            e.preventDefault();
-            const isOpen = $tab.hasClass('open');
-            const prevTab = $tab.prev()[0] || $tab.next()[0];
-            $tab.remove();
-            if (isOpen) {
-              if (prevTab) {
-                prevTab.click();
-              } else {
-                const [buttonClose] = $selectedWindow.find('.button-close');
-                buttonClose.click();
-              }
-            }
-          });
-          $tab.append($icon);
-          $tab.append($name);
-          $tab.append($close);
-          $tab.click(() => {
-            if ($browserIframe.attr('src') !== url) {
-              $browserIframe.attr('src', url);
-            }
-            $browserAddressbar.find('.url').text(url);
-          });
-          $tab.click();
-          $tabContainer.append($tab);
-        }
-        break;
-      }
       case 'instagram': {
         const $titleContainer = $selectedWindow.find('.title-container');
         $titleContainer.empty();
@@ -91,17 +45,7 @@ $(document).ready(() => {
       case 'terminal':
         resetTerminal();
         break;
-      case 'browser':
-        $selectedWindow.find('.tab-container').empty();
-        $browserIframe.attr('src', null);
-        $browserAddressbar.find('.url').text(null);
-        break;
     }
-  });
-
-  $browserAddressbar.find('.button-refresh').click((e) => {
-    e.preventDefault();
-    $browserIframe.attr('src', $browserIframe.attr('src'));
   });
 
   const paths = {

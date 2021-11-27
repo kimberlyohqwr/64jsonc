@@ -26,6 +26,7 @@ function Screen() {
     path: `/${window.windowKey}`,
     opened: false,
     focused: false,
+    instance: 0,
   })));
 
   return (

@@ -15,22 +15,15 @@ function Desktop() {
   useEffect(() => {
     const newWindows = windows.map(window => {
       const focused = getWindowKey(currentPath) === window.windowKey;
-      if (focused) {
-        return {
-          ...window,
-          focused: true,
+      return {
+        ...window,
+        focused,
+        ...(focused ? {
           path: currentPath,
-          ...(!window.focused ? {
-            opened: true,
-            minimized: false,
-          } : {}),
-        };
-      } else {
-        return {
-          ...window,
-          focused: false,
-        };
-      }
+          opened: true,
+          instance: window.instance + (window.opened ? 0 : 1),
+        } : {}),
+      };
     });
     const focusedWindow = newWindows.find(w => w.focused);
     const reorderedWindows = focusedWindow ? [...newWindows.filter(w => w !== focusedWindow), focusedWindow] : newWindows;
@@ -70,7 +63,7 @@ function Desktop() {
           windows.map(window => {
             const { Component, ...windowProps } = window;
             return (
-              <Component key={window.windowKey} windowProps={windowProps} onUpdate={patch => {
+              <Component key={`${window.windowKey}-${window.instance}`} windowProps={windowProps} onUpdate={patch => {
                 const newWindows = windows.map(w => w.windowKey === windowProps.windowKey ? { ...w, ...patch } : w);
                 setWindows(newWindows);
               }}/>
