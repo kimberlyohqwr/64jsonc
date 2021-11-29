@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { classes, getSubKeys } from 'common/utils';
-import Window from 'components/Window';
-import { projects } from '../DirectoryWindow/data';
-import Icon from 'components/Icon';
-import Link from 'components/Link';
+import { Icon, Link, Window } from 'components';
+import { projects } from 'components/windows/DirectoryWindow/data';
 import { useHistory } from 'react-router-dom';
 
 function BrowserWindow({ windowProps, onUpdate, ...restProps }) {

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
-import Shortcut from 'components/Shortcut';
-import Icon from 'components/Icon';
-import { WindowsContext } from 'components/Screen';
+import { Shortcut } from 'components';
+import { Icon } from 'components';
+import { WindowsContext } from 'contexts';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import './stylesheet.scss';
-import App from 'components/App';
+import { App } from 'components';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getWindowKey } from 'common/utils';
-import { WindowsContext } from 'components/Screen';
+import { WindowsContext } from 'contexts';
 
 function Desktop() {
   const [windows, setWindows] = useContext(WindowsContext);

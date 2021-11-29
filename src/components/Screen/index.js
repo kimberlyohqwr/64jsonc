@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './stylesheet.scss';
-import Desktop from 'components/Desktop';
-import Taskbar from 'components/Taskbar';
-import DirectoryWindow from '../Window/DirectoryWindow';
-import BrowserWindow from '../Window/BrowserWindow';
-
-export const WindowsContext = React.createContext(null);
+import { Desktop, Taskbar } from 'components';
+import { BrowserWindow, DirectoryWindow } from 'components/windows';
+import { WindowsContext } from 'contexts';
 
 function Screen() {
   const [windows, setWindows] = useState([{

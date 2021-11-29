@@ -1,9 +1,9 @@
 import React from 'react';
 import './stylesheet.scss';
 import { classes, getSubKeys, name } from 'common/utils';
-import Window from 'components/Window';
-import Link from 'components/Link';
-import Icon from 'components/Icon';
+import { Window } from 'components';
+import { Link } from 'components';
+import { Icon } from 'components';
 import { useHistory } from 'react-router-dom';
 import * as directoryMap from './data';
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { classes } from 'common/utils';
 import { useHistory } from 'react-router-dom';
-import Link from 'components/Link';
-import Icon from '../Icon';
+import { Link } from 'components';
+import { Icon } from 'components';
 
 function Window({
                   className, iconProps, title, tabs, noToolbar, children, onKeyDown,

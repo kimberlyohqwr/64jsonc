@@ -1,8 +1,8 @@
 import React from 'react';
 import './stylesheet.scss';
 import { classes, getWindowKey, name } from 'common/utils';
-import Icon from 'components/Icon';
-import Link from 'components/Link';
+import { Icon } from 'components';
+import { Link } from 'components';
 
 function Shortcut({ path, hidden, active }) {
   return (
