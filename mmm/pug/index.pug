@@ -12,15 +12,6 @@
         button.donate(type='submit')
 +window('terminal', 40, 28)
   .line-container
-+window('attribution', 30, 30)
-  .row-container
-    each attribution in data.attributions
-      .row
-        .icon(style=`background-image: url(${attribution.image})`)
-        .info
-          a.path(href=attribution.image)= attribution.image
-          .artist= attribution.artist
-        a.link(href=attribution.link) Link
 +window('instagram', 44, 30, true)
   .photo-container
     each instagram in data.instagrams

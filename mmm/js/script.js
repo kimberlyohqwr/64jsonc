@@ -16,7 +16,7 @@ $(document).ready(() => {
         const $titleContainer = $selectedWindow.find('.title-container');
         $titleContainer.empty();
         $titleContainer.append('<div class="icon icon-instagram">');
-        $titleContainer.append('<div class="name">Instagram</div>');
+        $titleContainer.append('<div class="namize">Instagram</div>');
         break;
       }
       default: {

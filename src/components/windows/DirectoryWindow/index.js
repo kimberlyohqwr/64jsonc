@@ -1,9 +1,7 @@
 import React from 'react';
 import './stylesheet.scss';
-import { classes, getSubKeys, name } from 'common/utils';
-import { Window } from 'components';
-import { Link } from 'components';
-import { Icon } from 'components';
+import { classes, getSubKeys, namize } from 'common/utils';
+import { Icon, Link, Window } from 'components';
 import { useHistory } from 'react-router-dom';
 import * as directoryMap from './data';
 
@@ -20,7 +18,7 @@ function DirectoryWindow({ windowProps, ...restProps }) {
 
   return (
     <Window className="DirectoryWindow" windowKey={windowKey}
-            title={file ? file.name : directory ? name(directoryKey) : 'Directory'}
+            title={file ? file.name : directory ? namize(directoryKey) : namize(windowKey)}
             iconProps={file ? { imageUrl: file.image } : { windowKey }}
             onKeyDown={e => {
               e.preventDefault();
@@ -68,7 +66,7 @@ function DirectoryWindow({ windowProps, ...restProps }) {
               <Link className={classes('directory', key === directoryKey && 'active')} path={`/${windowKey}/${key}`}
                     key={key}>
                 <Icon className="icon" windowKey="directory"/>
-                <div className="name">{name(key)}</div>
+                <div className="name">{namize(key)}</div>
               </Link>
             ))
           }
@@ -87,7 +85,7 @@ function DirectoryWindow({ windowProps, ...restProps }) {
                   <Link className={classes('directory', file.key === fileKey && 'active')}
                         path={`/${windowKey}/${directoryKey}/${file.key}`} key={file.key}>
                     <Icon className="icon" imageUrl={file.image}/>
-                    <div className="name">{name(file.name)}</div>
+                    <div className="name">{namize(file.name)}</div>
                   </Link>
                 ))
               }

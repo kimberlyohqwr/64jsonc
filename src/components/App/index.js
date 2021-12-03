@@ -1,6 +1,6 @@
 import React from 'react';
 import './stylesheet.scss';
-import { getWindowKey, name } from 'common/utils';
+import { getWindowKey, namize } from 'common/utils';
 import { Icon } from 'components';
 import { Link } from 'components';
 
@@ -9,7 +9,7 @@ function App({ path, href }) {
     <Link className="App" path={path} href={href}>
       <Icon className="icon" windowKey={getWindowKey(path)}/>
       <div className="name">
-        {name(path.split('/').pop())}
+        {namize(path.split('/').pop())}
       </div>
     </Link>
   );
