@@ -16,7 +16,7 @@ function AttributionWindow({ windowProps, ...restProps }) {
       <div className="row-container">
         {
           attributions.map(attribution => (
-            <div className="row">
+            <div className="row" key={attribution.image}>
               <Icon className="icon" imageUrl={attribution.image}/>
               <div className="info">
                 <Link className="path" href={attribution.image}>{attribution.image.split('/').pop()}</Link>
@@ -32,13 +32,3 @@ function AttributionWindow({ windowProps, ...restProps }) {
 }
 
 export default AttributionWindow;
-/*
-  .row-container
-    each attribution in data.attributions
-      .row
-        .icon(style=`background-image: url(${attribution.image})`)
-        .info
-          a.path(href=attribution.image)= attribution.image
-          .artist= attribution.artist
-        a.link(href=attribution.link) Link
- */
