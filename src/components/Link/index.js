@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as PathLink } from 'react-router-dom';
 import { classes } from 'common/utils';
 
-function Link({ className, href, path, onMouseDown, onClick, ...props }) {
+function Link({ className, href, path, onMouseDown, onClick, ...props }, ref) {
   const handleMouseDown = e => {
     e.stopPropagation();
     e.preventDefault();
@@ -15,6 +15,7 @@ function Link({ className, href, path, onMouseDown, onClick, ...props }) {
   };
 
   const commonProps = {
+    ref,
     ...props,
     onMouseDown: handleMouseDown,
     onClick: handleClick,
@@ -27,4 +28,4 @@ function Link({ className, href, path, onMouseDown, onClick, ...props }) {
   );
 }
 
-export default Link;
+export default React.forwardRef(Link);

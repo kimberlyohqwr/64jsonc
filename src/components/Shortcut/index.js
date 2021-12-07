@@ -1,14 +1,20 @@
 import React from 'react';
 import './stylesheet.scss';
-import { classes, getWindowKey, namize } from 'common/utils';
-import { Icon } from 'components';
-import { Link } from 'components';
+import { classes, namize } from 'common/utils';
+import { Icon, Link } from 'components';
 
-function Shortcut({ path, hidden, active }) {
+function Shortcut({ iconKey, path, href, pinned, active, desktop, taskbar }) {
   return (
-    <Link className={classes('Shortcut', hidden && 'hidden', active && 'active')} path={path}>
-      <Icon className="icon" windowKey={getWindowKey(path)}/>
-      <div className="name">{namize(path)}</div>
+    <Link
+      className={classes('Shortcut', desktop && 'desktop', taskbar && 'taskbar', pinned && 'pinned', active && 'active')}
+      path={path} href={href}>
+      <Icon className="icon" iconKey={iconKey}/>
+      {
+        desktop &&
+        <div className="name">
+          {namize(path.split('/').pop())}
+        </div>
+      }
     </Link>
   );
 }

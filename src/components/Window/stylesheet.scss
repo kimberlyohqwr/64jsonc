@@ -21,10 +21,6 @@
   box-shadow $anim-duration;
   z-index: 1;
 
-  iframe {
-    display: none;
-  }
-
   &.focused {
     box-shadow: 0 0 48px rgba(black, .4);
 
@@ -67,14 +63,6 @@
   &.opened {
     visibility: visible;
     opacity: 1;
-
-    iframe {
-      display: block;
-    }
-
-    .content {
-      display: flex;
-    }
   }
 
   &.no-toolbar {
@@ -285,7 +273,7 @@
     position: relative;
     flex: 1 0;
     overflow: hidden;
-    display: none;
+    display: flex;
 
     .interceptor {
       position: absolute;

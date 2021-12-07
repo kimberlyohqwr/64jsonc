@@ -1,4 +1,4 @@
-module.exports = [{
+export default [{
   key: 'nus',
   name: 'National University of Singapore',
   image: '/img/school/nus.png',

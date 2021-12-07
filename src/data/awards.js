@@ -1,4 +1,4 @@
-module.exports = [{
+export default [{
   key: '2019_bestcoder',
   name: 'I\'m the Best Coder! Challenge',
   image: '/img/award/2019_bestcoder.jpg',
@@ -63,7 +63,7 @@ module.exports = [{
   place: '1st in Advanced Category',
 }, {
   key: '2017_ccsc',
-  name: 'CCSC Midwest Student Showcase',
+  name: 'CCSC Midwest Student Showcase',
   image: '/img/award/2017_ccsc.jpg',
   organizer: 'The Consortium for Computing Sciences in Colleges',
   date: '2017',

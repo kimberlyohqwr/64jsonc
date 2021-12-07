@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { classes } from 'common/utils';
+import { classes, namize } from 'common/utils';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'components';
-import { Icon } from 'components';
+import { Icon, Link } from 'components';
 
 function Window({
-                  className, iconProps, title, tabs, noToolbar, children, onKeyDown,
+                  className, iconProps, title, tabs, noToolbar, children, onKeyDown, onKeyPress,
                   onUpdate, windowProps,
                 }) {
   const {
@@ -30,6 +29,15 @@ function Window({
       };
     }
   }, [focused, onKeyDown]);
+
+  useEffect(() => {
+    if (focused && onKeyPress) {
+      window.addEventListener('keypress', onKeyPress);
+      return () => {
+        window.removeEventListener('keypress', onKeyPress);
+      };
+    }
+  }, [focused, onKeyPress]);
 
   useEffect(() => {
     if (focused && minimized) {
@@ -71,10 +79,7 @@ function Window({
         window.addEventListener('mouseup', onMouseUp);
       }}>
         <div className="button-container">
-          <Link className="button button-close" path="/" onClick={() => onUpdate({
-            opened: false,
-            path: `/${windowKey}`,
-          })}/>
+          <Link className="button button-close" path="/" onClick={() => onUpdate({ opened: false })}/>
           <Link className="button button-minimize" path="/" onClick={() => setMinimized(true)}/>
           <Link className="button button-maximize" path={path} onClick={() => setMaximized(!maximized)}/>
         </div>
@@ -85,8 +90,8 @@ function Window({
             </div>
           ) : (
             <div className="title-container">
-              <Icon className="icon" {...(iconProps || {})}/>
-              <div className="name">{title}</div>
+              <Icon className="icon" {...(iconProps || { iconKey: windowKey })}/>
+              <div className="name">{title || namize(windowKey)}</div>
             </div>
           )
         }

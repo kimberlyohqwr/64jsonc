@@ -1,18 +1,13 @@
 import React from 'react';
 import './stylesheet.scss';
 import { Icon, Link, Window } from 'components';
-import { namize } from 'common/utils';
 import attributions from './data/attributions';
 
 function AttributionWindow({ windowProps, ...restProps }) {
   const { windowKey } = windowProps;
 
   return (
-    <Window className="AttributionWindow" windowKey={windowKey}
-            title={namize(windowKey)}
-            iconProps={{ windowKey }}
-            windowProps={windowProps}
-            {...restProps}>
+    <Window className="AttributionWindow" windowKey={windowKey} windowProps={windowProps} {...restProps}>
       <div className="row-container">
         {
           attributions.map(attribution => (

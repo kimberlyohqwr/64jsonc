@@ -1,13 +1,13 @@
 import * as imageUrlMap from 'components/Icon/images';
 import wallpaper from 'components/Desktop/images/wallpaper.jpg';
-import linkExternal from 'components/App/images/link-external.png';
+import linkExternal from 'components/Shortcut/images/link-external.png';
 
 export default [{
   image: imageUrlMap.browser,
   artist: 'GraphicLoads',
   link: 'http://www.iconarchive.com/show/100-flat-icons-by-graphicloads/browser-icon.html',
 }, {
-  image: imageUrlMap.directory,
+  image: imageUrlMap.finder,
   artist: 'dtafalonso',
   link: 'http://www.iconarchive.com/show/yosemite-flat-icons-by-dtafalonso/Folder-icon.html',
 }, {

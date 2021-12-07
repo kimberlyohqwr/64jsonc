@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { classes, getSubKeys } from 'common/utils';
+import { classes, getPathKeys } from 'common/utils';
 import { Icon, Link, Window } from 'components';
-import { projects } from 'components/windows/DirectoryWindow/data';
+import projects from 'data/projects';
 import { useHistory } from 'react-router-dom';
 
 function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
   const { windowKey, path } = windowProps;
-  const subKeys = getSubKeys(path);
-  const [projectKey] = subKeys;
+  const [, projectKey] = getPathKeys(path);
   const history = useHistory();
 
   const [tabKeys, setTabKeys] = useState([]);
@@ -16,15 +15,28 @@ function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
   const [refresh, setRefresh] = useState(0);
 
   const project = projects.find(project => project.key === projectKey);
-  const src = project ? project.link : '';
+
+  const getLink = project => {
+    if (!project) return null;
+    const match = /^\[(.+)]\(.+\)$/.exec(project.link);
+    if (match) return match[1];
+    return project.link;
+  };
+
+  const src = getLink(project);
 
   useEffect(() => {
     if (projectKey) {
-      if (!tabKeys.includes(projectKey)) {
-        const newTabKeys = [...tabKeys, projectKey];
-        setTabKeys(newTabKeys);
+      if (tabKeys.includes(projectKey)) {
+        setActiveKey(projectKey);
+      } else {
+        const project = projects.find(project => project.key === projectKey);
+        if (project) {
+          const newTabKeys = [...tabKeys, projectKey];
+          setTabKeys(newTabKeys);
+          setActiveKey(projectKey);
+        }
       }
-      setActiveKey(projectKey);
     }
   }, [projectKey]);
 
@@ -37,15 +49,13 @@ function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
                       path={`/${windowKey}/${tabKey}`}>
                   <Icon className="icon" imageUrl={project.image}/>
                   <div className="name">{project.name}</div>
-                  <div className="close" onClick={() => {
+                  <div className="close" onClick={e => {
+                    e.preventDefault();
                     const newTabKeys = tabKeys.filter(key => key !== tabKey);
                     setTabKeys(newTabKeys);
                     if (newTabKeys.length === 0) {
                       history.push('/');
-                      onUpdate({
-                        opened: false,
-                        path: `/${windowKey}`,
-                      });
+                      onUpdate({ opened: false });
                     } else if (activeKey === tabKey) {
                       const newActiveKey = newTabKeys[Math.min(newTabKeys.length - 1, i)];
                       history.push(`/${windowKey}/${newActiveKey}`);

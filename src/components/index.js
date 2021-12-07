@@ -1,4 +1,3 @@
-export { default as App } from './App';
 export { default as Desktop } from './Desktop';
 export { default as Icon } from './Icon';
 export { default as Link } from './Link';

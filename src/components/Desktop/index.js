@@ -1,34 +1,38 @@
 import React, { useContext, useEffect } from 'react';
 import './stylesheet.scss';
-import { App } from 'components';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getWindowKey } from 'common/utils';
-import { WindowsContext } from 'contexts';
+import { FileSystemContext, WindowsContext } from 'contexts';
+import { Shortcut } from 'components';
 
 function Desktop() {
-  const [windows, setWindows] = useContext(WindowsContext);
+  const [rootDir] = useContext(FileSystemContext);
+  const [windows, refreshWindows] = useContext(WindowsContext);
 
   const history = useHistory();
   const location = useLocation();
   const currentPath = location.pathname;
 
   useEffect(() => {
-    const newWindows = windows.map(window => {
-      const focused = getWindowKey(currentPath) === window.windowKey;
-      return {
-        ...window,
-        focused,
-        ...(focused ? {
-          path: currentPath,
-          opened: true,
-          instance: window.instance + (window.opened ? 0 : 1),
-        } : {}),
-      };
+    windows.forEach(window => {
+      window.focused = getWindowKey(currentPath) === window.windowKey;
+      if (window.focused) {
+        window.path = currentPath;
+        if (!window.opened) {
+          window.opened = true;
+          window.instance++;
+        }
+      }
     });
-    const focusedWindow = newWindows.find(w => w.focused);
-    const reorderedWindows = focusedWindow ? [...newWindows.filter(w => w !== focusedWindow), focusedWindow] : newWindows;
-    setWindows(reorderedWindows);
+    const focusedIndex = windows.findIndex(w => w.focused);
+    if (~focusedIndex && focusedIndex !== windows.length - 1) {
+      const [focusedWindow] = windows.splice(focusedIndex, 1);
+      windows.push(focusedWindow);
+    }
+    refreshWindows();
   }, [currentPath]);
+
+  const { desktop } = rootDir.users.jason;
 
   return (
     <div className="Desktop" onMouseDown={() => {
@@ -45,18 +49,15 @@ function Desktop() {
         </svg>
       </a>
       <div className="app-container">
-        <App path="/directory/projects"/>
-        <App path="/directory/work_experience"/>
-        <App path="/directory/awards"/>
-        <App path="/directory/education"/>
-        <App path="/terminal"/>
-        <App path="/instagram"/>
-        <App path="/paypal"/>
-        <App path="/github" href="https://github.com/parkjs814"/>
-        <App path="/resume" href="https://jasonpark.me/resume/"/>
-        <App path="/email" href="mailto:jason.park@gatech.edu"/>
-        <App path="/version_history"/>
-        <App path="/attribution"/>
+        {
+          desktop.getChildrenKeys().map(directoryKey => {
+            const { windowKey, href } = desktop[directoryKey];
+            return (
+              <Shortcut key={directoryKey} desktop iconKey={windowKey || directoryKey} path={`/${directoryKey}`}
+                        href={href}/>
+            );
+          })
+        }
       </div>
       <div className="window-container">
         {
@@ -64,8 +65,8 @@ function Desktop() {
             const { Component, ...windowProps } = window;
             return (
               <Component key={`${window.windowKey}-${window.instance}`} windowProps={windowProps} onUpdate={patch => {
-                const newWindows = windows.map(w => w.windowKey === windowProps.windowKey ? { ...w, ...patch } : w);
-                setWindows(newWindows);
+                Object.assign(window, patch);
+                refreshWindows();
               }}/>
             );
           })

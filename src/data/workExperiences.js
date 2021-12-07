@@ -1,4 +1,4 @@
-module.exports = [{
+export default [{
   key: 'prendssoin',
   name: 'Prendssoin',
   image: '/img/experience/prendssoin.jpg',
@@ -13,7 +13,7 @@ module.exports = [{
   date: 'Mar. 2016 - Aug. 2016',
   location: 'Dallas, Texas, USA',
   position: 'Web Developer',
-  detail: 'Developed a skeleton website for each <a href="https://jasonpark.me/IncubateDFW/" target="_blank" rel="noopener">IncubateX</a> location.',
+  detail: 'Developed a skeleton website for each [IncubateX](https://jasonpark.me/IncubateDFW/) location.',
 }, {
   key: 'freelancer',
   name: 'Freelancer',
@@ -29,5 +29,5 @@ module.exports = [{
   date: 'Mar. 2012 - Feb. 2014',
   location: 'Seoul, South Korea',
   position: 'Mobile App Developer',
-  detail: 'Developed lifestyle Android applications including an <a href="https://play.google.com/store/apps/details?id=com.provision.alarmemi" target="_blank" rel="noopener">alarm app</a> and a <a href="https://play.google.com/store/apps/details?id=com.deblur.mallow" target="_blank" rel="noopener">planner app</a>.',
+  detail: 'Developed lifestyle Android applications including an [alarm app](https://play.google.com/store/apps/details?id=com.provision.alarmemi) and a [planner app](https://play.google.com/store/apps/details?id=com.deblur.mallow).',
 }];

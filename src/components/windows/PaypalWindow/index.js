@@ -1,22 +1,16 @@
 import React from 'react';
 import './stylesheet.scss';
 import { Icon, Window } from 'components';
-import { getSubKeys, namize } from 'common/utils';
+import { getPathKeys } from 'common/utils';
 import donations from './data/donations';
 
 function PaypalWindow({ windowProps, ...restProps }) {
   const { windowKey, path } = windowProps;
-  const subKeys = getSubKeys(path);
-  const [subKey] = subKeys;
-  const isSuccess = subKey === 'success';
+  const [, status] = getPathKeys(path);
+  const isSuccess = status === 'success';
 
   return (
-    <Window className="PaypalWindow" windowKey={windowKey}
-            title={namize(windowKey)}
-            iconProps={{ windowKey }}
-            windowProps={windowProps}
-            noToolbar
-            {...restProps}>
+    <Window className="PaypalWindow" windowKey={windowKey} noToolbar windowProps={windowProps} {...restProps}>
       {
         isSuccess && (
           <div className="paypal-success"/>

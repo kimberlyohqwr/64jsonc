@@ -1,7 +1,7 @@
 export { default as attribution } from './attribution.png';
 export { default as browser } from './browser.png';
-export { default as directory } from './directory.png';
 export { default as email } from './email.png';
+export { default as finder } from './finder.png';
 export { default as github } from './github.png';
 export { default as instagram } from './instagram.png';
 export { default as paypal } from './paypal.png';

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { Shortcut } from 'components';
-import { Icon } from 'components';
+import { Icon, Shortcut } from 'components';
 import { WindowsContext } from 'contexts';
 
 const getClock = () => {
@@ -16,8 +15,9 @@ const getClock = () => {
 };
 
 function Taskbar() {
-  const [windows, setWindows] = useContext(WindowsContext);
+  const [windows] = useContext(WindowsContext);
   const [clock, setClock] = useState(getClock());
+  const [shortcutKeys, setShortcutKeys] = useState(windows.map(w => w.windowKey));
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -33,25 +33,17 @@ function Taskbar() {
   return (
     <div className="Taskbar">
       <div className="label label-profile">
-        <Icon className="icon" windowKey="profile"/>
+        <Icon className="icon" iconKey="profile"/>
         <div className="name">Jinseo Park</div>
       </div>
       <div className="shortcut-container">
         {
-          [
-            'directory',
-            'browser',
-            'terminal',
-            'instagram',
-            'paypal',
-            'version_history',
-            'attribution',
-          ].map(windowKey => {
+          shortcutKeys.map(windowKey => {
             const window = windows.find(w => w.windowKey === windowKey);
-            if (!window) return null;
             return (
-              <Shortcut key={windowKey} path={window.path} hidden={windowKey === 'browser'}
-                        active={window.opened}/>
+              <Shortcut key={window.windowKey} taskbar
+                        iconKey={window.windowKey} path={window.opened ? window.path : window.defaultPath}
+                        pinned={window.pinned} active={window.opened}/>
             );
           })
         }

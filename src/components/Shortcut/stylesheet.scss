@@ -1,62 +1,117 @@
 @import "../../common/constants";
 
 .Shortcut {
-  flex-shrink: 0;
   position: relative;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-  overflow: hidden;
-  transition: max-width $anim-duration,
-  opacity $anim-duration,
-  background-color $anim-duration;
 
   .icon {
-    height: 2.2rem;
-    width: 2.2rem;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    margin: 0 1rem;
   }
 
-  .name {
-    display: none;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-bottom: solid 3px white;
-    opacity: 0;
-    transition: opacity $anim-duration;
-  }
-
-  &:hover {
-    background-color: rgba(black, .2);
-  }
-
-  &:active {
-    background-color: rgba(black, .4);
-  }
-
-  &.active {
-    &:after {
-      opacity: 1;
-    }
-  }
-
-  &.hidden {
+  &.taskbar {
+    flex-shrink: 0;
+    justify-content: flex-start;
+    overflow: hidden;
     max-width: 0;
     opacity: 0;
+    transition: max-width $anim-duration,
+    opacity $anim-duration,
+    background-color $anim-duration;
+
+    .icon {
+      height: 2.2rem;
+      width: 2.2rem;
+      margin: 0 1rem;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-bottom: solid 3px white;
+      opacity: 0;
+      transition: opacity $anim-duration;
+    }
+
+    &:hover {
+      background-color: rgba(black, .2);
+    }
+
+    &:active {
+      background-color: rgba(black, .4);
+    }
 
     &.active {
       max-width: 4.2rem;
       opacity: 1;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    &.pinned {
+      max-width: 4.2rem;
+      opacity: 1;
+    }
+  }
+
+  &.desktop {
+    width: 8rem;
+    height: 8rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: .2rem;
+    transition: background-color $anim-duration;
+
+    &.link-external {
+      .name {
+        position: relative;
+
+        &:after {
+          position: absolute;
+          content: '';
+          display: inline-block;
+          margin-left: .3rem;
+          width: .8em;
+          height: 100%;
+          background: url(images/link-external.png) no-repeat bottom;
+          background-size: contain;
+          opacity: .5;
+        }
+      }
+    }
+
+    .icon {
+      width: 4rem;
+      height: 4rem;
+      margin-bottom: .2rem;
+      filter: drop-shadow(0 0 2px rgba(black, .5));
+    }
+
+    .name {
+      font-size: $font-size-small;
+      color: white;
+      text-shadow: 0 0 4px black;
+      text-align: center;
+      height: 1em;
+    }
+
+    &:hover {
+      background-color: rgba(black, .2);
+      box-shadow: inset 0 0 2px rgba(black, .2);
+    }
+
+    &:active {
+      background-color: rgba(black, .4);
+      box-shadow: inset 0 0 2px rgba(black, .4);
     }
   }
 }
