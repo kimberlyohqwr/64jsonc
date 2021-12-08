@@ -1,42 +1,40 @@
 import React, { useContext, useEffect } from 'react';
 import './stylesheet.scss';
 import { useHistory, useLocation } from 'react-router-dom';
-import { getWindowKey } from 'common/utils';
-import { FileSystemContext, WindowsContext } from 'contexts';
+import { getAppKey } from 'common/utils';
+import { FileSystemContext } from 'contexts';
 import { Shortcut } from 'components';
 
 function Desktop() {
-  const [rootDir] = useContext(FileSystemContext);
-  const [windows, refreshWindows] = useContext(WindowsContext);
+  const [rootDir, refreshRootDir] = useContext(FileSystemContext);
+  const desktop = rootDir.getDesktopDir();
+  const apps = rootDir.getApps();
 
   const history = useHistory();
   const location = useLocation();
-  const currentPath = location.pathname;
+  const currentUrl = location.pathname;
 
   useEffect(() => {
-    windows.forEach(window => {
-      window.focused = getWindowKey(currentPath) === window.windowKey;
-      if (window.focused) {
-        window.path = currentPath;
-        if (!window.opened) {
-          window.opened = true;
-          window.instance++;
+    apps && apps.forEach(app => {
+      const focused = getAppKey(currentUrl) === app.key;
+      if (focused) {
+        app.lastUrl = currentUrl;
+        if (!app.opened) {
+          app.opened = true;
+          app.instance++;
+        }
+        if (!app.focused) {
+          app.zIndex = Math.max(...apps.map(app => app.zIndex)) + 1;
         }
       }
+      app.focused = focused;
     });
-    const focusedIndex = windows.findIndex(w => w.focused);
-    if (~focusedIndex && focusedIndex !== windows.length - 1) {
-      const [focusedWindow] = windows.splice(focusedIndex, 1);
-      windows.push(focusedWindow);
-    }
-    refreshWindows();
-  }, [currentPath]);
-
-  const { desktop } = rootDir.users.jason;
+    refreshRootDir();
+  }, [currentUrl]);
 
   return (
-    <div className="Desktop" onMouseDown={() => {
-      if (currentPath !== '/') history.push('/');
+    <div className="Desktop" style={desktop && { backgroundImage: `url(${desktop.wallpaper})` }} onMouseDown={() => {
+      if (currentUrl !== '/') history.push('/');
     }}>
       <a className="github-corner" href="https://github.com/parkjs814/parkjs814.github.io"
          aria-label="View source on Github">
@@ -50,26 +48,21 @@ function Desktop() {
       </a>
       <div className="app-container">
         {
-          desktop.getChildrenKeys().map(directoryKey => {
-            const { windowKey, href } = desktop[directoryKey];
-            return (
-              <Shortcut key={directoryKey} desktop iconKey={windowKey || directoryKey} path={`/${directoryKey}`}
-                        href={href}/>
-            );
-          })
+          desktop && desktop.children.map(child => (
+            <Shortcut key={child.key} desktop target={child}/>
+          ))
         }
       </div>
       <div className="window-container">
         {
-          windows.map(window => {
-            const { Component, ...windowProps } = window;
-            return (
-              <Component key={`${window.windowKey}-${window.instance}`} windowProps={windowProps} onUpdate={patch => {
-                Object.assign(window, patch);
-                refreshWindows();
-              }}/>
-            );
-          })
+          apps && apps.map(app => (
+            <app.WindowComponent key={`${app.key}-${app.instance}`}
+                                         app={app}
+                                         onUpdate={patch => {
+                                           Object.assign(app, patch);
+                                           refreshRootDir();
+                                         }}/>
+          ))
         }
       </div>
     </div>

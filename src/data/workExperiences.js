@@ -29,5 +29,5 @@ export default [{
   date: 'Mar. 2012 - Feb. 2014',
   location: 'Seoul, South Korea',
   position: 'Mobile App Developer',
-  detail: 'Developed lifestyle Android applications including an [alarm app](https://play.google.com/store/apps/details?id=com.provision.alarmemi) and a [planner app](https://play.google.com/store/apps/details?id=com.deblur.mallow).',
+  detail: 'Developed lifestyle Android apps including an [alarm app](https://play.google.com/store/apps/details?id=com.provision.alarmemi) and a [planner app](https://play.google.com/store/apps/details?id=com.deblur.mallow).',
 }];

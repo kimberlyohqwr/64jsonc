@@ -1,16 +1,18 @@
 import React from 'react';
 import './stylesheet.scss';
 import { Icon, Window } from 'components';
-import { getPathKeys } from 'common/utils';
+import { getUrlKeys } from 'common/utils';
 import donations from './data/donations';
 
-function PaypalWindow({ windowProps, ...restProps }) {
-  const { windowKey, path } = windowProps;
-  const [, status] = getPathKeys(path);
+function PaypalWindow({ app, ...restProps }) {
+  const { url } = app;
+  const [, status] = getUrlKeys(url);
   const isSuccess = status === 'success';
 
   return (
-    <Window className="PaypalWindow" windowKey={windowKey} noToolbar windowProps={windowProps} {...restProps}>
+    <Window className="PaypalWindow" noToolbar
+            defaultWidth={50 * 16} defaultHeight={30 * 16}
+            app={app} {...restProps}>
       {
         isSuccess && (
           <div className="paypal-success"/>

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { classes, namize } from 'common/utils';
+import { classes } from 'common/utils';
 import { useHistory } from 'react-router-dom';
 import { Icon, Link } from 'components';
 
 function Window({
-                  className, iconProps, title, tabs, noToolbar, children, onKeyDown, onKeyPress,
-                  onUpdate, windowProps,
+                  className, iconProps, title, defaultWidth, defaultHeight, tabs, noToolbar, children, onKeyDown, onKeyPress,
+                  onUpdate, app,
                 }) {
   const {
-    windowKey, path, opened, focused,
-    defaultWidth, defaultHeight, defaultLeft, defaultTop,
-  } = windowProps;
+    name, iconProps: appIconProps, url, opened, focused, defaultLeft, defaultTop, zIndex,
+  } = app;
 
   const history = useHistory();
 
@@ -48,10 +47,10 @@ function Window({
   return (
     <div
       className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', opened && 'opened', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
-      style={{ left, top, width, height }}
+      style={{ zIndex, left, top, width, height }}
       onMouseDown={e => {
         e.stopPropagation();
-        if (!focused) history.push(path);
+        if (!focused) history.push(url);
       }}>
       <div className="toolbar" onMouseDown={e => {
         // if (mobile) return;
@@ -79,9 +78,9 @@ function Window({
         window.addEventListener('mouseup', onMouseUp);
       }}>
         <div className="button-container">
-          <Link className="button button-close" path="/" onClick={() => onUpdate({ opened: false })}/>
-          <Link className="button button-minimize" path="/" onClick={() => setMinimized(true)}/>
-          <Link className="button button-maximize" path={path} onClick={() => setMaximized(!maximized)}/>
+          <Link className="button button-close" url="/" onClick={() => onUpdate({ opened: false })}/>
+          <Link className="button button-minimize" url="/" onClick={() => setMinimized(true)}/>
+          <Link className="button button-maximize" url={url} onClick={() => setMaximized(!maximized)}/>
         </div>
         {
           tabs ? (
@@ -90,8 +89,8 @@ function Window({
             </div>
           ) : (
             <div className="title-container">
-              <Icon className="icon" {...(iconProps || { iconKey: windowKey })}/>
-              <div className="name">{title || namize(windowKey)}</div>
+              <Icon className="icon" {...(iconProps || appIconProps)}/>
+              <div className="name">{title || name}</div>
             </div>
           )
         }

@@ -1,97 +1,137 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import './stylesheet.scss';
-import { classes, getPathKeys, namize } from 'common/utils';
+import { classes, getUrlKeys, namize } from 'common/utils';
 import { Icon, Link, Window } from 'components';
 import { useHistory } from 'react-router-dom';
 import { FileSystemContext } from 'contexts';
-import { File } from 'data/rootDir';
+import { Dir, PreviewFile } from 'beans';
 import ReactMarkdown from 'react-markdown';
 
-function FinderWindow({ windowProps, ...restProps }) {
-  const { windowKey, path } = windowProps;
+function FinderWindow({ app, ...restProps }) {
+  const { key: appKey, url } = app;
 
   const [rootDir] = useContext(FileSystemContext);
 
-  const { desktop } = rootDir.users.jason;
-
   const history = useHistory();
-  const pathKeys = [];
-  const activeDirectories = [desktop];
-  getPathKeys(path).some(pathKey => {
-    const parentDirectory = activeDirectories[activeDirectories.length - 1];
-    const directory = parentDirectory.getChild(pathKey);
-    if (!directory) {
-      return true;
-    }
-    pathKeys.push(pathKey);
-    activeDirectories.push(directory);
-  });
-  const activeDirectory = activeDirectories[activeDirectories.length - 1];
 
-  const focusRef = useRef(null);
+  const pathKeys = getUrlKeys(url);
+  if (pathKeys[0] === appKey) {
+    pathKeys.shift();
+  } else {
+    pathKeys.unshift('users', 'jason', 'desktop');
+  }
+  let parentDir = rootDir;
+  const activeChildren = pathKeys.map(dirKey => {
+    parentDir = parentDir && parentDir.getChild(dirKey);
+    return parentDir;
+  }).filter(v => v);
+  activeChildren.unshift(rootDir);
+  const activeChild = activeChildren[activeChildren.length - 1];
+  const activeFinderChild = (activeChild instanceof Dir || activeChild instanceof PreviewFile) ? activeChild : activeChild.parent;
+
+  const dirRef = useRef(null);
+  const panelRef = useRef(null);
 
   useEffect(() => {
-    if (focusRef.current) {
-      focusRef.current.scrollIntoView({ block: 'nearest' });
+    if (dirRef.current) {
+      dirRef.current.scrollIntoView({ block: 'nearest' });
     }
-  }, [path]);
+    if (panelRef.current) {
+      panelRef.current.scrollIntoView({ inline: 'end' });
+    }
+  }, [url]);
 
   return (
-    <Window className="FinderWindow" windowKey={windowKey}
-            title={activeDirectory && activeDirectory.name}
-            iconProps={activeDirectory && activeDirectory.iconProps}
+    <Window className="FinderWindow"
+            title={activeFinderChild.name}
+            iconProps={activeFinderChild.iconProps}
+            defaultWidth={50 * 16} defaultHeight={30 * 16}
             onKeyDown={e => {
               e.preventDefault();
               switch (e.keyCode) {
+                case 13: {
+                  if (activeChild.url !== activeChild.finderUrl) {
+                    activeChild.open(history);
+                  }
+                  break;
+                }
                 case 37: {
-                  if (pathKeys.length > 0) {
-                    history.push(`/${pathKeys.slice(0, -1).join('/') || windowKey}`);
+                  const { parent } = activeChild;
+                  if (parent) {
+                    history.push(parent.finderUrl);
                   }
                   break;
                 }
                 case 39: {
-                  const childrenKeys = activeDirectory.getChildrenKeys();
-                  if (childrenKeys.length > 0) {
-                    history.push(`/${[...pathKeys, childrenKeys[0]].join('/')}`);
+                  if (activeChild instanceof Dir) {
+                    const [child] = activeChild.children;
+                    if (child) {
+                      history.push(child.finderUrl);
+                    }
                   }
                   break;
                 }
                 case 38: {
-                  const parentDirectory = activeDirectories[activeDirectories.length - 2];
-                  if (parentDirectory) {
-                    const siblingKeys = parentDirectory.getChildrenKeys();
-                    const index = siblingKeys.indexOf(activeDirectory.key) - 1;
-                    if (index >= 0) {
-                      history.push(`/${[...pathKeys.slice(0, -1), siblingKeys[index]].join('/')}`);
+                  const parentDir = activeChild.parent;
+                  if (parentDir) {
+                    const siblings = parentDir.children;
+                    const sibling = siblings[siblings.indexOf(activeChild) - 1];
+                    if (sibling) {
+                      history.push(sibling.finderUrl);
                     }
                   }
                   break;
                 }
                 case 40: {
-                  const parentDirectory = activeDirectories[activeDirectories.length - 2];
-                  if (parentDirectory) {
-                    const siblingKeys = parentDirectory.getChildrenKeys();
-                    const index = siblingKeys.indexOf(activeDirectory.key) + 1;
-                    if (index < siblingKeys.length) {
-                      history.push(`/${[...pathKeys.slice(0, -1), siblingKeys[index]].join('/')}`);
+                  const parentDir = activeChild.parent;
+                  if (parentDir) {
+                    const siblings = parentDir.children;
+                    const sibling = siblings[siblings.indexOf(activeChild) + 1];
+                    if (sibling) {
+                      history.push(sibling.finderUrl);
                     }
                   }
                   break;
                 }
               }
             }}
-            windowProps={windowProps}
+            app={app}
             {...restProps}>
       {
-        activeDirectories.map((activeDirectory, i) => activeDirectory instanceof File ? (
-          <div className={classes('panel', 'panel-preview')} key={activeDirectory.key}>
+        activeChildren.map((child, i) => child instanceof Dir ? (
+          <div className={classes('panel', 'panel-list')} key={child.path} ref={panelRef}>
+            <div className="list">
+              {
+                child.parent && (
+                  <Link className={classes('dir', 'dir-parent')} url={child.parent.url}>
+                    <Icon className="icon" iconKey="finder"/>
+                    <div className="name">..</div>
+                  </Link>
+                )
+              }
+              {
+                child.children.map(child => {
+                  const isActive = child === activeChildren[i + 1];
+                  return (
+                    <Link key={child.key} className={classes('dir', isActive && 'active')}
+                          url={child.url} ref={isActive ? dirRef : undefined}>
+                      <Icon className="icon" {...child.iconProps}/>
+                      <div className="name">{child.name}</div>
+                    </Link>
+                  );
+                })
+              }
+            </div>
+          </div>
+        ) : child instanceof PreviewFile ? (
+          <div className={classes('panel', 'panel-preview')} key={child.path} ref={panelRef}>
             <div className="preview">
-              <img className="image" src={activeDirectory.content.image}/>
+              <img className="image" src={child.content.image}/>
               <div className="property-container">
                 {
-                  Object.keys(activeDirectory.content).map(propertyKey => {
+                  Object.keys(child.content).map(propertyKey => {
                     if (propertyKey === 'image') return;
-                    const value = activeDirectory.content[propertyKey];
+                    const value = child.content[propertyKey];
                     return (
                       <div key={propertyKey} className="property">
                         <div className="key">{namize(propertyKey)}</div>
@@ -99,7 +139,7 @@ function FinderWindow({ windowProps, ...restProps }) {
                           <ReactMarkdown source={value} escapeHtml={false}
                                          renderers={{
                                            link: ({ href, children }) => (
-                                             <Link {...(href.startsWith('/') ? { path: href } : { href })}>
+                                             <Link url={href}>
                                                {children}
                                              </Link>
                                            ),
@@ -110,33 +150,10 @@ function FinderWindow({ windowProps, ...restProps }) {
                   })
                 }
               </div>
-              <Link className="close" path={`/${[...pathKeys.slice(0, i)].join('/')}`}/>
+              <Link className="close" url={child.parent.url}/>
             </div>
           </div>
-        ) : (
-          <div className={classes('panel', 'panel-list')} key={activeDirectory.key}>
-            <div className="list">
-              <Link className={classes('directory', 'directory-parent')} path={`/${windowKey}`}>
-                <Icon className="icon" iconKey="finder"/>
-                <div className="name">..</div>
-              </Link>
-              {
-                activeDirectory.getChildrenKeys().map(childKey => {
-                  const directory = activeDirectory.getChild(childKey);
-                  const isActive = childKey === pathKeys[i];
-                  return (
-                    <Link key={childKey} className={classes('directory', isActive && 'active')}
-                          path={`/${[...pathKeys.slice(0, i), childKey].join('/')}`}
-                          ref={isActive ? focusRef : undefined}>
-                      <Icon className="icon" {...directory.iconProps}/>
-                      <div className="name">{directory.name}</div>
-                    </Link>
-                  );
-                })
-              }
-            </div>
-          </div>
-        ))
+        ) : null)
       }
     </Window>
   );

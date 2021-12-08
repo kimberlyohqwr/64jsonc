@@ -19,7 +19,6 @@
   opacity $anim-duration,
   visibility $anim-duration,
   box-shadow $anim-duration;
-  z-index: 1;
 
   &.focused {
     box-shadow: 0 0 48px rgba(black, .4);

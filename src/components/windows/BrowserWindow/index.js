@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './stylesheet.scss';
-import { classes, getPathKeys } from 'common/utils';
+import { classes, getUrlKeys } from 'common/utils';
 import { Icon, Link, Window } from 'components';
 import projects from 'data/projects';
 import { useHistory } from 'react-router-dom';
 
-function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
-  const { windowKey, path } = windowProps;
-  const [, projectKey] = getPathKeys(path);
+function BrowserWindow({ app, onUpdate, ...restProps }) {
+  const { key: appKey, url } = app;
+  const [, projectKey] = getUrlKeys(url);
   const history = useHistory();
 
   const [tabKeys, setTabKeys] = useState([]);
@@ -41,12 +41,12 @@ function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
   }, [projectKey]);
 
   return (
-    <Window className="BrowserWindow" windowKey={windowKey}
+    <Window className="BrowserWindow"
             tabs={tabKeys.map((tabKey, i) => {
               const project = projects.find(project => project.key === tabKey);
               return (
                 <Link className={classes('tab', activeKey === tabKey && 'active')} key={tabKey}
-                      path={`/${windowKey}/${tabKey}`}>
+                      url={`/${appKey}/${tabKey}`}>
                   <Icon className="icon" imageUrl={project.image}/>
                   <div className="name">{project.name}</div>
                   <div className="close" onClick={e => {
@@ -58,17 +58,18 @@ function BrowserWindow({ windowProps, onUpdate, ...restProps }) {
                       onUpdate({ opened: false });
                     } else if (activeKey === tabKey) {
                       const newActiveKey = newTabKeys[Math.min(newTabKeys.length - 1, i)];
-                      history.push(`/${windowKey}/${newActiveKey}`);
+                      history.push(`/${appKey}/${newActiveKey}`);
                     }
                   }}/>
                 </Link>
               );
             })}
-            windowProps={windowProps} onUpdate={onUpdate} {...restProps}>
+            defaultWidth={60 * 16} defaultHeight={40 * 16}
+            app={app} onUpdate={onUpdate} {...restProps}>
       <div className="addressbar">
         <div className={classes('button', 'button-refresh')} onClick={() => setRefresh(refresh + 1)}/>
         <div className="url">{src}</div>
-        <Link className={classes('button', 'button-new')} href={src}/>
+        <Link className={classes('button', 'button-new')} url={src}/>
       </div>
       <iframe key={refresh} className="iframe" src={src}/>
     </Window>

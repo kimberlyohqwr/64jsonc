@@ -3,21 +3,21 @@ import './stylesheet.scss';
 import { Icon, Link, Window } from 'components';
 import attributions from './data/attributions';
 
-function AttributionWindow({ windowProps, ...restProps }) {
-  const { windowKey } = windowProps;
-
+function AttributionWindow({ app, ...restProps }) {
   return (
-    <Window className="AttributionWindow" windowKey={windowKey} windowProps={windowProps} {...restProps}>
+    <Window className="AttributionWindow"
+            defaultWidth={30 * 16} defaultHeight={30 * 16}
+            app={app} {...restProps}>
       <div className="row-container">
         {
           attributions.map(attribution => (
             <div className="row" key={attribution.image}>
               <Icon className="icon" imageUrl={attribution.image}/>
               <div className="info">
-                <Link className="path" href={attribution.image}>{attribution.image.split('/').pop()}</Link>
+                <Link className="path" url={attribution.image}>{attribution.image.split('/').pop()}</Link>
                 <div className="artist">{attribution.artist}</div>
               </div>
-              <Link className="link" href={attribution.link}>Link</Link>
+              <Link className="link" url={attribution.link}>Link</Link>
             </div>
           ))
         }

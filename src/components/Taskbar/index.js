@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { Icon, Shortcut } from 'components';
-import { WindowsContext } from 'contexts';
+import { FileSystemContext } from 'contexts';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -15,9 +15,10 @@ const getClock = () => {
 };
 
 function Taskbar() {
-  const [windows] = useContext(WindowsContext);
+  const [rootDir] = useContext(FileSystemContext);
+  const apps = rootDir.getApps();
+
   const [clock, setClock] = useState(getClock());
-  const [shortcutKeys, setShortcutKeys] = useState(windows.map(w => w.windowKey));
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -38,12 +39,9 @@ function Taskbar() {
       </div>
       <div className="shortcut-container">
         {
-          shortcutKeys.map(windowKey => {
-            const window = windows.find(w => w.windowKey === windowKey);
+          apps && apps.map(app => {
             return (
-              <Shortcut key={window.windowKey} taskbar
-                        iconKey={window.windowKey} path={window.opened ? window.path : window.defaultPath}
-                        pinned={window.pinned} active={window.opened}/>
+              <Shortcut key={app.key} taskbar target={app}/>
             );
           })
         }

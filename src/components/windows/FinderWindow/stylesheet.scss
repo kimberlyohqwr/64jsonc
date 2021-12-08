@@ -2,6 +2,7 @@
 
 .FinderWindow {
   .content {
+    overflow-x: auto !important;
     align-items: stretch;
 
     .panel {
@@ -12,7 +13,7 @@
       flex-direction: column;
 
       &.panel-preview {
-        min-width: 20rem;
+        min-width: 24rem;
         flex: 1;
         border-right: none;
 
@@ -64,18 +65,19 @@
 
       &.panel-list {
         width: 12rem;
+        flex-shrink: 0;
 
         .list {
           display: flex;
           flex-direction: column;
 
-          .directory {
+          .dir {
             flex-shrink: 0;
             display: flex;
             align-items: center;
             padding: .2rem .4rem;
 
-            &.directory-parent {
+            &.dir-parent {
               display: none;
             }
 

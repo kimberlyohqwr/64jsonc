@@ -67,7 +67,7 @@ export default [{
   image: '/img/award/2017_ccsc.jpg',
   organizer: 'The Consortium for Computing Sciences in Colleges',
   date: '2017',
-  place: '1st in Application Track',
+  place: '1st in App Track',
 }, {
   key: '2017_earthack',
   name: 'Earthack',

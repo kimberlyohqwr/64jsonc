@@ -1,9 +1,9 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './stylesheet.scss';
 import { Window } from 'components';
 import { classes } from 'common/utils';
 import { FileSystemContext } from 'contexts';
-import { Link, SystemDirectory } from 'data/rootDir';
+import { Child, Dir, File, SystemDir } from 'beans';
 import { useHistory } from 'react-router-dom';
 
 let sourceCode;
@@ -11,20 +11,18 @@ fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/master/sc
   .then(response => response.text())
   .then(value => sourceCode = value);
 
-function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
-  const { windowKey } = windowProps;
-
+function TerminalWindow({ app, onUpdate, ...restProps }) {
   const [rootDir, refreshRootDir] = useContext(FileSystemContext);
   const history = useHistory();
 
-  const [currentDirectoryKeys, setCurrentDirectories] = useState(['users', 'jason', 'desktop']);
+  const [currentPathKeys, setCurrentPathKeys] = useState(['users', 'jason', 'desktop']);
 
   const getPrompt = () => {
-    const directories = [...currentDirectoryKeys];
-    if (directories[0] === 'users' && directories[1] === 'jason') {
-      directories.splice(0, 2, '~');
+    const pathKeys = [...currentPathKeys];
+    if (['users', 'jason'].every((v, i) => v === pathKeys[i])) {
+      pathKeys.splice(0, 2, '~');
     }
-    const path = directories.join('/') || '/';
+    const path = pathKeys.join('/') || '/';
     return `jason@world:${path}$ `;
   };
 
@@ -38,6 +36,12 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
   const isHackertyper = hackertyperLength !== null;
 
   const cursorRef = useRef(null);
+
+  useEffect(() => {
+    if (cursorRef.current) {
+      cursorRef.current.scrollIntoView();
+    }
+  }, [hackertyperLength, text, inputs]);
 
   const flush = () => print('', { newLine: false });
 
@@ -57,14 +61,14 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
     }
   };
 
-  const getDirectoryKeys = (pathArg) => {
-    const tokens = pathArg ? pathArg.split('/') : [];
-    let directoryKeys = [...currentDirectoryKeys];
+  const getPathKeys = path => {
+    const tokens = path ? path.split('/') : [];
+    let pathKeys = [...currentPathKeys];
     if (tokens[0] === '') {
-      directoryKeys = [];
+      pathKeys = [];
       tokens.shift();
     } else if (tokens[0] === '~') {
-      directoryKeys = ['users', 'jason'];
+      pathKeys = ['users', 'jason'];
       tokens.shift();
     }
     for (const token of tokens) {
@@ -73,14 +77,14 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
         case '.':
           break;
         case '..':
-          directoryKeys.pop();
+          pathKeys.pop();
           break;
         default:
-          directoryKeys.push(token);
+          pathKeys.push(token);
           break;
       }
     }
-    return directoryKeys;
+    return pathKeys;
   };
 
   const processCommand = input => {
@@ -111,6 +115,7 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
       case 'whoami': {
         if (options.includes('j')) {
           window.open('https://www.instagram.com/jspark98/');
+          flush();
         } else {
           print([
             '*Jinseo Park* (Jason)',
@@ -122,75 +127,69 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
       }
       case 'cd': {
         const pathArg = pathArgs.shift();
-        const directoryKeys = getDirectoryKeys(pathArg);
-        const directory = rootDir.getChild(...directoryKeys);
-        if (directory === undefined) {
+        const pathKeys = getPathKeys(pathArg);
+        const child = rootDir.getChild(...pathKeys);
+        if (child === undefined) {
           print(`-bash: ${command}: ${pathArg}: No such file or directory`);
           break;
-        } else if (!directory.isDir()) {
+        } else if (!(child instanceof Dir)) {
           print(`-bash: ${command}: ${pathArg}: Not a directory`);
           break;
         }
-        setCurrentDirectories(directoryKeys);
+        setCurrentPathKeys(pathKeys);
         flush();
         break;
       }
       case 'ls': {
         const pathArg = pathArgs.shift();
-        const directoryKeys = getDirectoryKeys(pathArg);
-        const directory = rootDir.getChild(...directoryKeys);
-        if (directory === undefined) {
+        const pathKeys = getPathKeys(pathArg);
+        const child = rootDir.getChild(...pathKeys);
+        if (child === undefined) {
           print(`-bash: ${command}: ${pathArg}: No such file or directory`);
           break;
-        } else if (!directory.isDir()) {
-          print(`<span class="file">${directoryKeys.pop()}</span>`);
+        } else if (child instanceof File) {
+          print(`<span class="file">${pathKeys.pop()}</span>`);
           break;
         }
-        print(directory.getChildrenKeys().map(directoryKey => `<span class="${directory[directoryKey].isDir() ? 'dir' : 'file'}">${directoryKey}</span>`));
+        print(child.children.map(child => `<span class="${child instanceof Dir ? 'dir' : 'file'}">${child.key}</span>`));
         break;
       }
       case 'pwd': {
-        print('/' + currentDirectoryKeys.join('/'));
+        print('/' + currentPathKeys.join('/'));
         break;
       }
       case 'rm': {
         const pathArg = pathArgs.shift();
-        const directoryKeys = getDirectoryKeys(pathArg);
-        const directory = rootDir.getChild(...directoryKeys);
-        if (directory === undefined) {
+        const pathKeys = getPathKeys(pathArg);
+        const child = rootDir.getChild(...pathKeys);
+        if (child === undefined) {
           print(`-bash: ${command}: ${pathArg}: No such file or directory`);
           break;
         }
-        if (directory.isDir() && !options.includes('r')) {
+        if (child instanceof Dir && !options.includes('r')) {
           print(`-bash: ${command}: ${pathArg}: Is a directory`);
           break;
         }
         // TODO: wildcard selector?
-        if (directory instanceof SystemDirectory && !options.includes('f')) {
+        if (child instanceof SystemDir && !options.includes('f')) {
           print(`-bash: ${command}: ${pathArg}: Permission denied (try again with -f)`);
           break;
         }
-        const directoryKey = directoryKeys.pop();
-        delete rootDir.getChild(...directoryKeys)[directoryKey];
+        child.remove();
         refreshRootDir();
         flush();
         break;
       }
       case 'open': {
         const outputs = pathArgs.map((pathArg, i) => {
-          const directoryKeys = getDirectoryKeys(pathArg);
-          const directory = rootDir.getChild(...directoryKeys);
-          if (directory === undefined) {
-            return `The file /${directoryKeys.join('/')} does not exist.`;
-          } else if (directory instanceof Link) {
+          const pathKeys = getPathKeys(pathArg);
+          const child = rootDir.getChild(...pathKeys);
+          if (child === undefined) {
+            return `The file /${pathKeys.join('/')} does not exist.`;
+          } else if (child instanceof Child) {
             window.setTimeout(() => {
-              window.open(directory.href);
+              child.open(history);
             }, (i + 1) * 200);
-          } else if (directoryKeys[0] === 'users' && directoryKeys[1] === 'jason' && directoryKeys[2] === 'desktop') {
-            window.setTimeout(() => {
-              history.push(`/${directoryKeys.splice(3).join('/')}`);
-            }, (i + 1) * 200);
-            return undefined;
           } else {
             return `-bash: ${command}: ${pathArg}: Permission denied`;
           }
@@ -222,6 +221,7 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
         }
         break;
       }
+      // TODO: mock node interpreter
       default: {
         print(`-bash: ${command}: command not found`);
       }
@@ -229,7 +229,9 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
   };
 
   return (
-    <Window className="TerminalWindow" windowKey={windowKey} windowProps={windowProps} onUpdate={onUpdate}
+    <Window className="TerminalWindow"
+            defaultWidth={40 * 16} defaultHeight={28 * 16}
+            app={app} onUpdate={onUpdate}
             onKeyPress={e => {
               const keyCode = e.charCode || e.keyCode;
               if (keyCode === 3) {
@@ -256,7 +258,6 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
                   }
                 }
               }
-              cursorRef.current.scrollIntoView();
             }}
             onKeyDown={e => {
               const { keyCode } = e;
@@ -288,22 +289,22 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
                     const input = inputs.join('');
                     const incompletePathArg = input.split(/\s+/).pop();
                     const index = incompletePathArg.lastIndexOf('/');
-                    const parentDirectory = incompletePathArg.substring(0, index + 1);
-                    const incompleteDirectory = incompletePathArg.substring(index + 1);
-                    const directoryKeys = getDirectoryKeys(parentDirectory);
-                    const directory = rootDir.getChild(...directoryKeys);
-                    if (directory) {
-                      const possibleDirectories = directory.getChildrenKeys().filter(directoryKey => directoryKey.startsWith(incompleteDirectory));
-                      if (possibleDirectories.length === 1) {
-                        const directory = possibleDirectories[0];
-                        const leftover = directory.substring(incompleteDirectory.length);
+                    const parentPath = incompletePathArg.substring(0, index + 1);
+                    const incompleteKey = incompletePathArg.substring(index + 1);
+                    const pathKeys = getPathKeys(parentPath);
+                    const child = rootDir.getChild(...pathKeys);
+                    if (child) {
+                      const possibleChildren = child.children.filter(child => child.key.startsWith(incompleteKey));
+                      if (possibleChildren.length === 1) {
+                        const [possibleChild] = possibleChildren;
+                        const leftover = possibleChild.key.substring(incompleteKey.length);
                         const newInputs = [...inputs];
                         newInputs.splice(-1, 0, ...Array.from(leftover));
                         setInputs(newInputs);
                         setCursorIndex(newInputs.length - 1);
-                      } else if (possibleDirectories.length > 1) {
+                      } else if (possibleChildren.length > 1) {
                         if (tabPressed) {
-                          print(possibleDirectories.map(directoryKey => `<span class="${directory[directoryKey].isDir() ? 'dir' : 'file'}">${directoryKey}</span>`).join('\n'), { resetInput: false });
+                          print(possibleChildren.map(child => `<span class="${child instanceof Dir ? 'dir' : 'file'}">${child.key}</span>`).join('\n'), { resetInput: false });
                         }
                         setTabPressed(true);
                       }
@@ -363,7 +364,6 @@ function TerminalWindow({ windowProps, onUpdate, ...restProps }) {
               if (keyCode !== 9) {
                 setTabPressed(false);
               }
-              cursorRef.current.scrollIntoView();
             }}
             {...restProps}>
       {

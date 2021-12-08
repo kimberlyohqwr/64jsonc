@@ -1,21 +1,20 @@
-import { rootDir, windows } from 'data';
+import { rootDir } from 'data';
 
 export const namize = id => id.split('_').map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' ');
 
 export const classes = (...classes) => classes.filter(v => v).join(' ');
 
-export const getWindowKey = path => {
-  const [directoryKey] = getPathKeys(path);
-  const { desktop } = rootDir.users.jason;
-  const directory = desktop[directoryKey];
-  if (directory) {
-    return directory.windowKey;
+export const getAppKey = path => {
+  const [dirKey] = getUrlKeys(path);
+  const appsDir = rootDir.getAppsDir();
+  const app = appsDir.getChild(dirKey);
+  if (app) {
+    return app.key;
   }
-  const window = windows.find(w => w.windowKey === directoryKey);
-  if (window) {
-    return window.windowKey;
+  if (dirKey) {
+    return 'finder';
   }
   return undefined;
 };
 
-export const getPathKeys = path => path.split('/').slice(1);
+export const getUrlKeys = url => url.split('/').slice(1).filter(v => v);
