@@ -1,13 +1,15 @@
-&#instagram {
+@import "../../../common/constants";
+
+.InstagramWindow {
   .toolbar {
-    background-image: linear-gradient(-135deg, #1400c8, #b900b4, #f50000);
+    background-image: linear-gradient(-135deg, #1400c8, #b900b4, #f50000) !important;
   }
 
   .content {
     flex-direction: column;
     align-items: stretch;
     background-color: white;
-    pointer-events: auto;
+    pointer-events: auto !important;
 
     .photo-container {
       display: flex;

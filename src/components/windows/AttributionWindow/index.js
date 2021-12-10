@@ -3,11 +3,11 @@ import './stylesheet.scss';
 import { Icon, Link, Window } from 'components';
 import attributions from './data/attributions';
 
-function AttributionWindow({ app, ...restProps }) {
+function AttributionWindow(props) {
   return (
     <Window className="AttributionWindow"
             defaultWidth={30 * 16} defaultHeight={30 * 16}
-            app={app} {...restProps}>
+            {...props}>
       <div className="row-container">
         {
           attributions.map(attribution => (
