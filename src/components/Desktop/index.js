@@ -7,7 +7,7 @@ import { Shortcut } from 'components';
 
 function Desktop() {
   const [rootDir, refreshRootDir] = useContext(FileSystemContext);
-  const desktop = rootDir.getDesktopDir();
+  const desktopDir = rootDir.getDesktopDir();
   const apps = rootDir.getApps();
 
   const history = useHistory();
@@ -33,7 +33,7 @@ function Desktop() {
   }, [currentUrl]);
 
   return (
-    <div className="Desktop" style={desktop && { backgroundImage: `url(${desktop.wallpaper})` }} onMouseDown={() => {
+    <div className="Desktop" style={desktopDir && { backgroundImage: `url(${desktopDir.wallpaper})` }} onMouseDown={() => {
       if (currentUrl !== '/') history.push('/');
     }}>
       <a className="github-corner" href="https://github.com/parkjs814/parkjs814.github.io"
@@ -48,7 +48,7 @@ function Desktop() {
       </a>
       <div className="app-container">
         {
-          desktop && desktop.children.map(child => (
+          desktopDir && desktopDir.children.map(child => (
             <Shortcut key={child.key} desktop target={child}/>
           ))
         }

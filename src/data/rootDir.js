@@ -10,6 +10,7 @@ import {
   InstagramWindow,
   PaypalWindow,
   TerminalWindow,
+  VersionHistoryWindow,
 } from 'components/windows';
 import { AppFile, DesktopDir, Dir, LinkFile, RootDir, SymlinkFile, SystemDir } from 'beans';
 
@@ -19,6 +20,7 @@ const finder = new AppFile(FinderWindow, { defaultUrl: '/finder/users/jason/desk
 const instagram = new AppFile(InstagramWindow);
 const paypal = new AppFile(PaypalWindow);
 const terminal = new AppFile(TerminalWindow);
+const versionHistory = new AppFile(VersionHistoryWindow);
 
 const rootDir = new RootDir({
   users: new SystemDir({
@@ -30,6 +32,7 @@ const rootDir = new RootDir({
         instagram,
         paypal,
         terminal,
+        version_history: versionHistory,
       }),
       desktop: new DesktopDir({
         projects: new Dir(projects),
@@ -42,7 +45,7 @@ const rootDir = new RootDir({
         github: new LinkFile('https://github.com/parkjs814'),
         resume: new LinkFile('https://jasonpark.me/resume/'),
         email: new LinkFile('mailto:jason.park@gatech.edu'),
-        // version_history: ,
+        version_history: new SymlinkFile(versionHistory),
         attribution: new SymlinkFile(attribution),
       }, wallpaper),
     }),

@@ -1,4 +1,4 @@
-module.exports = [{
+export default [{
   name: 'Strawberry Acai Venti',
   image: '/img/menu/starbucks.svg',
   price: 4.29,

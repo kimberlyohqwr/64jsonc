@@ -1,4 +1,6 @@
-&#version_history {
+@import "../../../common/constants";
+
+.VersionHistoryWindow {
   .content {
     flex-direction: column;
     align-items: stretch;

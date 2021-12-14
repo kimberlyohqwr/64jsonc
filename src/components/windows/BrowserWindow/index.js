@@ -1,77 +1,96 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { classes, getUrlKeys } from 'common/utils';
 import { Icon, Link, Window } from 'components';
-import projects from 'data/projects';
 import { useHistory } from 'react-router-dom';
+import { FileSystemContext } from 'contexts';
 
 function BrowserWindow({ app, onUpdate, ...restProps }) {
   const { key: appKey, url } = app;
-  const [, projectKey] = getUrlKeys(url);
+  const [, activeTabKey] = getUrlKeys(url);
   const history = useHistory();
 
-  const [tabKeys, setTabKeys] = useState([]);
-  const [activeKey, setActiveKey] = useState(null);
+  const [rootDir, refreshRootDir] = useContext(FileSystemContext);
+  const desktopDir = rootDir.getDesktopDir();
+
+  const [tabs, setTabs] = useState([]);
   const [refresh, setRefresh] = useState(0);
 
-  const project = projects.find(project => project.key === projectKey);
+  const getTab = tabKey => {
+    const existingTab = tabs.find(tab => tab.key === tabKey);
+    if (existingTab) {
+      return existingTab;
+    }
+    const match = /^history-v(\d+)$/.exec(tabKey);
+    if (match) {
+      const version = match[1];
+      return {
+        key: tabKey,
+        link: `/version_history/v${version}`,
+        name: `Version ${version}`,
+        iconProps: {
+          iconKey: 'version_history',
+        },
+      };
+    }
 
-  const getLink = project => {
-    if (!project) return null;
-    const match = /^\[(.+)]\(.+\)$/.exec(project.link);
-    if (match) return match[1];
-    return project.link;
+    const projectsDir = desktopDir && desktopDir.getChild('projects');
+    const projects = projectsDir ? projectsDir.children : [];
+    const project = projects.find(project => project.key === tabKey);
+    if (project) {
+      const { key, name, iconProps, content } = project;
+      const match = /^\[(.+)]\(.+\)$/.exec(content.link);
+      return {
+        key,
+        link: match ? match[1] : content.link,
+        name,
+        iconProps,
+      };
+    }
+
+    return undefined;
   };
 
-  const src = getLink(project);
+  const activeTab = getTab(activeTabKey);
 
   useEffect(() => {
-    if (projectKey) {
-      if (tabKeys.includes(projectKey)) {
-        setActiveKey(projectKey);
-      } else {
-        const project = projects.find(project => project.key === projectKey);
-        if (project) {
-          const newTabKeys = [...tabKeys, projectKey];
-          setTabKeys(newTabKeys);
-          setActiveKey(projectKey);
-        }
-      }
+    if (activeTab && !tabs.includes(activeTab)) {
+      const newTabs = [...tabs, activeTab];
+      setTabs(newTabs);
     }
-  }, [projectKey]);
+  }, [activeTab]);
+
+  const link = activeTab && activeTab.link;
 
   return (
     <Window className="BrowserWindow"
-            tabs={tabKeys.map((tabKey, i) => {
-              const project = projects.find(project => project.key === tabKey);
-              return (
-                <Link className={classes('tab', activeKey === tabKey && 'active')} key={tabKey}
-                      url={`/${appKey}/${tabKey}`}>
-                  <Icon className="icon" imageUrl={project.image}/>
-                  <div className="name">{project.name}</div>
-                  <div className="close" onClick={e => {
-                    e.preventDefault();
-                    const newTabKeys = tabKeys.filter(key => key !== tabKey);
-                    setTabKeys(newTabKeys);
-                    if (newTabKeys.length === 0) {
-                      history.push('/');
-                      onUpdate({ opened: false });
-                    } else if (activeKey === tabKey) {
-                      const newActiveKey = newTabKeys[Math.min(newTabKeys.length - 1, i)];
-                      history.push(`/${appKey}/${newActiveKey}`);
-                    }
-                  }}/>
-                </Link>
-              );
-            })}
+            tabs={tabs.map((tab, i) => (
+              <Link className={classes('tab', tab === activeTab && 'active')} key={tab.key}
+                    url={`/${appKey}/${tab.key}`}>
+                <Icon className="icon" {...tab.iconProps}/>
+                <div className="name">{tab.name}</div>
+                <div className="close" onClick={e => {
+                  e.preventDefault();
+                  const newTabs = tabs.filter(t => t !== tab);
+                  setTabs(newTabs);
+                  if (newTabs.length === 0) {
+                    history.push('/');
+                    onUpdate({ opened: false });
+                  } else if (tab === activeTab) {
+                    const newActiveTab = newTabs[Math.min(newTabs.length - 1, i)];
+                    history.push(`/${appKey}/${newActiveTab.key}`);
+                  }
+                }}/>
+              </Link>
+            ))}
             defaultWidth={60 * 16} defaultHeight={40 * 16}
             app={app} onUpdate={onUpdate} {...restProps}>
       <div className="addressbar">
         <div className={classes('button', 'button-refresh')} onClick={() => setRefresh(refresh + 1)}/>
-        <div className="url">{src}</div>
-        <Link className={classes('button', 'button-new')} url={src}/>
+        <div className="url">{link}</div>
+        <Link className={classes('button', 'button-new')} url={link}/>
       </div>
-      <iframe key={refresh} className="iframe" src={src}/>
+      <iframe key={refresh} className="iframe" src={link}/>
     </Window>
   );
 }
