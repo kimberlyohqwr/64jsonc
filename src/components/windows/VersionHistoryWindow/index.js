@@ -21,11 +21,3 @@ function VersionHistoryWindow(props) {
 }
 
 export default VersionHistoryWindow;
-
-/*
-+window('version_history', 30, 30)
-  .version-container
-    each version in [0, 1, 2]
-      a.version(class=`version-${version}`, href=`#browser-v_${version}`, data-name=`Version ${version}`, data-image='img/icon/version_history.png', data-url=`./version_history/v${version}/`)
-
- */

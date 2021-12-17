@@ -11,7 +11,8 @@ fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/master/sc
   .then(response => response.text())
   .then(value => sourceCode = value);
 
-function TerminalWindow({ app, onUpdate, ...restProps }) {
+function TerminalWindow(props) {
+  const { app, onUpdate } = props;
   const [rootDir, refreshRootDir] = useContext(FileSystemContext);
   const history = useHistory();
 
@@ -231,7 +232,6 @@ function TerminalWindow({ app, onUpdate, ...restProps }) {
   return (
     <Window className="TerminalWindow"
             defaultWidth={40 * 16} defaultHeight={28 * 16}
-            app={app} onUpdate={onUpdate}
             onKeyPress={e => {
               const keyCode = e.charCode || e.keyCode;
               if (keyCode === 3) {
@@ -365,7 +365,7 @@ function TerminalWindow({ app, onUpdate, ...restProps }) {
                 setTabPressed(false);
               }
             }}
-            {...restProps}>
+            {...props}>
       {
         isHackertyper ? (
           <div className="line-container">

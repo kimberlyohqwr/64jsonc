@@ -5,9 +5,9 @@ import { Icon, Link, Window } from 'components';
 import { useHistory } from 'react-router-dom';
 import { FileSystemContext } from 'contexts';
 
-function BrowserWindow({ app, onUpdate, ...restProps }) {
-  const { key: appKey, url } = app;
-  const [, activeTabKey] = getUrlKeys(url);
+function BrowserWindow(props) {
+  const { app, onUpdate } = props;
+  const [, activeTabKey] = getUrlKeys(app.url);
   const history = useHistory();
 
   const [rootDir, refreshRootDir] = useContext(FileSystemContext);
@@ -66,7 +66,7 @@ function BrowserWindow({ app, onUpdate, ...restProps }) {
     <Window className="BrowserWindow"
             tabs={tabs.map((tab, i) => (
               <Link className={classes('tab', tab === activeTab && 'active')} key={tab.key}
-                    url={`/${appKey}/${tab.key}`}>
+                    url={`/${app.key}/${tab.key}`}>
                 <Icon className="icon" {...tab.iconProps}/>
                 <div className="name">{tab.name}</div>
                 <div className="close" onClick={e => {
@@ -78,13 +78,13 @@ function BrowserWindow({ app, onUpdate, ...restProps }) {
                     onUpdate({ opened: false });
                   } else if (tab === activeTab) {
                     const newActiveTab = newTabs[Math.min(newTabs.length - 1, i)];
-                    history.push(`/${appKey}/${newActiveTab.key}`);
+                    history.push(`/${app.key}/${newActiveTab.key}`);
                   }
                 }}/>
               </Link>
             ))}
             defaultWidth={60 * 16} defaultHeight={40 * 16}
-            app={app} onUpdate={onUpdate} {...restProps}>
+            {...props}>
       <div className="addressbar">
         <div className={classes('button', 'button-refresh')} onClick={() => setRefresh(refresh + 1)}/>
         <div className="url">{link}</div>

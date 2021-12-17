@@ -7,15 +7,15 @@ import { FileSystemContext } from 'contexts';
 import { Dir, PreviewFile } from 'beans';
 import ReactMarkdown from 'react-markdown';
 
-function FinderWindow({ app, ...restProps }) {
-  const { key: appKey, url } = app;
+function FinderWindow(props) {
+  const { app } = props;
 
   const [rootDir] = useContext(FileSystemContext);
 
   const history = useHistory();
 
-  const pathKeys = getUrlKeys(url);
-  if (pathKeys[0] === appKey) {
+  const pathKeys = getUrlKeys(app.url);
+  if (pathKeys[0] === app.key) {
     pathKeys.shift();
   } else {
     pathKeys.unshift('users', 'jason', 'desktop');
@@ -39,7 +39,7 @@ function FinderWindow({ app, ...restProps }) {
     if (panelRef.current) {
       panelRef.current.scrollIntoView({ inline: 'end' });
     }
-  }, [url]);
+  }, [app.url]);
 
   return (
     <Window className="FinderWindow"
@@ -95,8 +95,7 @@ function FinderWindow({ app, ...restProps }) {
                 }
               }
             }}
-            app={app}
-            {...restProps}>
+            {...props}>
       {
         activeChildren.map((child, i) => child instanceof Dir ? (
           <div className={classes('panel', 'panel-list')} key={child.path} ref={panelRef}>

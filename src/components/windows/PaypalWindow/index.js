@@ -4,7 +4,8 @@ import { Icon, Window } from 'components';
 import { getUrlKeys } from 'common/utils';
 import donations from './data/donations';
 
-function PaypalWindow({ app, ...restProps }) {
+function PaypalWindow(props) {
+  const { app } = props;
   const { url } = app;
   const [, status] = getUrlKeys(url);
   const isSuccess = status === 'success';
@@ -12,7 +13,7 @@ function PaypalWindow({ app, ...restProps }) {
   return (
     <Window className="PaypalWindow" noToolbar
             defaultWidth={50 * 16} defaultHeight={30 * 16}
-            app={app} {...restProps}>
+            {...props}>
       {
         isSuccess && (
           <div className="paypal-success"/>
