@@ -9,7 +9,7 @@ function Window({
                   onUpdate, app,
                 }) {
   const {
-    name, iconProps: appIconProps, url, opened, focused, defaultLeft, defaultTop, zIndex,
+    name, iconProps: appIconProps, url, closing, focused, defaultLeft, defaultTop, zIndex,
   } = app;
 
   const history = useHistory();
@@ -46,7 +46,7 @@ function Window({
 
   return (
     <div
-      className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', opened && 'opened', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
+      className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', closing && 'closing', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
       style={{ zIndex, left, top, width, height }}
       onMouseDown={e => {
         e.stopPropagation();
@@ -78,7 +78,7 @@ function Window({
         window.addEventListener('mouseup', onMouseUp);
       }}>
         <div className="button-container">
-          <Link className="button button-close" url="/" onClick={() => onUpdate({ opened: false })}/>
+          <Link className="button button-close" url="/" onClick={() => onUpdate({ closing: true })}/>
           <Link className="button button-minimize" url="/" onClick={() => setMinimized(true)}/>
           <Link className="button button-maximize" url={url} onClick={() => setMaximized(!maximized)}/>
         </div>

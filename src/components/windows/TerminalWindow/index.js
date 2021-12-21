@@ -210,7 +210,7 @@ function TerminalWindow(props) {
       }
       case 'exit': {
         history.push('/');
-        onUpdate({ opened: false });
+        onUpdate({ closing: true });
         break;
       }
       case 'hackertyper': {

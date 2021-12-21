@@ -32,10 +32,23 @@ function Desktop() {
     refreshRootDir();
   }, [currentUrl]);
 
+  useEffect(() => {
+    apps && apps.forEach(app => {
+      if (app.closing) {
+        setTimeout(() => {
+          app.closing = false;
+          app.opened = false;
+          refreshRootDir();
+        }, 200);
+      }
+    });
+  });
+
   return (
-    <div className="Desktop" style={desktopDir && { backgroundImage: `url(${desktopDir.wallpaper})` }} onMouseDown={() => {
-      if (currentUrl !== '/') history.push('/');
-    }}>
+    <div className="Desktop" style={desktopDir && { backgroundImage: `url(${desktopDir.wallpaper})` }}
+         onMouseDown={() => {
+           if (currentUrl !== '/') history.push('/');
+         }}>
       <a className="github-corner" href="https://github.com/parkjs814/parkjs814.github.io"
          aria-label="View source on Github">
         <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
@@ -55,13 +68,13 @@ function Desktop() {
       </div>
       <div className="window-container">
         {
-          apps && apps.map(app => (
-            <app.WindowComponent key={`${app.key}-${app.instance}`}
-                                         app={app}
-                                         onUpdate={patch => {
-                                           Object.assign(app, patch);
-                                           refreshRootDir();
-                                         }}/>
+          apps && apps.filter(app => app.opened).map(app => (
+            <app.WindowComponent key={app.key}
+                                 app={app}
+                                 onUpdate={patch => {
+                                   Object.assign(app, patch);
+                                   refreshRootDir();
+                                 }}/>
           ))
         }
       </div>

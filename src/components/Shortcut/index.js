@@ -6,7 +6,7 @@ import { Icon, Link } from 'components';
 function Shortcut({ target, desktop, taskbar }) {
   return (
     <Link
-      className={classes('Shortcut', desktop && 'desktop', taskbar && 'taskbar', target.pinned && 'pinned', target.opened && 'active')}
+      className={classes('Shortcut', desktop && 'desktop', taskbar && 'taskbar', target.pinned && 'pinned', target.opened && !target.closing && 'active')}
       url={target.url}>
       <Icon className="icon" {...target.iconProps}/>
       {

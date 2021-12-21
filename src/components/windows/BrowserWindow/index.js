@@ -75,7 +75,7 @@ function BrowserWindow(props) {
                   setTabs(newTabs);
                   if (newTabs.length === 0) {
                     history.push('/');
-                    onUpdate({ opened: false });
+                    onUpdate({ closing: true });
                   } else if (tab === activeTab) {
                     const newActiveTab = newTabs[Math.min(newTabs.length - 1, i)];
                     history.push(`/${app.key}/${newActiveTab.key}`);

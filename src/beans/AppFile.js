@@ -15,7 +15,6 @@ class AppFile extends File {
       lastUrl: null,
       opened: false,
       focused: false,
-      instance: 0,
       zIndex: 1,
     });
   }
