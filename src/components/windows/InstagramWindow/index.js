@@ -23,7 +23,7 @@ function InstagramWindow(props) {
           instagrams.map(instagram => (
             <Link className="photo" key={instagram} url={`/${app.key}/${instagram}`}
                   style={{ backgroundImage: `url(https://instagram.com/p/${instagram}/media/?size=m)` }}>
-              <img className="ratio" src={instaRatio}/>
+              <img className="ratio" src={instaRatio} alt="Placeholder"/>
             </Link>
           ))
         }

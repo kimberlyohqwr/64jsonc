@@ -12,7 +12,7 @@ fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/master/sc
   .then(value => sourceCode = value);
 
 function TerminalWindow(props) {
-  const { app, onUpdate } = props;
+  const { onUpdate } = props;
   const [rootDir, refreshRootDir] = useContext(FileSystemContext);
   const history = useHistory();
 
@@ -191,6 +191,7 @@ function TerminalWindow(props) {
             window.setTimeout(() => {
               child.open(history);
             }, (i + 1) * 200);
+            return undefined;
           } else {
             return `-bash: ${command}: ${pathArg}: Permission denied`;
           }
@@ -272,6 +273,7 @@ function TerminalWindow(props) {
                 case 40:
                   e.preventDefault();
                   break;
+                default:
               }
               if (hackertyperLength !== null && keyCode !== 27) return;
               switch (keyCode) {
@@ -360,6 +362,7 @@ function TerminalWindow(props) {
                   }
                   break;
                 }
+                default:
               }
               if (keyCode !== 9) {
                 setTabPressed(false);

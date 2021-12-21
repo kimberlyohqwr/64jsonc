@@ -10,7 +10,7 @@ function BrowserWindow(props) {
   const [, activeTabKey] = getUrlKeys(app.url);
   const history = useHistory();
 
-  const [rootDir, refreshRootDir] = useContext(FileSystemContext);
+  const [rootDir] = useContext(FileSystemContext);
   const desktopDir = rootDir.getDesktopDir();
 
   const [tabs, setTabs] = useState([]);
@@ -90,7 +90,7 @@ function BrowserWindow(props) {
         <div className="url">{link}</div>
         <Link className={classes('button', 'button-new')} url={link}/>
       </div>
-      <iframe key={refresh} className="iframe" src={link}/>
+      <iframe key={refresh} className="iframe" src={link} title={activeTab && activeTab.name}/>
     </Window>
   );
 }

@@ -93,6 +93,7 @@ function FinderWindow(props) {
                   }
                   break;
                 }
+                default:
               }
             }}
             {...props}>
@@ -125,11 +126,11 @@ function FinderWindow(props) {
         ) : child instanceof PreviewFile ? (
           <div className={classes('panel', 'panel-preview')} key={child.path} ref={panelRef}>
             <div className="preview">
-              <img className="image" src={child.content.image}/>
+              <img className="image" src={child.content.image} alt="Preview"/>
               <div className="property-container">
                 {
                   Object.keys(child.content).map(propertyKey => {
-                    if (propertyKey === 'image') return;
+                    if (propertyKey === 'image') return null;
                     const value = child.content[propertyKey];
                     return (
                       <div key={propertyKey} className="property">

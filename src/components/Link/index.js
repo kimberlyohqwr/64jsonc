@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as PathLink } from 'react-router-dom';
 import { classes } from 'common/utils';
 
-function Link({ className, url, onMouseDown, onClick, ...props }, ref) {
+function Link({ className, url, onMouseDown, onClick, children, ...props }, ref) {
   const handleMouseDown = e => {
     e.stopPropagation();
     e.preventDefault();
@@ -22,9 +22,14 @@ function Link({ className, url, onMouseDown, onClick, ...props }, ref) {
   };
 
   return url && url.startsWith('/') ? (
-    <PathLink className={className} to={url} {...commonProps}/>
+    <PathLink className={className} to={url} {...commonProps}>
+      {children}
+    </PathLink>
   ) : (
-    <a className={classes(className, 'link-external')} href={url} target="_blank" rel="noopener" {...commonProps}/>
+    <a className={classes(className, 'link-external')} href={url} target="_blank"
+       rel="noopener noreferrer" {...commonProps}>
+      {children}
+    </a>
   );
 }
 

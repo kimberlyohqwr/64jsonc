@@ -22,10 +22,5 @@
       "sizes": "200x200",
       "type": "image/jpeg"
     }
-  ],
-  "related_applications": [
-    {
-      "platform": "web"
-    }
   ]
 }
