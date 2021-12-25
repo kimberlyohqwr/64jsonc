@@ -7,6 +7,9 @@ function AttributionWindow(props) {
   return (
     <Window className="AttributionWindow"
             defaultWidth={30 * 16} defaultHeight={30 * 16}
+            contentStyle={{
+              justifyContent: 'center',
+            }}
             {...props}>
       <div className="row-container">
         {

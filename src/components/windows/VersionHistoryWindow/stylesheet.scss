@@ -1,65 +1,60 @@
 @import "../../../common/constants";
 
 .VersionHistoryWindow {
-  .content {
+  .version-container {
+    flex: 1;
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
 
-    .version-container {
-      flex: 1;
+    .version {
+      flex: 1 0;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
 
-      .version {
-        flex: 1 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(#888, .2);
+        opacity: 0;
+        transition: opacity $anim-duration;
+      }
 
+      &:hover {
         &:after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background-color: rgba(#888, .2);
-          opacity: 0;
-          transition: opacity $anim-duration;
+          opacity: 1;
         }
+      }
 
-        &:hover {
-          &:after {
-            opacity: 1;
-          }
+      &.version-0 {
+        background-color: #80CBC4;
+        color: #004D40;
+
+        &:before {
+          content: 'Version 0'
         }
+      }
 
-        &.version-0 {
-          background-color: #80CBC4;
-          color: #004D40;
+      &.version-1 {
+        background-color: white;
+        color: black;
 
-          &:before {
-            content: 'Version 0'
-          }
+        &:before {
+          content: 'Version 1'
         }
+      }
 
-        &.version-1 {
-          background-color: white;
-          color: black;
+      &.version-2 {
+        background-color: black;
+        color: white;
 
-          &:before {
-            content: 'Version 1'
-          }
-        }
-
-        &.version-2 {
-          background-color: black;
-          color: white;
-
-          &:before {
-            content: 'Version 2'
-          }
+        &:before {
+          content: 'Version 2'
         }
       }
     }

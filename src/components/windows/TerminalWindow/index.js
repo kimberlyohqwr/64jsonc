@@ -233,6 +233,9 @@ function TerminalWindow(props) {
   return (
     <Window className="TerminalWindow"
             defaultWidth={40 * 16} defaultHeight={28 * 16}
+            style={{
+              background: 'none',
+            }}
             onKeyPress={e => {
               const keyCode = e.charCode || e.keyCode;
               if (keyCode === 3) {

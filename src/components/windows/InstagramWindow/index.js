@@ -17,6 +17,13 @@ function InstagramWindow(props) {
   return (
     <Window className="InstagramWindow" noToolbar
             defaultWidth={30 * 16} defaultHeight={40 * 16}
+            toolbarStyle={{
+              backgroundImage: 'linear-gradient(-135deg, #1400c8, #b900b4, #f50000)',
+            }}
+            contentStyle={{
+              backgroundColor: 'white',
+              pointerEvents: 'auto',
+            }}
             {...props}>
       <div className="photo-container">
         {

@@ -1,68 +1,63 @@
 @import "../../../common/constants";
 
 .BrowserWindow {
-  .content {
-    flex-direction: column;
+  .addressbar {
+    flex-shrink: 0;
+    background-color: #EEE;
+    display: flex;
     align-items: stretch;
+    padding: .2rem .4rem;
 
-    .addressbar {
-      flex-shrink: 0;
-      background-color: #EEE;
-      display: flex;
-      align-items: stretch;
+    .url {
+      flex: 1;
+      border: solid 1px #CCC;
+      border-radius: 4px 0 0 4px;
       padding: .2rem .4rem;
+      background-color: white;
+      color: #444;
+      font-size: $font-size-small;
+      user-select: all;
+      white-space: nowrap;
+    }
 
-      .url {
-        flex: 1;
-        border: solid 1px #CCC;
-        border-radius: 4px 0 0 4px;
-        padding: .2rem .4rem;
-        background-color: white;
-        color: #444;
-        font-size: $font-size-small;
-        user-select: all;
-        white-space: nowrap;
+    .button {
+      border: solid 1px #CCC;
+      border-radius: 4px;
+      padding: .2rem .4rem;
+      color: #444;
+      font-size: $font-size-small;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: pointer;
+
+      &:active {
+        box-shadow: inset 0 0 4px #CCC;
       }
 
-      .button {
-        border: solid 1px #CCC;
-        border-radius: 4px;
-        padding: .2rem .4rem;
-        color: #444;
-        font-size: $font-size-small;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        cursor: pointer;
+      &.button-refresh {
+        flex-shrink: 0;
+        margin-right: .2rem;
 
-        &:active {
-          box-shadow: inset 0 0 4px #CCC;
+        &:before {
+          content: '↻';
         }
+      }
 
-        &.button-refresh {
-          flex-shrink: 0;
-          margin-right: .2rem;
+      &.button-new {
+        border-left: 0;
+        border-radius: 0 4px 4px 0;
 
-          &:before {
-            content: '↻';
-          }
-        }
-
-        &.button-new {
-          border-left: 0;
-          border-radius: 0 4px 4px 0;
-
-          &:before {
-            content: 'Open in a new tab'
-          }
+        &:before {
+          content: 'Open in a new tab'
         }
       }
     }
+  }
 
-    .iframe {
-      width: 100%;
-      flex: 1 0;
-      border: none;
-    }
+  .iframe {
+    width: 100%;
+    flex: 1 0;
+    border: none;
   }
 }

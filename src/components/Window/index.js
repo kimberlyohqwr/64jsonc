@@ -6,7 +6,7 @@ import { Icon, Link } from 'components';
 
 function Window({
                   className, iconProps, title, defaultWidth, defaultHeight, tabs, noToolbar, children, onKeyDown, onKeyPress,
-                  onUpdate, app,
+                  onUpdate, app, style, toolbarStyle, contentStyle,
                 }) {
   const {
     name, iconProps: appIconProps, url, closing, focused, defaultLeft, defaultTop, zIndex,
@@ -47,7 +47,7 @@ function Window({
   return (
     <div
       className={classes('Window', className, noToolbar && 'no-toolbar', focused && 'focused', closing && 'closing', minimized && 'minimized', maximized && 'maximized', moving && 'moving', resizing && 'resizing')}
-      style={{ zIndex, left, top, width, height }}
+      style={{ ...(style || {}), zIndex, left, top, width, height }}
       onMouseDown={e => {
         e.stopPropagation();
         if (!focused) history.push(url);
@@ -76,7 +76,7 @@ function Window({
         };
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mouseup', onMouseUp);
-      }}>
+      }} style={toolbarStyle}>
         <div className="button-container">
           <Link className="button button-close" url="/" onClick={() => onUpdate({ closing: true })}/>
           <Link className="button button-minimize" url="/" onClick={() => setMinimized(true)}/>
@@ -95,7 +95,7 @@ function Window({
           )
         }
       </div>
-      <div className="content">
+      <div className="content" style={contentStyle}>
         {children}
         <div className="interceptor"/>
       </div>

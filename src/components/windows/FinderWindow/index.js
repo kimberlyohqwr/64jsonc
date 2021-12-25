@@ -46,6 +46,10 @@ function FinderWindow(props) {
             title={activeFinderChild.name}
             iconProps={activeFinderChild.iconProps}
             defaultWidth={50 * 16} defaultHeight={30 * 16}
+            contentStyle={{
+              overflowX: 'auto',
+              flexDirection: 'row',
+            }}
             onKeyDown={e => {
               e.preventDefault();
               switch (e.keyCode) {
