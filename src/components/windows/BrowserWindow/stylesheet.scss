@@ -2,7 +2,6 @@
 
 .BrowserWindow {
   .addressbar {
-    flex-shrink: 0;
     background-color: #EEE;
     display: flex;
     align-items: stretch;
@@ -36,7 +35,6 @@
       }
 
       &.button-refresh {
-        flex-shrink: 0;
         margin-right: .2rem;
 
         &:before {
