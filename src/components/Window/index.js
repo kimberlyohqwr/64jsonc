@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { classes } from 'common/utils';
 import { useHistory } from 'react-router-dom';
 import { Icon, Link } from 'components';
+import { ResponsiveContext } from 'contexts';
 
 function Window({
                   className, iconProps, title, defaultWidth, defaultHeight, tabs, noToolbar, children, onKeyDown, onKeyPress,
@@ -11,6 +12,8 @@ function Window({
   const {
     name, iconProps: appIconProps, url, closing, focused, defaultLeft, defaultTop, zIndex,
   } = app;
+
+  const mobile = useContext(ResponsiveContext);
 
   const history = useHistory();
 
@@ -77,11 +80,21 @@ function Window({
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mouseup', onMouseUp);
       }} style={toolbarStyle}>
-        <div className="button-container">
-          <Link className="button button-close" url="/" onClick={() => onUpdate({ closing: true })}/>
-          <Link className="button button-minimize" url="/" onClick={() => setMinimized(true)}/>
-          <Link className="button button-maximize" url={url} onClick={() => setMaximized(!maximized)}/>
-        </div>
+        {
+          mobile ? (
+            <Link className="button-container" url="/" onClick={() => onUpdate({ closing: true })}>
+              <div className="button button-close"/>
+              <div className="button button-minimize"/>
+              <div className="button button-maximize"/>
+            </Link>
+          ) : (
+            <div className="button-container">
+              <Link className="button button-close" url="/" onClick={() => onUpdate({ closing: true })}/>
+              <Link className="button button-minimize" url="/" onClick={() => setMinimized(true)}/>
+              <Link className="button button-maximize" url={url} onClick={() => setMaximized(!maximized)}/>
+            </div>
+          )
+        }
         {
           tabs ? (
             <div className="tab-container">

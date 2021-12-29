@@ -3,13 +3,14 @@ import './stylesheet.scss';
 import { classes, getUrlKeys, namize } from 'common/utils';
 import { Icon, Link, Window } from 'components';
 import { useHistory } from 'react-router-dom';
-import { FileSystemContext } from 'contexts';
+import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { Dir, PreviewFile } from 'beans';
 import ReactMarkdown from 'react-markdown';
 
 function FinderWindow(props) {
   const { app } = props;
 
+  const mobile = useContext(ResponsiveContext);
   const [rootDir] = useContext(FileSystemContext);
 
   const history = useHistory();
@@ -102,12 +103,12 @@ function FinderWindow(props) {
             }}
             {...props}>
       {
-        activeChildren.map((child, i) => child instanceof Dir ? (
+        (mobile ? [activeChild] : activeChildren).map((child, i) => child instanceof Dir ? (
           <div className={classes('panel', 'panel-list')} key={child.path} ref={panelRef}>
             <div className="list">
               {
-                child.parent && (
-                  <Link className={classes('dir', 'dir-parent')} url={child.parent.url}>
+                child.parent && mobile && (
+                  <Link className="dir" url={child.parent.url}>
                     <Icon className="icon" iconKey="finder"/>
                     <div className="name">..</div>
                   </Link>

@@ -26,6 +26,7 @@
   }
 
   .menu-container {
+    flex-shrink: 1;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -101,6 +102,33 @@
         &:before {
           content: 'Donate';
         }
+      }
+    }
+  }
+}
+
+.mobile .PaypalWindow {
+  .menu-container {
+    .menu {
+      flex-direction: column;
+      text-align: center;
+
+      .icon {
+        margin-right: 0;
+        margin-bottom: .5rem;
+      }
+
+      .name {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+      }
+
+      .price {
+        margin-right: 0;
+        margin-bottom: .5rem;
+      }
+
+      .donate {
       }
     }
   }

@@ -24,6 +24,10 @@ function Screen() {
     };
   }, []);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('mobile', mobile);
+  }, [mobile]);
+
   const refreshRootDir = () => setRootDirRefresh(rootDirRefresh + 1);
 
   return (

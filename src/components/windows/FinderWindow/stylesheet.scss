@@ -45,6 +45,8 @@
             }
 
             .value {
+              flex-shrink: 1;
+
               p {
                 margin: 0;
               }
@@ -70,10 +72,6 @@
           align-items: center;
           padding: .2rem .4rem;
 
-          &.dir-parent {
-            display: none;
-          }
-
           .icon {
             height: 1.2rem;
             width: 1.2rem;
@@ -97,6 +95,37 @@
           }
         }
       }
+    }
+  }
+}
+
+.mobile .FinderWindow {
+  .panel {
+    border-right: none;
+
+    &.panel-preview {
+      min-width: auto;
+
+      .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2rem;
+        height: 2rem;
+        font-size: $font-size-large;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &:after {
+          content: '×';
+        }
+      }
+    }
+
+    &.panel-list {
+      width: auto;
     }
   }
 }

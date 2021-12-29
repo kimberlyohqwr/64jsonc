@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { Icon, Shortcut } from 'components';
-import { FileSystemContext } from 'contexts';
+import { FileSystemContext, ResponsiveContext } from 'contexts';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -15,6 +15,7 @@ const getClock = () => {
 };
 
 function Taskbar() {
+  const mobile = useContext(ResponsiveContext);
   const [rootDir] = useContext(FileSystemContext);
   const apps = rootDir.getApps();
 
@@ -34,21 +35,25 @@ function Taskbar() {
   return (
     <div className="Taskbar">
       <div className="label label-profile">
-        <Icon className="icon" iconKey="profile"/>
+        {
+          !mobile &&
+          <Icon className="icon" iconKey="profile"/>
+        }
         <div className="name">Jinseo Park</div>
       </div>
       <div className="shortcut-container">
         {
-          apps && apps.map(app => {
-            return (
-              <Shortcut key={app.key} taskbar target={app}/>
-            );
-          })
+          apps && apps.map(app => (
+            <Shortcut key={app.key} taskbar target={app}/>
+          ))
         }
       </div>
-      <div className="label label-clock">
-        <div className="name">{clock}</div>
-      </div>
+      {
+        !mobile &&
+        <div className="label label-clock">
+          <div className="name">{clock}</div>
+        </div>
+      }
     </div>
   );
 }
