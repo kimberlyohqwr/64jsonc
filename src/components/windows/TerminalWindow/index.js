@@ -90,7 +90,7 @@ function TerminalWindow(props) {
 
   const processCommand = input => {
     const [command, ...args] = input.split(/\s+/);
-    const pathArgs = args.filter(arg => !arg.startsWith('-'));
+    const pathArgs = args.filter(arg => !arg.startsWith('-')); // TODO: wildcard selector
     const optionArg = args.find(arg => arg.startsWith('-'));
     const options = optionArg ? optionArg.substring(1).split('') : [];
     switch (command) {
@@ -171,7 +171,6 @@ function TerminalWindow(props) {
           print(`-bash: ${command}: ${pathArg}: Is a directory`);
           break;
         }
-        // TODO: wildcard selector?
         if (child instanceof SystemDir && !options.includes('f')) {
           print(`-bash: ${command}: ${pathArg}: Permission denied (try again with -f)`);
           break;
@@ -237,6 +236,7 @@ function TerminalWindow(props) {
               background: 'none',
             }}
             onKeyPress={e => {
+              // TODO: support mobile
               const keyCode = e.charCode || e.keyCode;
               if (keyCode === 3) {
                 if (hackertyperLength === null) {

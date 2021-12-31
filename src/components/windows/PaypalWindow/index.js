@@ -8,7 +8,7 @@ function PaypalWindow(props) {
   const { app } = props;
   const { url } = app;
   const [, status] = getUrlKeys(url);
-  const isSuccess = status === 'success';
+  const isSuccess = status === 'success'; // TODO: fix success callback url
 
   return (
     <Window className="PaypalWindow" noToolbar
