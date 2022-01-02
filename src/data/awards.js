@@ -1,4 +1,11 @@
 export default [{
+  key: '2019_chengdu80',
+  name: 'Chengdu 80 - FinTech Design and Development Competition',
+  image: '/img/award/2019_chengdu80.jpg',
+  organizer: 'SWUFE-CDAR',
+  date: '2019',
+  place: '2nd',
+}, {
   key: '2019_bestcoder',
   name: 'I\'m the Best Coder! Challenge',
   image: '/img/award/2019_bestcoder.jpg',
