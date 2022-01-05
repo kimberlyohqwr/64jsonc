@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import './stylesheet.scss';
 import { Desktop, Taskbar } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
