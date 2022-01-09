@@ -26,13 +26,13 @@ const rootDir = new RootDir({
   users: new SystemDir({
     jason: new SystemDir({
       apps: new SystemDir({
-        attribution,
-        browser,
         finder,
+        terminal,
         instagram,
         paypal,
-        terminal,
         version_history: versionHistory,
+        attribution,
+        browser,
       }),
       desktop: new DesktopDir({
         projects: new Dir(projects),
