@@ -7,7 +7,7 @@ import { Child, Dir, File, SystemDir } from 'beans';
 import { useHistory } from 'react-router-dom';
 
 let sourceCode;
-fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/master/script.js')
+fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/b66992d893f311e309df025611e3a400a5dcffb2/script.js')
   .then(response => response.text())
   .then(value => sourceCode = value);
 
