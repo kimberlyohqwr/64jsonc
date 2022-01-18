@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import './stylesheet.scss';
 import { Window } from 'components';
 import { classes } from 'common/utils';
-import { FileSystemContext } from 'contexts';
+import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { Child, Dir, File, SystemDir } from 'beans';
 import { useHistory } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/b66992d89
 
 function TerminalWindow(props) {
   const { onUpdate } = props;
+  const mobile = useContext(ResponsiveContext);
   const [rootDir, refreshRootDir] = useContext(FileSystemContext);
   const history = useHistory();
 
@@ -393,6 +394,10 @@ function TerminalWindow(props) {
             }
           </div>
         )
+      }
+      {
+        mobile && // TODO: scroll not working
+        <input className="mobile-input" type="text" value=""/>
       }
     </Window>
   );
