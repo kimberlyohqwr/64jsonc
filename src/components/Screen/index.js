@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { HashRouter as Router, Redirect, Route } from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import './stylesheet.scss';
 import { Desktop, Taskbar } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
@@ -32,18 +32,22 @@ function Screen() {
 
   return (
     <Router>
-      {/* support for legacy paypal donation callback (/#paypal-success -> /#/paypal/success  */}
-      <Route path="/paypal-success">
-        <Redirect to="/paypal/success"/>
-      </Route>
-      <ResponsiveContext.Provider value={mobile}>
-        <FileSystemContext.Provider value={[rootDir, refreshRootDir]}>
-          <div className="Screen">
-            <Desktop/>
-            <Taskbar/>
-          </div>
-        </FileSystemContext.Provider>
-      </ResponsiveContext.Provider>
+      <Switch>
+        {/* support for legacy paypal donation callback (/#paypal-success -> /#/paypal/success  */}
+        <Route path="/paypal-success">
+          <Redirect to="/paypal/success"/>
+        </Route>
+        <Route>
+          <ResponsiveContext.Provider value={mobile}>
+            <FileSystemContext.Provider value={[rootDir, refreshRootDir]}>
+              <div className="Screen">
+                <Desktop/>
+                <Taskbar/>
+              </div>
+            </FileSystemContext.Provider>
+          </ResponsiveContext.Provider>
+        </Route>
+      </Switch>
     </Router>
   );
 }
