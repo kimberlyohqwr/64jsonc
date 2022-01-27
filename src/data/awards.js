@@ -1,4 +1,11 @@
 export default [{
+  key: '2020_thehomedepot',
+  name: 'The Home Depot Hackathon',
+  image: '/img/award/2020_thehomedepot.jpg',
+  organizer: 'The Home Depot',
+  date: '2020',
+  place: '1st',
+}, {
   key: '2019_chengdu80',
   name: 'Chengdu 80 - FinTech Design and Development Competition',
   image: '/img/award/2019_chengdu80.jpg',
