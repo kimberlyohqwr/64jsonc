@@ -21,7 +21,7 @@ function Link({ className, url, onMouseDown, onClick, children, ...props }, ref)
     onClick: handleClick,
   };
 
-  return url && url.startsWith('/') ? (
+  return url && /^\/(?!static\/)/.test(url) ? (
     <PathLink className={className} to={url} {...commonProps}>
       {children}
     </PathLink>
