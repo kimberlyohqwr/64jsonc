@@ -3,7 +3,7 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import './stylesheet.scss';
 import { Desktop, Taskbar } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
-import { rootDir } from 'data';
+import { RootDir } from '../../beans';
 
 const isMobile = () => {
   const { clientWidth } = document.body;
@@ -39,7 +39,7 @@ function Screen() {
         </Route>
         <Route>
           <ResponsiveContext.Provider value={mobile}>
-            <FileSystemContext.Provider value={[rootDir, refreshRootDir]}>
+            <FileSystemContext.Provider value={[RootDir.instance, refreshRootDir]}>
               <div className="Screen">
                 <Desktop/>
                 <Taskbar/>

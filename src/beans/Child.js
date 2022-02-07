@@ -1,6 +1,5 @@
 import { namize } from 'common/utils';
-import { Dir, PreviewFile } from 'beans/index';
-import { rootDir } from 'data';
+import { Dir, PreviewFile, RootDir } from 'beans';
 
 class Child {
   constructor(key, parent) {
@@ -19,7 +18,7 @@ class Child {
   get finderUrl() {
     const { pathKeys } = this;
     if (['users', 'jason', 'desktop'].every((v, i) => v === pathKeys[i]) && pathKeys.length > 3) {
-      const child = rootDir.getChild(...pathKeys);
+      const child = RootDir.instance.getChild(...pathKeys);
       if (child instanceof Dir || child instanceof PreviewFile) {
         return `/${pathKeys.slice(3).join('/')}`;
       }
