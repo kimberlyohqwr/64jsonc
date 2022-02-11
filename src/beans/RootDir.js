@@ -1,5 +1,5 @@
 import { AppFile, DesktopDir, Dir, LinkFile, SymlinkFile, SystemDir } from 'beans';
-import wallpaper from '../components/Desktop/images/wallpaper.jpg';
+import wallpaper from 'components/Desktop/images/wallpaper.jpg';
 import {
   AttributionWindow,
   BrowserWindow,
@@ -8,8 +8,8 @@ import {
   PaypalWindow,
   TerminalWindow,
   VersionHistoryWindow,
-} from '../components/windows';
-import { awards, educations, projects, workExperiences } from '../data';
+} from 'windows';
+import { awards, educations, projects, workExperiences } from 'data';
 
 class RootDir extends SystemDir {
   constructor(children) {

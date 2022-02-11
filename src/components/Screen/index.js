@@ -3,7 +3,7 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import './stylesheet.scss';
 import { Desktop, Taskbar } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
-import { RootDir } from '../../beans';
+import { RootDir } from 'beans';
 
 const isMobile = () => {
   const { clientWidth } = document.body;

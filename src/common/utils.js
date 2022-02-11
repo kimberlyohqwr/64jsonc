@@ -1,4 +1,4 @@
-import { RootDir } from '../beans';
+import { RootDir } from 'beans';
 
 export const namize = id => id.split('_').map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' ');
 

@@ -1,0 +1,35 @@
+import { image_deblur, image_freelancer, image_incubatex, image_prendssoin } from './images';
+
+export default [{
+  key: 'prendssoin',
+  name: 'Prendssoin',
+  image: image_prendssoin,
+  date: 'Feb. 2017 -',
+  location: 'Seoul, South Korea',
+  position: 'Software Engineer',
+  detail: 'Recruited 5 developers and led the team using Scrum. Wrote boilerplates for React and Node.js projects in TypeScript. Automated testing and releasing process integrating AWS CloudFormation, CircleCI, GitHub/Slack API, etc. Worked on 4 outsourced projects and 7 internal projects. Conducted a weekly study group on the topics of development and communication.',
+}, {
+  key: 'incubatex',
+  name: 'IncubateX Hackathon',
+  image: image_incubatex,
+  date: 'Mar. 2016 - Aug. 2016',
+  location: 'Dallas, Texas, USA',
+  position: 'Web Developer',
+  detail: 'Developed a skeleton website for each [IncubateX](https://jasonpark.me/IncubateDFW/) location.',
+}, {
+  key: 'freelancer',
+  name: 'Freelancer',
+  image: image_freelancer,
+  date: 'July 2013 -',
+  location: 'Remote Working',
+  position: 'Software Engineer',
+  detail: 'Worked on several projects ranging from an online judge to a battery management system.',
+}, {
+  key: 'deblur',
+  name: 'Deblur',
+  image: image_deblur,
+  date: 'Mar. 2012 - Feb. 2014',
+  location: 'Seoul, South Korea',
+  position: 'Mobile App Developer',
+  detail: 'Developed lifestyle Android apps including an [alarm app](https://play.google.com/store/apps/details?id=com.provision.alarmemi) and a [planner app](https://play.google.com/store/apps/details?id=com.deblur.mallow).',
+}];

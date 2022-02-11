@@ -1,0 +1,133 @@
+@import "../../common/constants";
+
+.FinderWindow {
+  .panel {
+    border-right: solid 1px #CCC;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    &.panel-preview {
+      min-width: 24rem;
+      flex: 1;
+      border-right: none;
+
+      .preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+
+        .image {
+          max-height: 12rem;
+          max-width: 16rem;
+          margin-bottom: 1rem;
+        }
+
+        .property-container {
+          display: flex;
+          flex-direction: column;
+
+          .property {
+            display: flex;
+            margin-left: -1rem;
+            margin-bottom: .8rem;
+            color: #444;
+            line-height: 1.5em;
+
+            .key {
+              font-size: $font-size-small;
+              min-width: 4rem;
+              color: #999;
+              margin-right: .5rem;
+              text-align: right;
+            }
+
+            .value {
+              flex-shrink: 1;
+
+              p {
+                margin: 0;
+              }
+
+              a {
+                color: #398FFB;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.panel-list {
+      width: 12rem;
+
+      .list {
+        display: flex;
+        flex-direction: column;
+
+        .dir {
+          display: flex;
+          align-items: center;
+          padding: .2rem .4rem;
+
+          .icon {
+            height: 1.2rem;
+            width: 1.2rem;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: .4rem;
+          }
+
+          .name {
+            flex-shrink: 1;
+            font-size: $font-size-small;
+            color: black;
+          }
+
+          &.active {
+            background-color: #116CD6;
+
+            .name {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.mobile .FinderWindow {
+  .panel {
+    border-right: none;
+
+    &.panel-preview {
+      min-width: auto;
+
+      .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2rem;
+        height: 2rem;
+        font-size: $font-size-large;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &:after {
+          content: '×';
+        }
+      }
+    }
+
+    &.panel-list {
+      width: auto;
+      flex: 1;
+    }
+  }
+}
