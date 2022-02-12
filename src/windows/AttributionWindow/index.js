@@ -17,7 +17,9 @@ function AttributionWindow(props) {
         {
           attributions.map(attribution => (
             <div className="row" key={attribution.image}>
-              <Icon className="icon" imageUrl={attribution.image}/>
+              <div className="transparent">
+                <Icon className="icon" imageUrl={attribution.image}/>
+              </div>
               <div className="info">
                 <Link className="path" url={attribution.image}>{attribution.image.split('/').pop()}</Link>
                 <div className="artist">{attribution.artist}</div>
