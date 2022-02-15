@@ -1,4 +1,4 @@
-import { namize } from 'common/utils';
+import { isExternal, namize } from 'common/utils';
 import { Dir, PreviewFile, RootDir } from 'beans';
 
 class Child {
@@ -39,10 +39,10 @@ class Child {
   }
 
   open(history) {
-    if (this.url.startsWith('/')) {
-      history.push(this.url);
-    } else {
+    if (isExternal(this.url)) {
       window.open(this.url);
+    } else {
+      history.push(this.url);
     }
   }
 

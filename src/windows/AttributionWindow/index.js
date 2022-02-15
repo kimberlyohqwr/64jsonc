@@ -21,7 +21,7 @@ function AttributionWindow(props) {
                 <Icon className="icon" imageUrl={attribution.image}/>
               </div>
               <div className="info">
-                <Link className="path" url={attribution.image}>{attribution.image.split('/').pop()}</Link>
+                <Link className="path" url={attribution.image} external>{attribution.image.split('/').pop()}</Link>
                 <div className="artist">{attribution.artist}</div>
               </div>
               <Link className="link" url={attribution.link}>Link</Link>

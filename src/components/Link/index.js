@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link as PathLink } from 'react-router-dom';
-import { classes } from 'common/utils';
+import { classes, isExternal } from 'common/utils';
 
-function Link({ className, url, onMouseDown, onClick, children, ...props }, ref) {
+function Link({ className, url, onMouseDown, onClick, external, children, ...props }, ref) {
   const handleMouseDown = e => {
     e.stopPropagation();
     e.preventDefault();
@@ -21,15 +21,15 @@ function Link({ className, url, onMouseDown, onClick, children, ...props }, ref)
     onClick: handleClick,
   };
 
-  return url && /^\/(?!static\/)/.test(url) ? (
-    <PathLink className={className} to={url} {...commonProps}>
-      {children}
-    </PathLink>
-  ) : (
+  return external || isExternal(url) ? (
     <a className={classes(className, 'link-external')} href={url} target="_blank"
        rel="noopener noreferrer" {...commonProps}>
       {children}
     </a>
+  ) : (
+    <PathLink className={className} to={url} {...commonProps}>
+      {children}
+    </PathLink>
   );
 }
 

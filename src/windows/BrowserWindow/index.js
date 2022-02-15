@@ -88,7 +88,7 @@ function BrowserWindow(props) {
       <div className="addressbar">
         <div className={classes('button', 'button-refresh')} onClick={() => setRefresh(refresh + 1)}/>
         <div className="url">{link}</div>
-        <Link className={classes('button', 'button-new')} url={link}/>
+        <Link className={classes('button', 'button-new')} url={link} external/>
       </div>
       <iframe key={refresh} className="iframe" src={link} title={activeTab && activeTab.name}/>
     </Window>

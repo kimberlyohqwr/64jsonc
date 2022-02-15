@@ -17,4 +17,6 @@ export const getAppKey = path => {
   return undefined;
 };
 
+export const isExternal = url => /^(https?:\/\/|mailto:)/.test(url);
+
 export const getUrlKeys = url => url.split('/').slice(1).filter(v => v);
