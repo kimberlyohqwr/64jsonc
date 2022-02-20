@@ -10,17 +10,12 @@ body {
 }
 
 html {
-  //@import "common/index";
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   user-select: none;
 
   &.mobile {
     font-size: 18px;
-
-    body {
-      //@import "mobile/index";
-    }
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import './stylesheet.scss';
-import { Desktop, Taskbar } from 'components';
+import { Desktop, Resume, Taskbar } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { RootDir } from 'beans';
 
@@ -33,6 +33,9 @@ function Screen() {
   return (
     <Router>
       <Switch>
+        <Route path="/resume">
+          <Resume/>
+        </Route>
         {/* support for legacy paypal donation callback (/#paypal-success -> /#/paypal/success  */}
         <Route path="/paypal-success">
           <Redirect to="/paypal/success"/>
