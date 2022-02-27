@@ -23,9 +23,17 @@ import {
   image_2019_mercer,
   image_2019_tmobile,
   image_2020_thehomedepot,
+  image_2020_ugahacks,
 } from './images';
 
 export default [{
+  key: '2020_ugahacks',
+  name: 'UGAHacks',
+  image: image_2020_ugahacks,
+  organizer: 'The University of Georgia',
+  date: '2020',
+  place: 'Best Video Game',
+}, {
   key: '2020_thehomedepot',
   name: 'The Home Depot Hackathon',
   image: image_2020_thehomedepot,

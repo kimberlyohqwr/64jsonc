@@ -22,3 +22,4 @@ export { default as image_2019_hackcu } from './2019_hackcu.jpg';
 export { default as image_2019_mercer } from './2019_mercer.jpg';
 export { default as image_2019_tmobile } from './2019_tmobile.jpg';
 export { default as image_2020_thehomedepot } from './2020_thehomedepot.jpg';
+export { default as image_2020_ugahacks } from './2020_ugahacks.jpg';
