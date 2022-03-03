@@ -13,16 +13,16 @@ function Resume() {
           <div className="name">Jinseo Park</div>
           <div className="bar">
             <a className="item" href="https://github.com/parkjs814">
-              <FontAwesomeIcon icon={faGithub}/>
+              <FontAwesomeIcon fixedWidth icon={faGithub}/>
               <span>github.com/parkjs814</span>
             </a>
             <a className="item"
                href="https://www.google.com/maps/place/Atlanta,+GA+30332/@33.7700012,-84.3833291,17z/data=!3m1!4b1!4m5!3m4!1s0x88f504a32025c03d:0x435f52a0da5daab!8m2!3d33.7700012!4d-84.3811458">
-              <FontAwesomeIcon icon={faMapMarkerAlt}/>
+              <FontAwesomeIcon fixedWidth icon={faMapMarkerAlt}/>
               <span>Atlanta, GA 30332</span>
             </a>
             <a className="item" href="mailto:jason.park@gatech.edu">
-              <FontAwesomeIcon icon={faEnvelope}/>
+              <FontAwesomeIcon fixedWidth icon={faEnvelope}/>
               <span>jason.park@gatech.edu</span>
             </a>
           </div>
