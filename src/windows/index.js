@@ -5,8 +5,7 @@ export { default as InstagramWindow } from './InstagramWindow';
 export { default as PaypalWindow } from './PaypalWindow';
 export { default as TerminalWindow } from './TerminalWindow';
 export { default as VersionHistoryWindow } from './VersionHistoryWindow';
-// TODO: reorganize data (esp. images)
-// TODO: add link, month to awards
+// TODO: add link/description to awards
 // TODO: build resume from data
 // TODO: blog posts
 // TODO: travel map

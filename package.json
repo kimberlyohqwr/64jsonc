@@ -24,6 +24,7 @@
     "gh-pages": "^2.1.1",
     "gulp": "^4.0.0",
     "gulp-connect": "^5.7.0",
+    "loader-utils": "^1.2.3",
     "node-sass": "^4.13.0",
     "puppeteer": "^1.14.0",
     "react": "^16.12.0",
