@@ -66,7 +66,7 @@ module.exports = function () {
         const type = exts[ext];
         const fileBody = read(filePath, 'utf8');
         const start = `${year}${month}`;
-        const key = `${start}-${fileName}`;
+        const key = `${fileName}-${start}`;
 
         const imageFile = imageFiles.find(file => tokenize(file).fileName === fileName);
         const imagePath = path.join(monthPath, imageFile);
