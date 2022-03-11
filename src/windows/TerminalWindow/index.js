@@ -229,7 +229,6 @@ function TerminalWindow(props) {
         }
         break;
       }
-      // TODO: mock node interpreter
       default: {
         print(`-bash: ${command}: command not found`);
       }
