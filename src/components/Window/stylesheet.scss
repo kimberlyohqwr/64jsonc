@@ -14,7 +14,8 @@
   left $anim-duration,
   width $anim-duration,
   height $anim-duration,
-  box-shadow $anim-duration;
+  box-shadow $anim-duration,
+  transform $anim-duration;
   animation: $anim-duration opening;
 
   @keyframes opening {
@@ -110,7 +111,7 @@
 
   &.minimized {
     top: 100vh !important;
-    opacity: 0;
+    transform: scale(0);
   }
 
   .toolbar {
