@@ -1,24 +1,25 @@
 {
-  "name": "Jinseo Park",
-  "short_name": "Jinseo Park",
+  "name": "%REACT_APP_FULL_NAME%",
+  "short_name": "%REACT_APP_FULL_NAME%",
+  "description": "%REACT_APP_DESCRIPTION%",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#3D3D3D",
-  "background_color": "#3D3D3D",
-  "author": "Jinseo Park",
+  "theme_color": "%REACT_APP_THEME_COLOR%",
+  "background_color": "%REACT_APP_THEME_COLOR%",
+  "author": "%REACT_APP_FULL_NAME%",
   "icons": [
     {
-      "src": "https://graph.facebook.com/1935436059816712/picture?type=small",
+      "src": "%REACT_APP_AVATAR_URL%?type=small",
       "sizes": "50x50",
       "type": "image/jpeg"
     },
     {
-      "src": "https://graph.facebook.com/1935436059816712/picture?type=normal",
+      "src": "%REACT_APP_AVATAR_URL%?type=normal",
       "sizes": "100x100",
       "type": "image/jpeg"
     },
     {
-      "src": "https://graph.facebook.com/1935436059816712/picture?type=large",
+      "src": "%REACT_APP_AVATAR_URL%?type=large",
       "sizes": "200x200",
       "type": "image/jpeg"
     }

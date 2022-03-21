@@ -6,12 +6,12 @@
   "homepage": "https://jasonpark.me",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "resume": "gulp",
-    "predeploy": "npm run build && npm run resume",
+    "start": "eval `./bin/inject-bio.js` && react-scripts start",
+    "build": "eval `./bin/inject-bio.js` && react-scripts build",
+    "test": "eval `./bin/inject-bio.js` && react-scripts test",
+    "eject": "eval `./bin/inject-bio.js` && react-scripts eject",
+    "postbuild": "eval `./bin/inject-bio.js` && gulp",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -b master -d build"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "gh-pages": "^2.1.1",
     "gulp": "^4.0.0",
     "gulp-connect": "^5.7.0",
+    "gulp-replace": "^1.0.0",
     "loader-utils": "^1.2.3",
     "node-sass": "^4.13.0",
     "puppeteer": "^1.14.0",

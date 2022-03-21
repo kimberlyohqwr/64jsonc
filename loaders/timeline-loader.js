@@ -44,7 +44,10 @@ module.exports = function () {
   read = read.bind(this);
   loadImage = loadImage.bind(this);
 
-  const loaded = {};
+  const bioPath = path.join(timelinePath, 'current.bio');
+  const bioBody = read(bioPath, 'utf8');
+  const bio = JSON.parse(bioBody);
+  const loaded = { bio };
   Object.values(exts).forEach(type => {
     loaded[type] = [];
   });

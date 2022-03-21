@@ -9,7 +9,7 @@ import {
   TerminalWindow,
   VersionHistoryWindow,
 } from 'windows';
-import { awards, educations, projects, workExperiences } from 'data';
+import { awards, bio, educations, projects, workExperiences } from 'data';
 
 class RootDir extends SystemDir {
   constructor(children) {
@@ -76,9 +76,9 @@ class RootDir extends SystemDir {
             terminal: new SymlinkFile(terminal),
             instagram: new SymlinkFile(instagram),
             paypal: new SymlinkFile(paypal),
-            github: new LinkFile('https://github.com/parkjs814'),
-            resume: new LinkFile('https://jasonpark.me/resume/'),
-            email: new LinkFile('mailto:jason.park@gatech.edu'),
+            github: new LinkFile(bio.links.github),
+            resume: new LinkFile(bio.links.resume),
+            email: new LinkFile(`mailto:${bio.email}`),
             version_history: new SymlinkFile(versionHistory),
             attribution: new SymlinkFile(attribution),
           }, wallpaper),

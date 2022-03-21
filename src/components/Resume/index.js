@@ -4,26 +4,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
+import { bio } from '../../data';
+import { removeProtocol } from '../../common/utils';
 
 function Resume() {
   return (
     <div className="Resume">
       <div className="paper">
         <div className="header">
-          <div className="name">Jinseo Park</div>
+          <div className="name">{bio.full_name}</div>
           <div className="bar">
-            <a className="item" href="https://github.com/parkjs814">
+            <a className="item" href={bio.links.github}>
               <FontAwesomeIcon fixedWidth icon={faGithub}/>
-              <span>github.com/parkjs814</span>
+              <span>{removeProtocol(bio.links.github)}</span>
             </a>
             <a className="item"
-               href="https://www.google.com/maps/place/Atlanta,+GA+30332/@33.7700012,-84.3833291,17z/data=!3m1!4b1!4m5!3m4!1s0x88f504a32025c03d:0x435f52a0da5daab!8m2!3d33.7700012!4d-84.3811458">
+               href={`https://www.google.com/maps/place/${encodeURI(bio.location)}`}>
               <FontAwesomeIcon fixedWidth icon={faMapMarkerAlt}/>
-              <span>Atlanta, GA 30332</span>
+              <span>{bio.location}</span>
             </a>
-            <a className="item" href="mailto:jason.park@gatech.edu">
+            <a className="item" href={`mailto:${bio.email}`}>
               <FontAwesomeIcon fixedWidth icon={faEnvelope}/>
-              <span>jason.park@gatech.edu</span>
+              <span>{bio.email}</span>
             </a>
           </div>
         </div>
@@ -49,13 +51,11 @@ function Resume() {
               <div className="title">Coursework</div>
               <div className="content">
                 <div className="item">
-                  <div className="row">Combinatorics and Graphs I</div>
-                  <div className="row">Computer Vision</div>
-                  <div className="row">Data Structures and Algorithms</div>
-                  <div className="row">Design and Analysis of Algorithms</div>
-                  <div className="row">Introduction to Discrete Mathematics</div>
-                  <div className="row">Objects and Design</div>
-                  <div className="row">Technical Communication</div>
+                  {
+                    bio.coursework.map(course => (
+                      <div className="row" key={course}>{course}</div>
+                    ))
+                  }
                 </div>
               </div>
             </div>
@@ -63,26 +63,14 @@ function Resume() {
               <div className="title">Skills</div>
               <div className="content">
                 <div className="item">
-                  <div className="primary">
-                    <div className="name">JavaScript</div>
-                    <div className="level">Expert</div>
-                  </div>
-                  <div className="primary">
-                    <div className="name">Java</div>
-                    <div className="level">Advanced</div>
-                  </div>
-                  <div className="primary">
-                    <div className="name">Scala</div>
-                    <div className="level">Advanced</div>
-                  </div>
-                  <div className="primary">
-                    <div className="name">Python</div>
-                    <div className="level">Intermediate</div>
-                  </div>
-                  <div className="primary">
-                    <div className="name">Haskell</div>
-                    <div className="level">Intermediate</div>
-                  </div>
+                  {
+                    Object.entries(bio.skills).map(([skill, level]) => (
+                      <div className="primary" key={skill}>
+                        <div className="name">{skill}</div>
+                        <div className="level">{level}</div>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
             </div>
@@ -90,18 +78,14 @@ function Resume() {
               <div className="title">Languages</div>
               <div className="content">
                 <div className="item">
-                  <div className="primary">
-                    <div className="name">English</div>
-                    <div className="level">Fluent</div>
-                  </div>
-                  <div className="primary">
-                    <div className="name">Korean</div>
-                    <div className="level">Native</div>
-                  </div>
-                  <div className="primary">
-                    <div className="name">Spanish</div>
-                    <div className="level">Intermediate</div>
-                  </div>
+                  {
+                    Object.entries(bio.languages).map(([language, level]) => (
+                      <div className="primary" key={language}>
+                        <div className="name">{language}</div>
+                        <div className="level">{level}</div>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
             </div>

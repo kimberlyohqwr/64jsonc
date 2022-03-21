@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import './stylesheet.scss';
+import { useHistory } from 'react-router-dom';
 import { Window } from 'components';
 import { classes } from 'common/utils';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { Child, Dir, File, SystemDir } from 'beans';
-import { useHistory } from 'react-router-dom';
+import { bio } from 'data';
+import './stylesheet.scss';
 
 let sourceCode;
 fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/b66992d893f311e309df025611e3a400a5dcffb2/script.js')
@@ -108,7 +109,7 @@ function TerminalWindow(props) {
       case 'help': {
         print([
           ' *help*            show all the possible commands',
-          ' *whoami* [-j]     display information about Jason',
+          ` *whoami* [-j]     display information about ${bio.first_name}`,
           ' *cd* {dir}        change the working directory',
           ' *ls* {dir}        list directory contents',
           ' *pwd*             return the working directory',
@@ -126,8 +127,8 @@ function TerminalWindow(props) {
           flush();
         } else {
           print([
-            '*Jinseo Park* (Jason)',
-            'A CS undergrad at Georgia Tech and a Software (and DevOps) Engineer at Prendssoin. Currently on an exchange program at National University of Singapore. Travelling on a regular basis is a necessity for him.',
+            `*${bio.full_name}* (${bio.alias})`,
+            bio.description,
             'Type "*whoami -j*" to show some snapshots of his journey.',
           ], { wordBreak: true });
         }

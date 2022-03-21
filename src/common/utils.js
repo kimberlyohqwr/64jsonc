@@ -20,3 +20,5 @@ export const getAppKey = path => {
 export const isExternal = url => /^(https?:\/\/|mailto:)/.test(url);
 
 export const getUrlKeys = url => url.split('/').slice(1).filter(v => v);
+
+export const removeProtocol = url => url.replace(/^\w+:\/\//, '');

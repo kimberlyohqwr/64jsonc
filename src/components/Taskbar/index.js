@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './stylesheet.scss';
 import { Icon, Shortcut } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
+import { bio } from 'data';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -39,7 +40,7 @@ function Taskbar() {
           !mobile &&
           <Icon className="icon" iconKey="profile"/>
         }
-        <div className="name">Jinseo Park</div>
+        <div className="name">{bio.full_name}</div>
       </div>
       <div className="shortcut-container">
         {
