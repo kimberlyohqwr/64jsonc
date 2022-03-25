@@ -118,6 +118,10 @@ function TerminalWindow(props) {
           ' *clear*           clear the terminal screen',
           ' *exit*            close the terminal window',
           ' *hackertyper*     ?????',
+          // TODO: add node interpreter
+          // TODO: add touch
+          // TODO: add mkdir
+          // TODO: add vim
         ]);
         break;
       }
