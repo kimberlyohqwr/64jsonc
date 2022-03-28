@@ -29,10 +29,10 @@ function PaypalWindow(props) {
         )
       }
       <div className="message"/>
-      <div className="menu-container">
+      <div className="donation-container">
         {
           donations.map(donation => (
-            <form key={donation.hosted_button_id} className="menu" action="https://www.paypal.com/cgi-bin/webscr"
+            <form key={donation.hosted_button_id} className="donation" action="https://www.paypal.com/cgi-bin/webscr"
                   method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick"/>
               <input type="hidden" name="hosted_button_id" value={donation.hosted_button_id}/>

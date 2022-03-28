@@ -8,7 +8,7 @@
       }
     }
 
-    & ~ .menu-container {
+    & ~ .donation-container {
       display: none;
     }
   }
@@ -25,7 +25,7 @@
     }
   }
 
-  .menu-container {
+  .donation-container {
     flex-shrink: 1;
     position: relative;
     display: flex;
@@ -38,7 +38,7 @@
     pointer-events: auto;
     -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.9, black), to(rgba(black, 0)));
 
-    .menu {
+    .donation {
       display: flex;
       align-items: center;
       font-size: $font-size-large;
@@ -108,8 +108,8 @@
 }
 
 .mobile .PaypalWindow {
-  .menu-container {
-    .menu {
+  .donation-container {
+    .donation {
       flex-direction: column;
       text-align: center;
 
