@@ -1,4 +1,5 @@
 import * as imageUrlMap from 'components/Icon/images';
+import * as badgeUrlMap from 'components/Icon/images/badges';
 import wallpaper from 'components/Desktop/images/wallpaper.jpg';
 import linkExternal from 'components/Shortcut/images/link-external.png';
 
@@ -26,6 +27,26 @@ export default [{
   image: wallpaper,
   artist: 'Derrick Brutel',
   link: 'https://www.flickr.com/photos/143951935@N07/30593604650',
+}, {
+  image: badgeUrlMap.projects,
+  artist: 'dDara',
+  link: 'https://www.flaticon.com/free-icon/project-management_1087902',
+  black: true,
+}, {
+  image: badgeUrlMap.work_experience,
+  artist: 'Those Icons',
+  link: 'https://www.flaticon.com/free-icon/briefcase_522510',
+  black: true,
+}, {
+  image: badgeUrlMap.awards,
+  artist: 'Smashicons',
+  link: 'https://www.flaticon.com/free-icon/trophy_2164820',
+  black: true,
+}, {
+  image: badgeUrlMap.education,
+  artist: 'srip',
+  link: 'https://www.flaticon.com/free-icon/mortarboard_1231149',
+  black: true,
 }, {
   image: linkExternal,
   artist: 'Dave Gandy',

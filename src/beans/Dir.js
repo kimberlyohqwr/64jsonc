@@ -27,7 +27,7 @@ class Dir extends Child {
   };
 
   get iconProps() {
-    return { iconKey: 'finder' };
+    return { iconKey: 'finder', badgeKey: this.key };
   }
 }
 

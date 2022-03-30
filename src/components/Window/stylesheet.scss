@@ -154,12 +154,7 @@
       padding: .8rem 5rem;
 
       .icon {
-        width: 1.2rem;
-        height: 1.2rem;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        filter: drop-shadow(0 0 1px #888);
+        @include icon(1.2rem);
         margin-right: .4rem;
       }
 
@@ -188,19 +183,13 @@
         height: 2rem;
         background-color: #DDD;
         margin-right: 1rem;
-        filter: drop-shadow(0 0 1px #888);
         max-width: 12rem;
         padding: 0 .5rem;
         transition: background-color $anim-duration;
         cursor: pointer;
 
         .icon {
-          width: 1.2rem;
-          height: 1.2rem;
-          background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
-          filter: drop-shadow(0 0 1px #888);
+          @include icon(1.2rem);
           margin-right: .4rem;
         }
 

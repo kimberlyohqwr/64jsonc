@@ -5,3 +5,9 @@ $taskbar-height: 3rem;
 $anim-duration: .2s;
 $toolbar-height: 2.8rem;
 $theme-color: #3D3D3D;
+
+@mixin icon($size) {
+  height: $size;
+  width: $size;
+  filter: drop-shadow(0 0 $size / 32 rgba(black, .5));
+}

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './stylesheet.scss';
 import { classes, getUrlKeys } from 'common/utils';
 import { Icon, Link, Window } from 'components';
 import { useHistory } from 'react-router-dom';
 import { FileSystemContext } from 'contexts';
+import './stylesheet.scss';
 
 function BrowserWindow(props) {
   const { app, onUpdate } = props;

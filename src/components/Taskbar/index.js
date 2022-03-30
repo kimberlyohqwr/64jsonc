@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './stylesheet.scss';
-import { Icon, Shortcut } from 'components';
+import { Shortcut } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { bio } from 'data';
+import './stylesheet.scss';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -38,7 +38,7 @@ function Taskbar() {
       <div className="label label-profile">
         {
           !mobile &&
-          <Icon className="icon" iconKey="profile"/>
+          <div className="avatar" style={{ backgroundImage: `url(${bio.avatar_url}?type=normal)` }}/>
         }
         <div className="name">{bio.full_name}</div>
       </div>

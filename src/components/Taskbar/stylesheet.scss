@@ -25,13 +25,13 @@
     &.label-clock {
     }
 
-    .icon {
+    .avatar {
       height: 2rem;
       width: 2rem;
-      background-position: center;
-      background-size: cover;
       margin-right: .5rem;
       border-radius: .2rem;
+      background-size: cover;
+      background-position: center;
     }
 
     .name {

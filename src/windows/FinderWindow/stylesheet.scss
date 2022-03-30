@@ -73,11 +73,7 @@
           padding: .2rem .4rem;
 
           .icon {
-            height: 1.2rem;
-            width: 1.2rem;
-            background-position: center;
-            background-size: contain;
-            background-repeat: no-repeat;
+            @include icon(1.2rem);
             margin-right: .4rem;
           }
 

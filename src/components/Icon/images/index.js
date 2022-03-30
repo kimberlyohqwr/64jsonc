@@ -8,5 +8,3 @@ export { default as paypal } from './paypal.png';
 export { default as resume } from './resume.png';
 export { default as terminal } from './terminal.png';
 export { default as version_history } from './version_history.png';
-
-export const profile = 'https://graph.facebook.com/1935436059816712/picture?type=normal';

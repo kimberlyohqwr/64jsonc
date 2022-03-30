@@ -50,12 +50,8 @@
       }
 
       .icon {
-        height: 2rem;
-        width: 2rem;
-        background-position: center;
-        background-size: cover;
+        @include icon(2rem);
         margin-right: .5rem;
-        filter: drop-shadow(0 0 2px rgba(black, .5));
       }
 
       .name {

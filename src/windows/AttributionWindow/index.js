@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { Icon, Link, Window } from 'components';
 import { attributions } from 'data';
-
+import { classes } from 'common/utils';
 import './stylesheet.scss';
 
 function AttributionWindow(props) {
@@ -18,7 +17,7 @@ function AttributionWindow(props) {
           attributions.map(attribution => (
             <div className="row" key={attribution.image}>
               <div className="transparent">
-                <Icon className="icon" imageUrl={attribution.image}/>
+                <Icon className={classes('icon', attribution.black && 'black')} imageUrl={attribution.image}/>
               </div>
               <div className="info">
                 <Link className="path" url={attribution.image} external>{attribution.image.split('/').pop()}</Link>
