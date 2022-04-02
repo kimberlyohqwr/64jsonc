@@ -29,6 +29,14 @@ class Dir extends Child {
   get iconProps() {
     return { iconKey: 'finder', badgeKey: this.key };
   }
+
+  search(keyword) {
+    const results = super.search(keyword);
+    for (const child of this.children) {
+      results.push(...child.search(keyword));
+    }
+    return results;
+  }
 }
 
 export default Dir;

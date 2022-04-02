@@ -1,7 +1,9 @@
 import * as imageUrlMap from 'components/Icon/images';
 import * as badgeUrlMap from 'components/Icon/images/badges';
 import wallpaper from 'components/Desktop/images/wallpaper.jpg';
-import linkExternal from 'components/Shortcut/images/link-external.png';
+import linkExternal from 'components/Desktop/images/link-external.png';
+import forkme from 'components/Desktop/images/forkme.png';
+import location from 'components/Desktop/images/location.png';
 
 export default [{
   image: imageUrlMap.browser,
@@ -48,7 +50,15 @@ export default [{
   link: 'https://www.flaticon.com/free-icon/mortarboard_1231149',
   black: true,
 }, {
+  image: forkme,
+  artist: 'Rico Sta Cruz',
+  link: 'https://dribbble.com/shots/245356-Fork-me-on-GitHub',
+}, {
   image: linkExternal,
   artist: 'Dave Gandy',
   link: 'https://www.flaticon.com/free-icon/external-link-symbol_25284',
+}, {
+  image: location,
+  artist: 'Those Icons',
+  link: 'https://www.flaticon.com/free-icon/pin_484167',
 }];

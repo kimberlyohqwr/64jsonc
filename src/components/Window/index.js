@@ -55,8 +55,7 @@ function Window({
         e.stopPropagation();
         if (!focused) history.push(url);
       }}>
-      <div className="toolbar" onMouseDown={e => {
-        // if (mobile) return;
+      <div className="toolbar" onMouseDown={mobile ? undefined : e => {
         if (e.button !== 0) return;
         if (maximized) return;
         setMoving(true);
@@ -113,7 +112,7 @@ function Window({
         <div className="interceptor"/>
       </div>
       {
-        [
+        !mobile && [
           ['top'],
           ['bottom'],
           ['left'],
@@ -125,7 +124,6 @@ function Window({
         ].map(sides => (
           <div key={sides.join('-')} className={classes('border', ...sides.map(side => `border-${side}`))}
                onMouseDown={e => {
-                 // if (mobile) return;
                  if (e.button !== 0) return;
                  if (maximized) return;
                  setResizing(true);

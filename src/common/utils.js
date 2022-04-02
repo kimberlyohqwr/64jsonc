@@ -11,7 +11,7 @@ export const getAppKey = path => {
   if (app) {
     return app.key;
   }
-  if (dirKey) {
+  if (dirKey && dirKey !== 'menu') {
     return 'finder';
   }
   return undefined;
@@ -22,3 +22,11 @@ export const isExternal = url => /^(https?:\/\/|mailto:)/.test(url);
 export const getUrlKeys = url => url.split('/').slice(1).filter(v => v);
 
 export const removeProtocol = url => url.replace(/^\w+:\/\//, '');
+
+export const match = (keyword, sentence) => {
+  const kWords = keyword.toLowerCase().split(/\W/);
+  const sWords = sentence.toLowerCase().split(/\W/);
+  return kWords.every(kWord => {
+    return sWords.some(sWord => sWord.includes(kWord));
+  });
+};

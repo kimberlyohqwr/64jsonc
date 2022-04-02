@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import './stylesheet.scss';
 import { Desktop, Resume, Taskbar } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { RootDir } from 'beans';
+import Menu from '../Menu';
+import './stylesheet.scss';
 
 const isMobile = () => {
   const { clientWidth } = document.body;
@@ -45,6 +46,7 @@ function Screen() {
             <FileSystemContext.Provider value={[RootDir.instance, refreshRootDir]}>
               <div className="Screen">
                 <Desktop/>
+                <Menu/>
                 <Taskbar/>
               </div>
             </FileSystemContext.Provider>

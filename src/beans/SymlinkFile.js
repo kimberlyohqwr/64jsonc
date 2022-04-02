@@ -17,6 +17,10 @@ class SymlinkFile extends File {
   get iconProps() {
     return this.target.iconProps;
   }
+
+  get searchables() {
+    return [];
+  }
 }
 
 export default SymlinkFile;

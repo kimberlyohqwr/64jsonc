@@ -13,6 +13,10 @@ class PreviewFile extends File {
   get iconProps() {
     return { imageUrl: this.content.image };
   }
+
+  get searchables() {
+    return [...super.searchables, ...Object.values(this.content)];
+  }
 }
 
 export default PreviewFile;

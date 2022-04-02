@@ -1,0 +1,172 @@
+@import "../../common/constants";
+
+.Menu {
+  position: absolute;
+  z-index: 99999;
+  top: 0;
+  bottom: $taskbar-height;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  overflow: hidden;
+  animation: $anim-duration opening;
+
+  @keyframes opening {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  &.closing {
+    animation: $anim-duration forwards closing;
+
+    @keyframes closing {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 24rem;
+    background-color: $color-dark;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-shadow: 0 0 48px rgba(black, .4);
+    pointer-events: auto;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+
+    .top {
+      height: 4rem;
+      display: flex;
+      align-items: stretch;
+      box-sizing: border-box;
+      background-color: rgba(black, .2);
+
+      .profile {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        white-space: nowrap;
+
+        .avatar {
+          height: 2.4rem;
+          width: 2.4rem;
+          margin-right: .6rem;
+          border-radius: .2rem;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .name {
+          color: white;
+        }
+      }
+
+      .contacts {
+        display: flex;
+        overflow-x: auto;
+
+        .shortcut {
+          @include hoverable;
+          position: relative;
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          justify-content: flex-start;
+          overflow: hidden;
+
+          .icon {
+            @include icon(2.2rem);
+            margin: 0 1rem;
+          }
+        }
+      }
+    }
+
+    .list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: 60vh;
+      overflow-y: auto;
+
+      .group {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        .header {
+          color: white;
+          padding: .4rem 1.2rem;
+          margin-top: .8rem;
+          font-size: $font-size-small;
+        }
+
+        .item {
+          @include hoverable;
+          display: flex;
+          align-items: center;
+          padding: .4rem 1.2rem;
+
+          &.indented {
+            padding-left: 3.8rem;
+          }
+
+          .icon {
+            @include icon(2.2rem);
+            margin-right: .4rem;
+          }
+
+          .name {
+            flex: 1;
+            font-size: $font-size-small;
+            color: $color-light;
+          }
+
+          .total {
+            font-size: $font-size-small;
+            color: rgba($color-light, .2);
+          }
+        }
+      }
+    }
+
+    .search {
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      color: white;
+      background: none;
+      height: 4rem;
+      padding: 0 1.2rem;
+      border-top: 1px solid rgba($color-light, .1);
+    }
+  }
+}
+
+.mobile .Menu {
+  .overlay {
+    width: auto;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 0;
+
+    .list {
+      height: auto;
+    }
+  }
+}

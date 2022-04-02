@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Shortcut } from 'components';
+import { Icon, Link } from 'components';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { bio } from 'data';
 import './stylesheet.scss';
+import { useLocation } from 'react-router-dom';
+import { classes } from '../../common/utils';
 
 const getClock = () => {
   const two = (x) => x < 10 ? `0${x}` : x;
@@ -22,6 +24,9 @@ function Taskbar() {
 
   const [clock, setClock] = useState(getClock());
 
+  const location = useLocation();
+  const currentUrl = location.pathname;
+
   useEffect(() => {
     const interval = window.setInterval(() => {
       const clock = getClock();
@@ -35,17 +40,21 @@ function Taskbar() {
 
   return (
     <div className="Taskbar">
-      <div className="label label-profile">
+      <Link className="label label-profile" url={currentUrl === '/menu' ? '' : '/menu'}>
         {
           !mobile &&
           <div className="avatar" style={{ backgroundImage: `url(${bio.avatar_url}?type=normal)` }}/>
         }
         <div className="name">{bio.full_name}</div>
-      </div>
+      </Link>
       <div className="shortcut-container">
         {
           apps && apps.map(app => (
-            <Shortcut key={app.key} taskbar target={app}/>
+            <Link
+              className={classes('shortcut', app.pinned && !mobile && 'pinned', app.opened && !app.closing && 'active')}
+              url={app.url} key={app.key}>
+              <Icon className="icon" {...app.iconProps}/>
+            </Link>
           ))
         }
       </div>

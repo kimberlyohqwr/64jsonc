@@ -87,7 +87,7 @@
 
       .title-container {
         .name {
-          color: #DDD;
+          color: $color-light;
         }
       }
     }
@@ -115,7 +115,7 @@
   }
 
   .toolbar {
-    background-color: #DDD;
+    background-color: $color-light;
     display: flex;
     flex-direction: column;
     border-bottom: solid 1px #CCC;
@@ -181,7 +181,7 @@
         display: flex;
         align-items: center;
         height: 2rem;
-        background-color: #DDD;
+        background-color: $color-light;
         margin-right: 1rem;
         max-width: 12rem;
         padding: 0 .5rem;
@@ -244,7 +244,7 @@
           top: 0;
           width: 0;
           height: 0;
-          border-bottom: 2rem solid #DDD;
+          border-bottom: 2rem solid $color-light;
           transition: border-color $anim-duration;
         }
 

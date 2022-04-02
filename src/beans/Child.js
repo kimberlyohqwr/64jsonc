@@ -1,4 +1,4 @@
-import { isExternal, namize } from 'common/utils';
+import { isExternal, match, namize } from 'common/utils';
 import { Dir, PreviewFile, RootDir } from 'beans';
 
 class Child {
@@ -49,6 +49,16 @@ class Child {
   remove() {
     const index = this.parent.children.indexOf(this);
     this.parent.children.splice(index, 1);
+  }
+
+  get searchables() {
+    return [this.name];
+  }
+
+  search(keyword) {
+    const { searchables } = this;
+    const matched = searchables.some(text => match(keyword, text));
+    return matched ? [this] : [];
   }
 }
 
