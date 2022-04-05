@@ -1,9 +1,9 @@
 import { SystemDir } from 'beans';
 
 class DesktopDir extends SystemDir {
-  constructor(children, wallpaper, key, parent) {
+  constructor(children, wallpaperKey, key, parent) {
     super(children, key, parent);
-    this.wallpaper = wallpaper;
+    this.wallpaperKey = wallpaperKey;
   }
 }
 

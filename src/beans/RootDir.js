@@ -1,5 +1,5 @@
 import { AppFile, DesktopDir, Dir, LinkFile, SymlinkFile, SystemDir } from 'beans';
-import wallpaper from 'components/Desktop/images/wallpaper.jpg';
+import * as wallpaperMap from 'images/wallpapers';
 import {
   AttributionWindow,
   BrowserWindow,
@@ -56,6 +56,8 @@ class RootDir extends SystemDir {
     const terminal = new AppFile(TerminalWindow);
     const versionHistory = new AppFile(VersionHistoryWindow);
 
+    const wallpaperKeys = Object.keys(wallpaperMap);
+
     this.rootDir = new RootDir({
       users: new SystemDir({
         jason: new SystemDir({
@@ -81,7 +83,7 @@ class RootDir extends SystemDir {
             email: new LinkFile(`mailto:${bio.email}`),
             version_history: new SymlinkFile(versionHistory),
             attribution: new SymlinkFile(attribution),
-          }, wallpaper),
+          }, wallpaperKeys[Math.random() * wallpaperKeys.length | 0]),
         }),
       }),
     });

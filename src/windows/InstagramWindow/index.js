@@ -1,12 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import InstagramEmbed from 'react-instagram-embed';
-
 import { Link, Window } from 'components';
 import { instagrams } from 'data';
 import { classes, getUrlKeys } from 'common/utils';
-
-import instaRatio from './images/insta-ratio.png';
+import instaRatio from 'images/insta-ratio.png';
 import './stylesheet.scss';
 
 function InstagramWindow(props) {

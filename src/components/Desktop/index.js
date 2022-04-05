@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import './stylesheet.scss';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getAppKey } from 'common/utils';
 import { FileSystemContext, ResponsiveContext } from 'contexts';
 import { Icon, Link } from 'components';
-import forkme from './images/forkme.png';
+import forkme from 'images/forkme.png';
+import * as wallpaperMap from 'images/wallpapers';
+import './stylesheet.scss';
 
 function Desktop() {
   const mobile = useContext(ResponsiveContext);
@@ -51,12 +52,13 @@ function Desktop() {
          onMouseDown={() => {
            if (currentUrl !== '/') history.push('/');
          }}>
-      <div className="wallpaper" style={desktopDir && { backgroundImage: `url(${desktopDir.wallpaper})` }}/>
+      <div className="wallpaper"
+           style={desktopDir && { backgroundImage: `url(${wallpaperMap[desktopDir.wallpaperKey]})` }}/>
       {
         !mobile &&
         <div className="location">
           <div className="pinpoint"/>
-          Porto, Portugal
+          {desktopDir.wallpaperKey.replace(/__/g, ',_').split('_').map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' ')}
         </div>
       }
       {

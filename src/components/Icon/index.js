@@ -1,16 +1,16 @@
 import React from 'react';
 import { classes } from 'common/utils';
-import * as imageUrlMap from './images';
-import * as badgeUrlMap from './images/badges';
+import * as iconMap from 'images/icons';
+import * as badgeMap from 'images/badges';
 import './stylesheet.scss';
 
-function Icon({ className, iconKey, imageUrl, badgeKey }) {
+function Icon({ className, iconKey, iconUrl, badgeKey }) {
   return (
     <div className={classes('Icon', className)}
-         style={{ backgroundImage: `url(${imageUrl || imageUrlMap[iconKey]})` }}>
+         style={{ backgroundImage: `url(${iconUrl || iconMap[iconKey]})` }}>
       {
-        badgeKey in badgeUrlMap && (
-          <div className="badge" style={{ backgroundImage: `url(${badgeUrlMap[badgeKey]})` }}/>
+        badgeKey in badgeMap && (
+          <div className="badge" style={{ backgroundImage: `url(${badgeMap[badgeKey]})` }}/>
         )
       }
     </div>
