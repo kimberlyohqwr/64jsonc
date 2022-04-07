@@ -35,64 +35,61 @@ function Menu() {
   return opened && (
     <div className={classes('Menu', closing && 'closing')}>
       <div className="overlay">
-        <div className="top">
-          <div className="profile">
-            <div className="avatar" style={{ backgroundImage: `url(${bio.avatar_url}?type=normal)` }}/>
-            <div className="name">
-              {bio.full_name}
-            </div>
-          </div>
-          <div className="contacts">
-            {
-              linkFiles && linkFiles.map(child => (
-                <Link className="shortcut" url={child.url} key={child.key}>
-                  <Icon className="icon" {...child.iconProps}/>
-                </Link>
-              ))
-            }
-          </div>
-        </div>
-        <div className="list">
+        <div className="sidebar">
+          <div className="avatar" style={{ backgroundImage: `url(${bio.avatar_url}?type=normal)` }}/>
           {
-            keyword ? (
-              <div className="group">
-                <div className="header">
-                  Search Results for "{keyword}"
-                </div>
-                {
-                  rootDir.search(keyword).map(child => (
-                    <Link className="item" url={child.url} key={`item-${child.key}`}>
-                      <Icon className="icon" {...child.iconProps}/>
-                      <div className="name">{child.name}</div>
-                    </Link>
-                  ))
-                }
-              </div>
-            ) : (
-              <div className="group">
-                <div className="header">
-                  Recent Items
-                </div>
-                {
-                  directories && directories.flatMap(dir => [(
-                    <Link className="item" url={dir.url} key={`dir-${dir.key}`}>
-                      <Icon className="icon" {...dir.iconProps}/>
-                      <div className="name">{dir.name}</div>
-                      <div className="total">{dir.children.length} items</div>
-                    </Link>
-                  ), dir.children.slice(0, 2).map(child => (
-                    <Link className="item indented" url={child.url} key={`item-${child.key}`}>
-                      <Icon className="icon" {...child.iconProps}/>
-                      <div className="name">{child.name}</div>
-                    </Link>
-                  ))])
-                }
-              </div>
-            )
+            linkFiles && linkFiles.map(child => (
+              <Link className="shortcut" url={child.url} key={child.key}>
+                <Icon className="icon" {...child.iconProps}/>
+              </Link>
+            ))
           }
         </div>
-        <input type="text" className="search" value={keyword} onChange={e => setKeyword(e.target.value)}
-               placeholder={'Search "Georgia"'} autoFocus/>
+        <div className="body">
+          <div className="list">
+            {
+              keyword ? (
+                <div className="group">
+                  <div className="header">
+                    Search Results for "{keyword}"
+                  </div>
+                  {
+                    rootDir.search(keyword).map(child => (
+                      <Link className="item" url={child.url} key={`item-${child.key}`}>
+                        <Icon className="icon" {...child.iconProps}/>
+                        <div className="name">{child.name}</div>
+                      </Link>
+                    ))
+                  }
+                </div>
+              ) : (
+                <div className="group">
+                  <div className="header">
+                    Recent Items
+                  </div>
+                  {
+                    directories && directories.flatMap(dir => [(
+                      <Link className="item" url={dir.url} key={`dir-${dir.key}`}>
+                        <Icon className="icon" {...dir.iconProps}/>
+                        <div className="name">{dir.name}</div>
+                        <div className="total">{dir.children.length} items</div>
+                      </Link>
+                    ), dir.children.slice(0, 2).map(child => (
+                      <Link className="item indented" url={child.url} key={`item-${child.key}`}>
+                        <Icon className="icon" {...child.iconProps}/>
+                        <div className="name">{child.name}</div>
+                      </Link>
+                    ))])
+                  }
+                </div>
+              )
+            }
+          </div>
+          <div className="search-container">
+            <input type="text" className="search" value={keyword} onChange={e => setKeyword(e.target.value)}
+                   placeholder={'Search "Georgia"'} autoFocus/>
+          </div>
+        </div>
       </div>
     </div>
   );
