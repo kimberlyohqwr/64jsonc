@@ -12,10 +12,16 @@ const publicDir = path.join(rootDir, 'public');
 const buildDir = path.join(rootDir, 'build');
 
 const templateEjs = fs.readFileSync(path.join(srcDir, 'template.ejs'), 'utf8');
-const template = ejs.compile(templateEjs, {});
+const template = ejs.compile(uglify(templateEjs), {});
 
 function formatDate(string) {
   return moment(string).format('LL');
+}
+
+function uglify(string) {
+  return string
+    .replace(/\n/g, '')
+    .replace(/\s{2,}/g, ' ');
 }
 
 async function formatMarkdown(string) {
