@@ -94,4 +94,6 @@ async function build() {
   fs.writeFileSync(path.join(buildDir, 'index.html'), indexHtml, 'utf8');
 }
 
-build().catch(console.error);
+build().catch(e => {
+  throw e;
+});
