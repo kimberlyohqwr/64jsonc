@@ -31,7 +31,7 @@ async function formatMarkdown(string) {
     },
     text: string,
     mode: 'gfm',
-    context: 'parkjs814/parkjs814.github.io',
+    context: '64json/64json.github.io',
   });
   const { data } = await axios({ ...requestOptions, data: body });
   return data;
@@ -48,10 +48,10 @@ async function build() {
       headers: {
         authorization: `token ${process.env.ACCESS_TOKEN}`,
       },
-      owner: 'parkjs814',
-      repo: 'parkjs814.github.io',
+      owner: '64json',
+      repo: '64json.github.io',
       state: 'closed',
-      creator: 'parkjs814',
+      creator: '64json',
       labels: category,
     });
     const { data: issues } = await axios(requestOptions);
