@@ -1,18 +1,54 @@
 {
   "name": "jasonpark.me",
-  "version": "4.0.0",
+  "version": "3.1.0",
   "author": "Jinseo Park",
-  "license": "WTFPL",
+  "license": "MIT",
   "homepage": "https://jasonpark.me",
   "private": true,
   "scripts": {
-    "build": "./bin/build"
+    "start": "eval `./bin/inject-bio.js` && react-scripts start",
+    "build": "eval `./bin/inject-bio.js` && react-scripts build",
+    "test": "eval `./bin/inject-bio.js` && react-scripts test",
+    "eject": "eval `./bin/inject-bio.js` && react-scripts eject",
+    "postbuild": "eval `./bin/inject-bio.js` && gulp",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -b master -d build"
   },
   "dependencies": {
-    "@octokit/endpoint": "^6.0.1",
-    "axios": "^0.19.2",
-    "ejs": "^3.1.2",
-    "fs-extra": "^9.0.0",
-    "moment": "^2.24.0"
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-brands-svg-icons": "^5.12.1",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "gh-pages": "^2.1.1",
+    "gulp": "^4.0.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-replace": "^1.0.0",
+    "loader-utils": "^1.2.3",
+    "node-sass": "^4.13.0",
+    "puppeteer": "^1.14.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-instagram-embed": "^1.5.0",
+    "react-markdown": "^4.2.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "through2": "^3.0.1"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

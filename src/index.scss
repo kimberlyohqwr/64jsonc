@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,700|Roboto:100,400,700&display=swap');
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  user-select: none;
+
+  &.mobile {
+    font-size: 18px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+* {
+  outline: none;
+  flex-shrink: 0;
+}

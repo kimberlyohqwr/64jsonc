@@ -1,0 +1,21 @@
+@import "../../common/constants";
+
+.Icon {
+  position: relative;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  .badge {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    right: 0;
+    width: 50%;
+    height: 50%;
+    opacity: .5;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
