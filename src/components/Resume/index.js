@@ -115,7 +115,7 @@ function Resume() {
               <div className="content">
                 <div className="item">
                   <div className="primary">
-                    <div className="name"><a href="https://github.com/parkjs814/gt-scheduler">GT Scheduler</a></div>
+                    <div className="name"><a href="https://github.com/64json/gt-scheduler">GT Scheduler</a></div>
                     <div className="date">2018</div>
                   </div>
                   <div className="row">A scheduler that helps Georgia Tech students find the best schedule among all the

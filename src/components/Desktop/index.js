@@ -63,7 +63,7 @@ function Desktop() {
       }
       {
         !mobile &&
-        <Link className="forkme" url="https://github.com/parkjs814/parkjs814.github.io">
+        <Link className="forkme" url="https://github.com/64json/64json.github.io">
           <img src={forkme}/>
         </Link>
       }

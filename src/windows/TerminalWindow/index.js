@@ -8,7 +8,7 @@ import { bio } from 'data';
 import './stylesheet.scss';
 
 let sourceCode;
-fetch('https://raw.githubusercontent.com/parkjs814/parkjs814.github.io/b66992d893f311e309df025611e3a400a5dcffb2/script.js')
+fetch('https://raw.githubusercontent.com/64json/64json.github.io/b66992d893f311e309df025611e3a400a5dcffb2/script.js')
   .then(response => {
     if (!response.ok) {
       throw new Error('Error occurred while loading source code: ' + response.statusText);
