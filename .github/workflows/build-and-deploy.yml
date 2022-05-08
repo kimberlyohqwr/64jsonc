@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - builder
-  issues:
 
 jobs:
   build-and-deploy:
@@ -17,8 +16,8 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm install
-          npm run build
+          yarn install --frozen-lockfile
+          CI=false npm run build
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
