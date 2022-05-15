@@ -13,24 +13,24 @@
     "resume": "https://jasonpark.me/resume"
   },
   "coursework": [
-    "Combinatorics and Graphs I",
-    "Computer Vision",
-    "Data Structures and Algorithms",
+    "A Second Course on Linear Algebra",
+    "Combinatorial Analysis",
+    "Computer Organization and Programming",
+    "Computer Vision and Pattern Recognition",
     "Design and Analysis of Algorithms",
-    "Introduction to Discrete Mathematics",
     "Objects and Design",
     "Technical Communication"
   ],
   "skills": {
-    "JavaScript": "Expert",
+    "TypeScript": "Expert",
     "Java": "Advanced",
-    "Scala": "Advanced",
     "Python": "Intermediate",
+    "Scala": "Intermediate",
     "Haskell": "Intermediate"
   },
   "languages": {
     "English": "Fluent",
     "Korean": "Native",
-    "Spanish": "Intermediate"
+    "Spanish": "Elementary"
   }
 }

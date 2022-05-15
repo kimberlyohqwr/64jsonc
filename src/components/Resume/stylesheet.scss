@@ -7,9 +7,8 @@ $theme-secondary: #EEEEEE;
 $theme-tertiary: #F8F8F8;
 $color-primary: #444444;
 $color-secondary: #808080;
-$font-large: dpx(16);
-$font-medium: dpx(12);
-$font-small: dpx(10);
+$font-medium: dpx(11);
+$font-small: dpx(9);
 
 .Resume {
   display: flex;
@@ -23,7 +22,8 @@ $font-small: dpx(10);
   margin: 0;
   padding: dpx(24);
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
+  user-select: text;
 
   .paper {
     width: 8.5in;
@@ -33,6 +33,7 @@ $font-small: dpx(10);
     align-items: stretch;
     box-shadow: 0 0 dpx(24) rgba(0, 0, 0, .16);
     color: $color-primary;
+    overflow: hidden;
 
     .header {
       display: flex;
@@ -42,9 +43,9 @@ $font-small: dpx(10);
       color: $theme-secondary;
 
       .name {
-        padding: dpx(32);
+        padding: dpx(30);
         font-weight: bold;
-        font-size: dpx(24);
+        font-size: dpx(20);
         color: white;
       }
 
@@ -85,8 +86,7 @@ $font-small: dpx(10);
         display: flex;
         align-items: center;
         font-weight: bold;
-        margin-bottom: dpx(4);
-        font-size: $font-large;
+        margin: dpx(4) 0;
 
         &:after {
           content: '';
@@ -98,6 +98,27 @@ $font-small: dpx(10);
       }
 
       .content {
+        &.wrap {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+
+          .item {
+            width: 48%;
+
+            .primary {
+              .name {
+                flex: 1;
+              }
+
+              .date {
+                flex: 0;
+              }
+            }
+          }
+        }
+
         .item {
           display: flex;
           flex-direction: column;
@@ -111,13 +132,20 @@ $font-small: dpx(10);
           .primary {
             display: flex;
 
-            .name {
-              flex: 1;
-              margin-right: dpx(12);
+            .location {
+              color: $color-secondary;
+
+              &:before {
+                content: ' in ';
+                white-space: pre;
+              }
             }
 
             .level,
             .date {
+              flex: 1;
+              margin-left: dpx(12);
+              text-align: right;
               color: $color-secondary;
             }
           }
@@ -138,7 +166,7 @@ $font-small: dpx(10);
 
     .narrow {
       background-color: $theme-secondary;
-      width: dpx(152);
+      width: dpx(140);
     }
 
     .wide {
@@ -150,18 +178,23 @@ $font-small: dpx(10);
     .wide {
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
-      padding: dpx(20);
+      justify-content: space-between;
+      padding: dpx(12) dpx(18);
     }
   }
 }
 
 @media print {
   @page {
-    margin: 0
+    margin: 0;
   }
 
   .Resume {
-    padding: 0
+    padding: 0;
+    min-height: 100%;
+
+    .paper {
+      box-shadow: none;
+    }
   }
 }
