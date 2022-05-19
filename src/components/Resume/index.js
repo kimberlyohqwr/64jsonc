@@ -35,7 +35,7 @@ function Resume() {
               <div className="title">Summary</div>
               <div className="content">
                 <div className="item">
-                  <div className="primary">
+                  <div className="primary paragraph">
                     Software Engineer with 3.5 years of work experience. Open source projects and hackathons keep myself
                     up to date with the latest tech trends.
                   </div>

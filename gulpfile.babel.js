@@ -26,7 +26,9 @@ gulp.task('captureResume', () =>
   gulp
     .src(htmlPath)
     .pipe(through.obj(async function (file, enc, cb) {
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({
+        args: ['--font-render-hinting=none'],
+      });
       const page = await browser.newPage();
       await page.goto(`http://localhost:${port}/#/resume`, { waitUntil: 'networkidle2' });
       const buffer = await page.pdf({ printBackground: true });

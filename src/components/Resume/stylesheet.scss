@@ -6,7 +6,7 @@ $theme-primary: #433952;
 $theme-secondary: #EEEEEE;
 $theme-tertiary: #F8F8F8;
 $color-primary: #444444;
-$color-secondary: #808080;
+$color-secondary: #777777;
 $font-medium: dpx(11);
 $font-small: dpx(9);
 
@@ -17,13 +17,17 @@ $font-small: dpx(9);
   justify-content: center;
   box-sizing: border-box;
   background-color: #E9E9E9;
-  font-family: 'Arial', sans-serif;
-  font-weight: lighter;
-  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.15;
   padding: dpx(24);
   width: 100%;
   min-height: 100vh;
   user-select: text;
+  -webkit-font-smoothing: antialiased;
+
+  .paragraph {
+    line-height: normal;
+  }
 
   .paper {
     width: 8.5in;
