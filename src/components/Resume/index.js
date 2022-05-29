@@ -109,21 +109,21 @@ function Resume() {
                   <div className="primary">
                     <div className="name">SWE Intern at Google</div>
                     <div className="location">Mountain View, CA (Remote)</div>
-                    <div className="date">May. 2020 - Present</div>
+                    <div className="date">May 2020 - Aug. 2020</div>
                   </div>
                   <div className="row">
-                    Exploring improvements to data visualization accessibility for visually impaired users, with an aim
-                    to merge the features into Google Analytics.
+                    Explored improvements to the accessibility of data visualization with an aim to merge the features
+                    into Google Analytics (GA).
                   </div>
                   <div className="row">
-                    Set up CI/CD pipelines to facilitate collaboration with the teammates.
+                    Designed the data flow and component hierarchy of the Angular app to align with GA, and set up CI/CD
+                    pipelines to facilitate collaboration with teammates.
                   </div>
                   <div className="row">
-                    Implemented data audification of line/bar charts using the Web Audio API.
+                    Implemented data audification of line charts using the Web Audio API.
                   </div>
                   <div className="row">
-                    Minimized the anticipated performance impact on Google Analytics by lazy loading the accessibility
-                    Angular modules.
+                    Practiced lazy loading to minimize the anticipated performance impact on GA.
                   </div>
                 </div>
                 <div className="item">
@@ -136,7 +136,7 @@ function Resume() {
                     Maintained a talent management system written in Angular and Node.js.
                   </div>
                   <div className="row">
-                    Enhanced the use of TypeScript and improved data flow within the Angular app.
+                    Enhanced the use of TypeScript and simplified the data flow within the Angular app.
                   </div>
                   <div className="row">
                     Logged inbound HTTP requests into BigQuery within the backend microservices.
