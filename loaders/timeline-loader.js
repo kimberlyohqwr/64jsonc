@@ -76,7 +76,12 @@ module.exports = function () {
         const image = loadImage(imagePath);
 
         const { name, current, end, ...rest } = JSON.parse(fileBody);
-        const date = formatDate(start + (current || end ? ' - ' : '') + (end ? current ? `(${end})` : end : ''));
+        const date = [
+          start,
+          current ? end ? `(${end})` : 'Current' : end,
+        ].filter(v => v)
+          .map(formatDate)
+          .join(' - ');
         loaded[type].push({
           key,
           name,

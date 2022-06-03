@@ -1,0 +1,7 @@
+{
+  "name": "Google",
+  "location": "Mountain View, CA, USA (Remote)",
+  "position": "SWE Intern",
+  "detail": "Explored improvements to the accessibility of data visualization with an aim to merge the features into Google Analytics (GA). Designed the data flow and component hierarchy of the Angular app to align with GA, and set up CI/CD pipelines to facilitate collaboration with teammates. Implemented data audification of line charts using the Web Audio API. Practiced lazy loading to minimize the anticipated performance impact on GA.",
+  "end": "202008"
+}

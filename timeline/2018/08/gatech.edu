@@ -1,9 +1,9 @@
 {
   "name": "Georgia Institute of Technology",
   "type": "BS in Computer Science;<br>Minor in Economics",
-  "gpa": "3.55 / 4.0",
-  "location": "Atlanta, Georgia, USA",
+  "gpa": "3.65 / 4.0",
+  "location": "Atlanta, GA, USA",
   "link": "https://www.gatech.edu/",
-  "end": "202012",
+  "end": "202105",
   "current": true
 }

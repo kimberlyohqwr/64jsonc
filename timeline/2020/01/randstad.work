@@ -1,0 +1,7 @@
+{
+  "name": "Randstad USA",
+  "location": "Atlanta, GA, USA",
+  "position": "SWE Intern",
+  "detail": "Maintained a talent management system written in Angular and Node.js. Enhanced the use of TypeScript and simplified the data flow within the Angular app. Logged inbound HTTP requests into BigQuery within the backend microservices.",
+  "end": "202004"
+}
