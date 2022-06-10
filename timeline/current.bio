@@ -3,34 +3,20 @@
   "first_name": "Jinseo",
   "last_name": "Park",
   "alias": "Jason",
-  "description": "A CS undergrad at Georgia Tech and SWE intern at Google.",
+  "description": "Software Engineer with four years of work experience, staying up to date with the latest tech trends through open source projects and hackathons.",
   "avatar_url": "https://graph.facebook.com/1935436059816712/picture",
   "theme_color": "#3D3D3D",
   "location": "Atlanta, GA 30332",
-  "email": "jason.park@gatech.edu",
+  "email": "parkjs814@gmail.com",
   "links": {
     "github": "https://github.com/64json",
     "resume": "https://jasonpark.me/resume"
   },
-  "coursework": [
-    "A Second Course on Linear Algebra",
-    "Combinatorial Analysis",
-    "Computer Organization and Programming",
-    "Computer Vision and Pattern Recognition",
-    "Design and Analysis of Algorithms",
-    "Objects and Design",
-    "Technical Communication"
-  ],
   "skills": {
     "TypeScript": "Expert",
     "Java": "Advanced",
-    "Python": "Intermediate",
     "Scala": "Intermediate",
-    "Haskell": "Intermediate"
-  },
-  "languages": {
-    "English": "Fluent",
-    "Korean": "Native",
-    "Spanish": "Elementary"
+    "Python": "Intermediate",
+    "Haskell": "Novice"
   }
 }

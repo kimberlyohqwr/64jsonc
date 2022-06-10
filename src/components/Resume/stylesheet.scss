@@ -3,8 +3,8 @@
 }
 
 $theme-primary: #433952;
-$theme-secondary: #EEEEEE;
-$theme-tertiary: #F8F8F8;
+$theme-secondary: #F8F8F8;
+$theme-tertiary: #FFFFFF;
 $color-primary: #444444;
 $color-secondary: #777777;
 $font-medium: dpx(11);
@@ -40,15 +40,19 @@ $font-small: dpx(9);
     overflow: hidden;
 
     .header {
+      flex: 1;
       display: flex;
       flex-direction: column;
+      align-items: stretch;
       background-color: $theme-primary;
-      align-items: center;
       color: $theme-secondary;
 
       .name {
-        padding: dpx(30);
-        font-weight: bold;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
         font-size: dpx(20);
         color: white;
       }
@@ -111,7 +115,7 @@ $font-small: dpx(9);
           .item {
             width: 48%;
 
-            .primary {
+            .row {
               .name {
                 flex: 1;
               }
@@ -128,33 +132,39 @@ $font-small: dpx(9);
           flex-direction: column;
           margin-bottom: dpx(4);
 
-          .primary,
-          .row {
+          .row,
+          .bullet {
             margin-bottom: dpx(4)
           }
 
-          .primary {
+          .row {
             display: flex;
 
-            .location {
-              color: $color-secondary;
+            &.indented {
+              margin-left: dpx(12);
+            }
 
-              &:before {
-                content: ' in ';
+            .spacer {
+              flex: 1;
+            }
+
+            > * {
+              &:after {
+                content: ' ';
                 white-space: pre;
+              }
+
+              &:last-child {
+                margin-right: 0;
               }
             }
 
-            .level,
-            .date {
-              flex: 1;
-              margin-left: dpx(12);
-              text-align: right;
+            .secondary {
               color: $color-secondary;
             }
           }
 
-          .row {
+          .bullet {
             color: $color-secondary;
             margin-left: dpx(12);
 
@@ -170,7 +180,7 @@ $font-small: dpx(9);
 
     .narrow {
       background-color: $theme-secondary;
-      width: dpx(140);
+      width: dpx(160);
     }
 
     .wide {
