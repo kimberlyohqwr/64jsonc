@@ -118,12 +118,12 @@ function Resume() {
                     <div className="secondary">Wilmington, DE</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Remote Software Engineer (Part-Time)</div>
+                    <div className="secondary">Software Engineer (Part-Time, Remote)</div>
                     <div className="spacer" />
                     <div className="secondary">Jan. 2021 - Current</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Remote Contract Software Engineer</div>
+                    <div className="secondary">Contract Software Engineer (Remote)</div>
                     <div className="spacer" />
                     <div className="secondary">Oct. 2020 - Jan. 2021</div>
                   </div>
@@ -144,7 +144,7 @@ function Resume() {
                     <div className="secondary">Mountain View, CA</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Remote Software Engineering Intern</div>
+                    <div className="secondary">Software Engineering Intern (Remote)</div>
                     <div className="spacer" />
                     <div className="secondary">May 2020 - Aug. 2020</div>
                   </div>
@@ -168,7 +168,7 @@ function Resume() {
                     <div className="secondary">Atlanta, GA</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Software Engineering Intern</div>
+                    <div className="secondary">Software Engineering Intern (Part-Time)</div>
                     <div className="spacer" />
                     <div className="secondary">Jan. 2020 - Apr. 2020</div>
                   </div>
