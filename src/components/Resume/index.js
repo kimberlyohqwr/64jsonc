@@ -46,8 +46,8 @@ function Resume() {
               <div className="content">
                 <div className="item">
                   <div className="row">Georgia Institute of Technology</div>
+                  <div className="bullet">Aug. 2018 - May 2021</div>
                   <div className="bullet">BS in <b>Computer Science</b></div>
-                  <div className="bullet">Expected <b>May 2021</b></div>
                   <div className="bullet">Concentration in Theory and Intelligence</div>
                   <div className="bullet">Minor in Economics</div>
                 </div>
@@ -113,26 +113,41 @@ function Resume() {
               <div className="content">
                 <div className="item">
                   <div className="row">
+                    <div className="primary">Google</div>
+                    <div className="spacer" />
+                    <div className="secondary">Mountain View, CA</div>
+                  </div>
+                  <div className="row">
+                    <div className="secondary">Software Engineer</div>
+                    <div className="spacer" />
+                    <div className="secondary">July 2021 - Current</div>
+                  </div>
+                  <div className="bullet">
+                      Working with the Ads Serving Intelligence team.
+                  </div>
+                </div>
+                <div className="item">
+                  <div className="row">
                     <div className="primary">True Shape (d.b.a. Gatherly)</div>
                     <div className="spacer" />
-                    <div className="secondary">Wilmington, DE</div>
+                    <div className="secondary">Remote</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Software Engineer (Part-Time, Remote)</div>
+                    <div className="secondary">Software Engineering Intern</div>
                     <div className="spacer" />
-                    <div className="secondary">Jan. 2021 - Current</div>
+                    <div className="secondary">Jan. 2021 - Apr. 2021</div>
                   </div>
-                  <div className="row">
-                    <div className="secondary">Contract Software Engineer (Remote)</div>
-                    <div className="spacer" />
-                    <div className="secondary">Oct. 2020 - Jan. 2021</div>
-                  </div>
+                  {/*<div className="row">*/}
+                  {/*  <div className="secondary">Contract Software Engineer (Remote)</div>*/}
+                  {/*  <div className="spacer" />*/}
+                  {/*  <div className="secondary">Oct. 2020 - Jan. 2021</div>*/}
+                  {/*</div>*/}
                   <div className="bullet">
                     Fully rewrote a virtual conference platform written in React and Node.js to be more performant and robust with the help of end-to-end, integration, and load testing.
                   </div>
-                  <div className="bullet">
-                    Created a TypeScript package to define interfaces of REST API and WebSocket payloads to be shared by the backend and frontend packages.
-                  </div>
+                  {/*<div className="bullet">*/}
+                  {/*  Created a TypeScript package to define interfaces of REST API and WebSocket payloads to be shared by the backend and frontend packages.*/}
+                  {/*</div>*/}
                   <div className="bullet">
                     Implemented semantic versioning using Lerna and Conventional Commits, and integrated Sentry to facilitate error tracking and troubleshooting.
                   </div>
@@ -141,10 +156,10 @@ function Resume() {
                   <div className="row">
                     <div className="primary">Google</div>
                     <div className="spacer" />
-                    <div className="secondary">Mountain View, CA</div>
+                    <div className="secondary">Remote</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Software Engineering Intern (Remote)</div>
+                    <div className="secondary">Software Engineering Intern</div>
                     <div className="spacer" />
                     <div className="secondary">May 2020 - Aug. 2020</div>
                   </div>
@@ -168,7 +183,7 @@ function Resume() {
                     <div className="secondary">Atlanta, GA</div>
                   </div>
                   <div className="row">
-                    <div className="secondary">Software Engineering Intern (Part-Time)</div>
+                    <div className="secondary">Software Engineering Intern</div>
                     <div className="spacer" />
                     <div className="secondary">Jan. 2020 - Apr. 2020</div>
                   </div>
